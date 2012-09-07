@@ -37,9 +37,9 @@ node.children(params.ChildType).each(function(){
 	pageNumber++;
 	$(this)
 		.attr('id',params.AscensorName+'Floor'+pageNumber)
-		.attr('class',params.AscensorName+'Floor')
 		.height(windowHeight)
-		.width(windowWidth);
+		.width(windowWidth)
+		.addClass(params.AscensorName+'Floor');
 });
 
 //RESIZE FUNCTION FUNCTION
