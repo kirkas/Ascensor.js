@@ -8,6 +8,7 @@
 		AscensorName:'ascensor',
 		AscensorFloorName:'',
 		Time:1000,
+		Easing:'linear'
 	},params);	
 
 var node=this;
@@ -81,15 +82,15 @@ function resizeFloor(){
 
 //SCROLLTO FUNCTION
 function targetScroll(floor, time){
-	if(params.Direction=='y'){$(node).stop().animate({scrollTop:(floor-1)*windowHeight},time);}
-	if(params.Direction=='x'){$(node).stop().animate({scrollLeft:(floor-1)*windowWidth},time);}
+	if(params.Direction=='y'){$(node).stop().animate({scrollTop:(floor-1)*windowHeight},time,params.Easing);}
+	if(params.Direction=='x'){$(node).stop().animate({scrollLeft:(floor-1)*windowWidth},time,params.Easing);}
 	if(params.Direction=='chocolate'){
 		var AscensorMap=params.AscensorMap.split(' & ');
 		var target = AscensorMap[floor-1].split('|');
 		$(node).stop().animate({
 			scrollLeft:(target[1]-1)*windowWidth,
 			scrollTop:(target[0]-1)*windowHeight
-		},time);
+		},time,params.Easing);
 	}
 
 	StageOn=floor;
@@ -147,22 +148,18 @@ function checkKey(e){
      switch (e.keyCode) {
      	//up
         case 40:
-        	console.log('down')
 	    	navigationPress(1,0);
 	    	return false;
 	    	break;
 	    case 38:
-	    	console.log('up')
 	    	navigationPress(-1,0);
 	   	    return false;
 	   	    break;
 	   	case 37:
-	   	console.log('gauche')
 	   		navigationPress(0,-1);
 	   	    return false;
 	   	    break;
 	    case 39:
-	    	console.log('droite')
 	        navigationPress(0,1);
 	        return false;
 	      	break; 
