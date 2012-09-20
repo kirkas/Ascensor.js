@@ -33,6 +33,7 @@ if(params.AscensorFloorName.split==''){}else{
 	});
 }
 
+
 //NAMING FUNCTION
 node.children(params.ChildType).each(function(){
 	pageNumber++;
@@ -48,48 +49,49 @@ $(window).resize(function(){
 	resizeFloor();
 })
 
+var AscensorMap = params.AscensorMap.split(' & ');
 function resizeFloor(){
-	windowHeight=$(window).height();
-	windowWidth=$(window).width();
+	var WW=$(window).width();
+	var WH=$(window).height()
 	
-	$(node).children(params.ChildType).each(function(){
-		$(this)
-			.height(windowHeight)
-			.width(windowWidth);
+		$(node).height(WH).width(WW).children(params.ChildType).each(function(){
+		$(this).height(WH).width(WW);
 	});
 	
-	$(node).width(windowWidth);
-	$(node).height(windowHeight);
-	
-	if(params.Direction=='x'){
-		$(node).children().css('position','absolute');
-		$(node).children().each(function(index){$(this).css('left',index*windowWidth);})
-	}
-
 	if(params.Direction=='chocolate'){
-		var AscensorMap = params.AscensorMap.split(' & ');
+		var target = AscensorMap[StageOn-1].split('|');
+		$(node).stop().scrollTop((target[0]-1)*WH).scrollLeft((target[1]-1)*WW);
+	}
+	
+	if(params.Direction=='y'){$(node).stop().scrollTop((StageOn-1)*WH)}
+	if(params.Direction=='x'){$(node).stop().scrollLeft((StageOn-1)*WW)}
+
+	
+	if(params.Direction=='chocolate'){
 		$(node).children(params.ChildType).each(function(index){
 			var CoordName = AscensorMap[index].split('|');
-			$(this)
-				.css('position','absolute')
-				.css('left',(CoordName[1]-1)*windowWidth)
-				.css('top',(CoordName[0]-1)*windowHeight);
+			$(this).css({'position':'absolute', 'left':(CoordName[1]-1)*WW, 'top':(CoordName[0]-1)*WH});
 		});
 	}
 	
-	targetScroll(StageOn,1);
+	if(params.Direction=='x'){
+		$(node).children().css('position','absolute');
+		$(node).children().each(function(index){$(this).css('left',index*WW);})
+	}
+
+
 }
 
 //SCROLLTO FUNCTION
 function targetScroll(floor, time){
-	if(params.Direction=='y'){$(node).stop().animate({scrollTop:(floor-1)*windowHeight},time,params.Easing);}
-	if(params.Direction=='x'){$(node).stop().animate({scrollLeft:(floor-1)*windowWidth},time,params.Easing);}
+
+	if(params.Direction=='y'){$(node).stop().animate({scrollTop:(floor-1)*$(window).height()},time,params.Easing);}
+	if(params.Direction=='x'){$(node).stop().animate({scrollLeft:(floor-1)*$(window).width()},time,params.Easing);}
 	if(params.Direction=='chocolate'){
-		var AscensorMap=params.AscensorMap.split(' & ');
 		var target = AscensorMap[floor-1].split('|');
 		$(node).stop().animate({
-			scrollLeft:(target[1]-1)*windowWidth,
-			scrollTop:(target[0]-1)*windowHeight
+			scrollLeft:(target[1]-1)*$(window).width(),
+			scrollTop:(target[0]-1)*$(window).height()
 		},time,params.Easing);
 	}
 
@@ -207,7 +209,6 @@ function navigationPress (addCoordY, addCoordX){
 }
 
 //START PLUGIN
-targetScroll(StageOn,1);
 resizeFloor();
 
 };
