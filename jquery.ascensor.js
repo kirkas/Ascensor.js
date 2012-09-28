@@ -33,7 +33,7 @@
       $.each(floorName, function(index) {
         if(floorName[index] === lastPart) {
           StageOn = index + 1
-          ascensorLink.eq(StageOn).addClass(params.AscensorName + "LinkActive")
+          ascensorLink.eq(StageOn-1).addClass(params.AscensorName + "LinkActive")
         }
       })
     }
@@ -217,6 +217,6 @@
     $(window).resize(function() {
       resizeFloor()
     }).resize();
-    
+    resizeFloor()
   }
 })(jQuery);
