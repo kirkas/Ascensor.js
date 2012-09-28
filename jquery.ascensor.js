@@ -123,17 +123,22 @@
       targetScroll(next, params.Time)
     });
     
-    var previousOrientation = 0;
-    var checkOrientation = function() {
-      if(window.orientation !== previousOrientation) {
-        previousOrientation = window.orientation;
-        resizeFloor()
-      }
-    };
-    window.addEventListener("resize", checkOrientation, false);
-    window.addEventListener("orientationchange", checkOrientation, false);
-    setInterval(checkOrientation, 1);
+
     
+   if( /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|meego.+mobile|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) ) {
+      var previousOrientation = 0;
+      var checkOrientation = function() {
+      if(window.orientation !== previousOrientation) {
+            previousOrientation = window.orientation;
+            resizeFloor()
+         }
+      };
+      window.addEventListener("resize", checkOrientation, false);
+      window.addEventListener("orientationchange", checkOrientation, false);
+      setInterval(checkOrientation, 200);
+    }
+
+
     function checkKey(e) {
       switch(e.keyCode) {
         case 40:
