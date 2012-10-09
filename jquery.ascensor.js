@@ -1,7 +1,7 @@
 /*********************************************************************************************************
 
     JQUERY.ASCENSOR.JS
-        VERSION: 1.4
+        VERSION: 1.4.2
         DATE: 9/10/2012
 
 
@@ -34,7 +34,7 @@
             ChildType: "div",
             WindowsOn: 1,
             Direction: "y",
-            floorXY: "",
+            AscensorMap: "",
             AscensorName: "ascensor",
             AscensorFloorName: "",
             Time: "1000",
