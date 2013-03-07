@@ -1,8 +1,8 @@
 /*********************************************************************************************************
 
 	JQUERY.ASCENSOR.JS
-		VERSION: 1.5.3
-		DATE: 01/03/2013
+		VERSION: 1.5.6
+		DATE: 07/03/2013
 
 	INDEX
 		1. PLUGIN DEFAULTS OPTIONS
@@ -34,7 +34,8 @@
 **********************************************************************************************************/
 
 
-;(function($, window, undefined) {
+;
+(function($, window, undefined) {
 
 
   /***********************************************************************
@@ -42,37 +43,40 @@
 	********************************************************************** */
   var pluginName = 'ascensor',
     defaults = {
-      
+
       //	First, choose the ascensor name
       AscensorName: "ascensor",
-      
+
       //	Choose name for each floor
-      AscensorFloorName: "",
-      
+      AscensorFloorName: null,
+
       //	Specify the child type if there are no 'div'
-      ChildType: "div", 
+      ChildType: "div",
 
       //	Choose the floor to start on
       WindowsOn: 1,
-      
+
       //	specify if direction is x,y or chocolate
       Direction: "y",
-      
+
+      //	specify if direction is x,y or chocolate
+      Loop: true,
+
       //	If you choose chocolate for direction, speficy position
-      AscensorMap: "", 
+      AscensorMap: "",
 
       //	Specify speed of transition
       Time: "1000",
-      
+
       //	Specify easing option
-      Easing: "linear", 
+      Easing: "linear",
 
       //	choose if you want direction key support
-      KeyNavigation: true, 
+      KeyNavigation: true,
 
       //	choose if you want direction scroll queued
-      Queued: false, 
-      
+      Queued: false,
+
       //	choose if you want direction scroll queued "x" or "y" (default : "x")
       QueuedDirection: "x"
     };
@@ -113,12 +117,15 @@
 
       //plugins settings
       floorXY = self.options.AscensorMap.split(" & "),
-      floorName = self.options.AscensorFloorName.split(" | "),
       direction = self.options.Direction,
 
       //hash 
       hash;
 
+
+    if (self.options.AscensorFloorName !== null) {
+      var floorName = self.options.AscensorFloorName.split(" | ")
+    }
 
     /***********************************************************************
 			4. START PLUGIN ACTION
@@ -141,7 +148,7 @@
     });
 
     // if direction is x or chocolate
-    if (direction === "x" || direction === "chocolate") {
+    if (self.options.Direction === "x" || self.options.Direction === "chocolate") {
 
       //children position = absolute
       $(nodeChildren).css("position", "absolute");
@@ -153,7 +160,7 @@
     /***********************************************************************
 			5. HASH FUNCTION
 		***********************************************************************/
-    function hashChange() {
+    function hashChange(onLoad) {
 
       //if the url have an "hash"
       if (window.location.hash) {
@@ -174,8 +181,10 @@
             $("." + self.options.AscensorName + "Link").removeClass(self.options.AscensorName + "LinkActive").eq(floorActive - 1).addClass(self.options.AscensorName + "LinkActive");
 
             //Scroll to the target floor
-            targetScroll(floorActive, self.options.Time);
-
+            
+            if(!onLoad){
+              targetScroll(floorActive, self.options.Time, true);
+            }
           }
 
         });
@@ -184,19 +193,13 @@
 
     }
 
-    //when hash change, start hashchange function
-    $(window).on("hashchange", function() {
-      hashChange();
-    });
-
-    //start hashChange function at document loading
-    hashChange();
+    
 
 
     /***********************************************************************
 			6. RESIZE FONCTION
 		***********************************************************************/
-    function elementResize() {
+    function resize() {
 
       //update WW & WH variables
       WW = $(window).width();
@@ -208,14 +211,14 @@
       $(node).width(WW).height(WH);
 
       //if direction is y
-      if (direction === "y") {
+      if (self.options.Direction === "y") {
 
         //stop animation and update node scrollTop
         $(node).stop().scrollTop((floorActive - 1) * WH);
       }
 
       //if direction is x
-      if (direction === "x") {
+      if (self.options.Direction === "x") {
 
         //stop animation and update scrollLeft
         $(node).stop().scrollLeft((floorActive - 1) * WW);
@@ -227,7 +230,7 @@
       }
 
       //if direction is chocolate
-      if (direction === "chocolate") {
+      if (self.options.Direction === "chocolate") {
 
         // get current floor axis axis info
         var target = floorXY[floorActive - 1].split("|");
@@ -253,9 +256,9 @@
 
     //bind to resize
     $(window).resize(function() {
-      elementResize();
+      resize();
     }).load(function() {
-      elementResize();
+      resize();
     }).resize();
 
     //if browser is mobile
@@ -263,41 +266,50 @@
 
       //add orientation check
       $(window).bind('orientationchange', function() {
-        elementResize();
+        resize();
       });
     }
+
 
 
     /***********************************************************************
 			7. SCROLLTO FONCTION
 		***********************************************************************/
-    function targetScroll(floor, time) {
+    function targetScroll(floor, time, hashChange) {
+      
+      if(hashChange){
+        scrollStart()
+      }
 
       //if direction is y
-      if (direction === "y") {
+      if (self.options.Direction === "y") {
 
         //stop animation and animate the "scrollTop" to the targeted floor
         $(node).stop().animate({
           scrollTop: (floor - 1) * WH
         },
         time,
-        self.options.Easing);
+        self.options.Easing, function() {
+          scrollEnd();
+        });
       }
 
       //if direction is x
-      if (direction === "x") {
+      if (self.options.Direction === "x") {
 
         //stop animation and animate the "scrollLeft" to the targeted floor
         $(node).stop().animate({
           scrollLeft: (floor - 1) * WW
         },
         time,
-        self.options.Easing);
+        self.options.Easing, function() {
+          scrollEnd();
+        });
       }
 
 
       //if direction is chocolate
-      if (direction === "chocolate") {
+      if (self.options.Direction === "chocolate") {
 
         //get target axis
         var target = floorXY[floor - 1].split("|");
@@ -316,7 +328,9 @@
                 scrollTop: (target[0] - 1) * WH
               },
               time,
-              self.options.Easing);
+              self.options.Easing, function() {
+                scrollEnd();
+              });
 
               //if target is not on the same level
             } else {
@@ -334,7 +348,9 @@
                   scrollTop: (target[0] - 1) * WH
                 },
                 time,
-                self.options.Easing);
+                self.options.Easing, function() {
+                  scrollEnd();
+                });
               });
             }
 
@@ -349,7 +365,9 @@
                 scrollLeft: (target[1] - 1) * WW
               },
               time,
-              self.options.Easing);
+              self.options.Easing, function() {
+                scrollEnd();
+              });
 
               //if target is not on the same vertical level
             } else {
@@ -367,7 +385,9 @@
                   scrollLeft: (target[1] - 1) * WW
                 },
                 time,
-                self.options.Easing);
+                self.options.Easing, function() {
+                  scrollEnd();
+                });
               });
             }
 
@@ -382,17 +402,19 @@
             scrollTop: (target[0] - 1) * WH
           },
           time,
-          self.options.Easing);
+          self.options.Easing, function() {
+            scrollEnd();
+          });
         }
 
 
       }
 
-      //if floor name string has been defined
-      if (self.options.AscensorFloorName !== null) {
-
-        //update url hash
-        window.location.hash = "/" + floorName[floor - 1];
+      if (!hashChange) {
+        if (self.options.AscensorFloorName !== null) {
+          //update url hash
+          window.location.hash = "/" + floorName[floor - 1];
+        }
       }
 
       //remove linkActive class on every link
@@ -405,111 +427,44 @@
       floorActive = floor;
     }
 
-    //scroll to active floor at start
-    targetScroll(floorActive, 1);
 
 
-    /***********************************************************************
-			8. KEYPRESS FUNCTION
-		***********************************************************************/
-    function navigationPress(addCoordY, addCoordX) {
 
-      //if no input/textarea if focus
-      if (!$("input, textarea").is(":focus")) {
-
-        //if direction is y
-        if (direction === "y") {
-
-          //if keydown
-          if (addCoordY === 1 && addCoordX === 0) {
-
-            //if smaller or equal to floor number
-            if (floorActive + 1 < floorCounter || floorActive + 1 === floorCounter) {
-
-              //go to next floor
-              targetScroll(floorActive + 1, self.options.Time);
-            }
-          }
-
-          //if keyup
-          if (addCoordY === -1 && addCoordX === 0) {
-
-            //if bigger than one or equal one
-            if (floorActive - 1 > 1 || floorActive - 1 === 1) {
-
-              //scroll to previous floor
-              targetScroll(floorActive - 1, self.options.Time);
-            }
-          }
-        }
-
-        //if direction is x
-        if (direction === "x") {
-
-          //if  keyleft
-          if (addCoordY === 0 && addCoordX === -1) {
-
-            //if bigger than one or equal one
-            if (floorActive - 1 > 1 || floorActive - 1 === 1) {
-
-              //go to next floor
-              targetScroll(floorActive - 1, self.options.Time);
-            }
-          }
-
-          //if keyright
-          if (addCoordY === 0 && addCoordX === 1) {
-
-            //if smaller or equal to floor number
-            if (floorActive + 1 < floorCounter || floorActive + 1 === floorCounter) {
-
-              //go to next floor
-              targetScroll(floorActive + 1, self.options.Time);
-            }
-          }
-        }
-
-        //if direction is chocolate
-        if (direction === "chocolate") {
-
-          //get floor reference
-          var floorReference = floorXY[floorActive - 1].split("|");
-
-          //for each floor
-          $.each(floorXY, function(index) {
-
-            //if there is a floor equivalent to the target
-            if (floorXY[index] === (parseInt(floorReference[0], 10) + addCoordY) + "|" + (parseInt(floorReference[1], 10) + addCoordX)) {
-
-              //go the this floor
-              targetScroll(index + 1, self.options.Time);
-            }
-          });
-        }
-      }
-    }
 
     //check key function
     function checkKey(e) {
       switch (e.keyCode) {
+        
+        //keyDown  
       case 40:
-        //keyDown
-        navigationPress(1, 0);
+        $(node).trigger({
+          type:"ascensorDown",
+          floor: floorActive
+        })
         break;
-      case 38:
 
         //keyUp
-        navigationPress(-1, 0);
+      case 38:
+        $(node).trigger({
+          type:"ascensorUp",
+          floor: floorActive
+        })
         break;
-      case 37:
 
         //keyLeft
-        navigationPress(0, - 1);
+      case 37:
+        $(node).trigger({
+          type:"ascensorLeft",
+          floor: floorActive
+        })
         break;
-      case 39:
 
-        //keyRight
-        navigationPress(0, 1);
+        //keyright
+      case 39:
+        $(node).trigger({
+          type:"ascensorRight",
+          floor: floorActive
+        })
         break;
       }
     }
@@ -531,59 +486,154 @@
       }
     }
 
+    function scrollStart(){
+      $(node).trigger({
+        type:"ascensorStart",
+        floor: floorActive
+      })
+    }
 
-    /***********************************************************************
-			9. LINK FONCTION DEFINITION
-		***********************************************************************/
 
-    //on ascensor link click
-    $("." + self.options.AscensorName + "Link").on("click", function() {
+    function scrollEnd(){
+      $(node).trigger({
+        type:"ascensorEnd",
+        floor: floorActive
+      })
+    }
 
-      //look for the second class and split the number
-      var floorReference = $(this).attr("class");
-      floorReference = floorReference.split(" ");
-      floorReference = floorReference[1];
-      floorReference = floorReference.split(self.options.AscensorName + "Link");
-      floorReference = parseInt(floorReference[1], 10);
 
-      //target the floor number
-      targetScroll(floorReference, self.options.Time);
-    });
+    function down() {
+      if (self.options.Direction == "y") {
+        $(node).trigger({
+          type:"ascensorNext",
+          floor: floorActive
+        })
+      } else if (self.options.Direction == "chocolate") {
+        chocolateDirection(1, 0)
+      }
+    }
+
+    function up() {
+      if (self.options.Direction == "y") {
+        $(node).trigger({
+          type:"ascensorPrev",
+          floor: floorActive
+        })
+      } else if (self.options.Direction == "chocolate") {
+        chocolateDirection(-1, 0)
+      }
+    }
+
+    function left() {
+      if (self.options.Direction == "x") {
+        $(node).trigger({
+          type:"ascensorPrev",
+          floor: floorActive
+        })
+      } else if (self.options.Direction == "chocolate") {
+        chocolateDirection(0, 1)
+      }
+    }
+
+    function right() {
+      if (self.options.Direction == "x") {
+        $(node).trigger({
+          type:"ascensorNext",
+          floor: floorActive
+        })
+      } else if (self.options.Direction == "chocolate") {
+        chocolateDirection(0, -1)
+      }
+    }
+
+    function prev() {
+      floorActive = floorActive - 1;
+      if (floorActive < 1) {
+        if (self.options.Loop) {
+          floorActive = floorCounter;
+        } else {
+          floorActive = 1;
+        }
+      }
+      targetScroll(floorActive, self.options.Time);
+    }
+
+    function next() {
+      floorActive = floorActive + 1;
+      if (floorActive > floorCounter) {
+        if (self.options.Loop) {
+          floorActive = floorCounter;
+        } else {
+          floorActive = 1;
+        }
+      }
+      targetScroll(floorActive, self.options.Time);
+    }
+
+    function chocolateDirection(addCoordY, addCoordX) {
+      var floorReference = floorXY[floorActive - 1].split("|");
+      $.each(floorXY, function(index) {
+        if (floorXY[index] === (parseInt(floorReference[0], 10) + addCoordY) + "|" + (parseInt(floorReference[1], 10) + addCoordX)) {
+          targetScroll(index + 1, self.options.Time);
+        }
+      });
+    }
+
+    $(node).on("ascensorLeft", function() {
+      right();
+    })
+
+    $(node).on("ascensorRight", function() {
+      left();
+    })
+
+    $(node).on("ascensorUp", function() {
+      up();
+    })
+
+    $(node).on("ascensorDown", function() {
+      down();
+    })
+
+    $(node).on("ascensorNext", function() {
+      next();
+    })
+
+    $(node).on("ascensorPrev", function() {
+      prev();
+    })
 
     //on ascensor prev link click
     $("." + self.options.AscensorName + "LinkPrev").on("click", function() {
-
-      //soustract one to current floor
-      floorActive = floorActive - 1;
-
-      //if smaller than 1
-      if (floorActive < 1) {
-
-        //get last floor(remove if you don't want a loop) and add: floorActive=1;
-        floorActive = floorCounter;
-      }
-
-      //target floor number
-      targetScroll(floorActive, self.options.Time);
+      prev()
     });
-
 
     //on ascensor next click
     $("." + self.options.AscensorName + "LinkNext").on("click", function() {
-
-      //add one to current floor
-      floorActive = floorActive + 1;
-
-      //if bigger than floor total
-      if (floorActive > floorCounter) {
-
-        //floor = first one (remove if you don't want a loop) and add: floorActive=floorCounter;
-        floorActive = 1;
-      }
-
-      //target floor number
-      targetScroll(floorActive, self.options.Time);
+      next()
     });
+
+    $("." + self.options.AscensorName + "Link").on("click", function() {
+
+      //look for the second class and split the number
+      var floorReference = parseInt(($(this).attr("class").split(" ")[1].split(self.options.AscensorName + "Link"))[1], 10);
+
+      //target the floor number
+      targetScroll(floorReference, self.options.Time);
+
+    });
+
+    //scroll to active floor at start
+    targetScroll(floorActive, 1, true);
+
+    //when hash change, start hashchange function
+    $(window).on("hashchange", function() {
+      hashChange();
+    });
+    
+    //start hashChange function at document loading
+    hashChange(true);
+      
 
     //end plugin action
   };
