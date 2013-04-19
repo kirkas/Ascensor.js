@@ -134,15 +134,19 @@
 		function checkKey(e) {
 			switch(e.keyCode) {
 				case 40:
+				case 83:
 					$(node).trigger({type:"ascensorDown", floor:floorActive});
 					break;
 				case 38:
+				case 87:
 					$(node).trigger({type:"ascensorUp", floor:floorActive});
 					break;
 				case 37:
+				case 65:
 					$(node).trigger({type:"ascensorLeft", floor:floorActive});
 					break;
 				case 39:
+				case 68:
 					$(node).trigger({type:"ascensorRight", floor:floorActive});
 					break
 			}
@@ -249,6 +253,18 @@
 		});
 		$("." + self.options.AscensorName + "LinkNext").on("click", function() {
 			next()
+		});
+		$("." + self.options.AscensorName + "LinkLeft").on("click", function() {
+			left()
+		});
+		$("." + self.options.AscensorName + "LinkRight").on("click", function() {
+			right()
+		});
+		$("." + self.options.AscensorName + "LinkUp").on("click", function() {
+			down()
+		});
+		$("." + self.options.AscensorName + "LinkDown").on("click", function() {
+			up()
 		});
 		$("." + self.options.AscensorName + "Link").on("click", function() {
 			var floorReference = parseInt($(this).attr("class").split(" ")[1].split(self.options.AscensorName + "Link")[1], 10);
