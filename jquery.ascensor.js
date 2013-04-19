@@ -437,6 +437,7 @@
         
         //keyDown  
       case 40:
+	  case 83:
         $(node).trigger({
           type:"ascensorDown",
           floor: floorActive
@@ -445,6 +446,7 @@
 
         //keyUp
       case 38:
+	  case 87:
         $(node).trigger({
           type:"ascensorUp",
           floor: floorActive
@@ -453,6 +455,7 @@
 
         //keyLeft
       case 37:
+	  case 65:
         $(node).trigger({
           type:"ascensorLeft",
           floor: floorActive
@@ -461,6 +464,7 @@
 
         //keyright
       case 39:
+	  case 68:
         $(node).trigger({
           type:"ascensorRight",
           floor: floorActive
@@ -612,7 +616,26 @@
     $("." + self.options.AscensorName + "LinkNext").on("click", function() {
       next()
     });
-
+	
+	// on ancensor left click
+	$("." + self.options.AscensorName + "LinkLeft").on("click", function() {
+      left()
+    });
+	
+	// on ancensor right click
+	$("." + self.options.AscensorName + "LinkRight").on("click", function() {
+      right()
+    });
+	
+	// on ancensor up click
+	$("." + self.options.AscensorName + "LinkUp").on("click", function() {
+      down()
+    });
+	
+	// on ancensor down click
+	$("." + self.options.AscensorName + "LinkDown").on("click", function() {
+      up()
+    });
     $("." + self.options.AscensorName + "Link").on("click", function() {
 
       //look for the second class and split the number
