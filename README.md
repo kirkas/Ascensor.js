@@ -1,8 +1,8 @@
 # Ascensor.js
 
-Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
+Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
 
-[homepage](http://kirkas.ch/ascensor)
+
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
