@@ -2,8 +2,6 @@
 
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
 
-
-
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
@@ -31,7 +29,69 @@ In your web page:
 ```
 
 ## Documentation
-_(Coming soon)_
+
+### Options
+
+#### AscensorName
+- Type: 'string'
+- Default: 'ascensor'
+- descriptions: The ascensor name (use for class & selector)
+
+#### AscensorFloorName
+- Type: 'string'
+- Default: null
+- descriptions: Choose and name for each floor (ex: 'content1 | content2 | content3')
+
+#### ChildType
+- Type: 'string'
+- Default: 'div'
+- descriptions: Specify the child tag if no div ('section' or 'article')
+
+#### WindowsOn
+- Type: integer
+- Default: 1
+- descriptions: Choose the floor to start on
+
+#### Direction
+- Type: 'string'
+- Default: 'y'
+- descriptions: specify the direction ('x', 'y' or 'chocolate')
+
+#### AscensorMap
+- Type: 'string'
+- Default: ''
+- descriptions: If you choose chocolate for direction, speficy position for x/y (ex: '2|1 & 2|2 & 3|2')
+
+#### Time
+- Type: 'string'
+- Default: '1000'
+- descriptions: Specify speed of transition
+
+#### Easing
+- Type: 'string'
+- Default: 'linear'
+- descriptions: Specify easing option
+
+#### KeyNavigation
+- Type: boolean
+- Default: true
+- descriptions: choose if you want direction key support
+
+#### Queued
+- Type: boolean
+- Default: false
+- descriptions: choose if you want direction scroll queued
+
+#### QueuedDirection
+- Type: 'string'
+- Default: 'x'
+- descriptions: choose if you want direction scroll queued "x" or "y"
+
+#### Loop
+- Type: boolean
+- Default: true
+- descriptions: specify if you want an loop
+
 
 ## Examples
 https://github.com/kirkas/Ascensor.js/tree/master/examples
