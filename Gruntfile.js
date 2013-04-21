@@ -20,8 +20,6 @@ module.exports = function(grunt) {
 								'*/\n'
 			},
 			
-
-
 			ascensor:{
 				options:{
 					beautify: true,
@@ -52,6 +50,13 @@ module.exports = function(grunt) {
 			dist:{
 				src: ["dist/"]
 			}
+		},
+		
+		watch: {
+			scripts: {
+				files: ['src/*.js'],
+				tasks: ['jshint:ascensorsrc']
+			}
 		}
 		
 	});
@@ -59,6 +64,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('build', ['clean', 'jshint', 'uglify']);

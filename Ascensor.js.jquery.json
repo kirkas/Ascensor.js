@@ -1,7 +1,7 @@
 {
   "name": "Ascensor.js",
   "title": "Ascensor.js",
-  "description": "The best jQuery plugin ever.",
+  "description": "Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system.",
   "version": "1.5.6",
   "homepage": "http://kirkas.ch/ascensor/",
   "author": {
@@ -23,5 +23,5 @@
   "dependencies": {
     "jquery": "*"
   },
-  "keywords": []
+  "keywords": ["ascensor", "jquery", "elevator"]
 }
