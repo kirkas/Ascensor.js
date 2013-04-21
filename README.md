@@ -37,9 +37,9 @@ _(Coming soon)_
 https://github.com/kirkas/Ascensor.js/tree/master/examples
 
 ## Website using ascensor
-[waterevive](http://www.waterevive.com)
-[shanaemairs.com](http://shanaemairs.com/)
-[reverseburo](http://reverseburo.com/)
-[robclowes](http://www.robclowes.com/)
-[iadindustry](http://iadindustry.se/)
-[newworldwhisky](http://newworldwhisky.com.au/)
+- [waterevive](http://www.waterevive.com)
+- [shanaemairs.com](http://shanaemairs.com/)
+- [reverseburo](http://reverseburo.com/)
+- [robclowes](http://www.robclowes.com/)
+- [iadindustry](http://iadindustry.se/)
+- [newworldwhisky](http://newworldwhisky.com.au/)
