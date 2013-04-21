@@ -103,3 +103,19 @@ https://github.com/kirkas/Ascensor.js/tree/master/examples
 - [robclowes](http://www.robclowes.com/)
 - [iadindustry](http://iadindustry.se/)
 - [newworldwhisky](http://newworldwhisky.com.au/)
+
+## Contribution
+
+You want help? great!
+For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm installed)
+
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. In terminal, type "npm install" to install dependencies
+4. Add your change/fix
+5. Check the code using "grunt jshint" (in terminal)
+6. minify/beautify the code using "grunt build" (in terminal)
+7. Commit your change (only if "grunt build" return no error)
+8. Push to the branch (git push origin my-new-feature)
+9. Create new Pull Request
+
