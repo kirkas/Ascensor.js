@@ -23,15 +23,6 @@ module.exports = function(grunt) {
 				dest: '<%= projectOptions.dist %>/jquery.ascensor.js'
 			},
 			
-			ascensorstripped: {
-				options:{
-					beautify: true,
-					mangle:false
-				},
-				src: '<%= projectOptions.src %>/jquery.ascensor.js',
-				dest: '<%= projectOptions.dist %>/jquery.ascensor.stripped.js'
-			},
-			
 			ascensormin: {
 				src: '<%= projectOptions.src %>/jquery.ascensor.js',
 				dest: '<%= projectOptions.dist %>/jquery.ascensor.min.js'

@@ -8,7 +8,6 @@ Download the [production version][min] or the [development version][max].
 
 [max]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.js
 [min]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.min.js
-[stripped]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.stripped.js
 
 In your web page:
 
@@ -26,7 +25,7 @@ In your web page:
 <script src="jquery.js"></script>
 <script src="jquery.ascensor.js"></script>
 <script>
-  $('#ascensorBuilding').ascensor();
+  $('#ascensor').ascensor();
 </script>
 ```
 
