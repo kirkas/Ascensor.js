@@ -2,6 +2,8 @@
 
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 
+[homepage](http://kirkas.ch/ascensor)
+
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
@@ -31,16 +33,13 @@ In your web page:
 ## Documentation
 _(Coming soon)_
 
-### Examples
+## Examples
 https://github.com/kirkas/Ascensor.js/tree/master/examples
 
-### Website using ascensor
-http://www.waterevive.com
-http://shanaemairs.com/
-http://reverseburo.com/
-http://www.robclowes.com/
-http://iadindustry.se/
-http://newworldwhisky.com.au/
-
-#### Homepage
-http://kirkas.ch/ascensor
+## Website using ascensor
+[waterevive](http://www.waterevive.com)
+[shanaemairs.com](http://shanaemairs.com/)
+[reverseburo](http://reverseburo.com/)
+[robclowes](http://www.robclowes.com/)
+[iadindustry](http://iadindustry.se/)
+[newworldwhisky](http://newworldwhisky.com.au/)
