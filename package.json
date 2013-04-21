@@ -2,7 +2,7 @@
   "name": "Ascensor.js",
   "version": "1.5.6",
   "author": "Léo Galley <contact@kirkas.ch>",
-  "description": "plugin",
+  "description": "Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system",
   "main": "jquery.ascensor.js",
   "license": "BSD",
   "repository": "https://github.com/kirkas/Ascensor.js",

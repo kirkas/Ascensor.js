@@ -10,8 +10,17 @@ module.exports = function(grunt) {
 		
 		uglify: {
 			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+				banner: '/*\n'+
+								'<%= pkg.name %> \n'+
+								'version: <%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>)\n'+
+								'description: <%= pkg.description %>\n'+
+								'repository: <%= pkg.repository %>\n'+
+								'license: <%= pkg.license %>\n'+
+								'author: <%= pkg.author %>\n'+
+								'*/\n'
 			},
+			
+
 
 			ascensor:{
 				options:{

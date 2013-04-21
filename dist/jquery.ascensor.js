@@ -1,75 +1,45 @@
-/*! Ascensor.js 2013-04-21 */
-/*********************************************************************************************************
-
-	INDEX
-		1. PLUGIN DEFAULTS OPTIONS
-		2. NODE OPTIONS DEFINITIONS
-		3. SETTINGS
-		4. START PLUGIN ACTION
-		5. HASH FUNCTION
-		6. RESIZE FONCTION
-		7. SCROLLTO FONCTION
-		8. KEYPRESS FUNCTION
-		9. LINK FONCTION DEFINITION
-		10. MOBILE ROTATION DETECTION
-		11. WINDOW RESIZE EVENT
-		12. WRAPPER AROUND PLUGIN
-
-		check on :
-        - Chrome v22 
-				- Safari v6.0.1
-				- firefox 15.0.1
-				- opera v12.02 
-				- IE 8
-				- IE9
-
-				- Chrome mobile (IOS)
-				- Safari mobile (IOS)
-
-	Please, sand request/bug to contact@kirkas.ch
-
-**********************************************************************************************************/
+/*
+Ascensor.js 
+version: 1.5.6 (2013-04-21)
+description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
+repository: https://github.com/kirkas/Ascensor.js
+license: BSD
+author: Léo Galley <contact@kirkas.ch>
+*/
 (function($, window) {
-    /***********************************************************************
-		2. NODE OPTIONS DEFINITIONS
-	***********************************************************************/
+    /* Plugin defaults definitions */
     function Plugin(element, options) {
         this.element = element, this.options = $.extend({}, defaults, options), this._defaults = defaults, 
         this._name = pluginName, this.init();
     }
-    /***********************************************************************
-		1. PLUGIN DEFAULTS OPTION
-	********************************************************************** */
+    /* Plugin defaults options */
     var pluginName = "ascensor", defaults = {
-        //	First, choose the ascensor name
         AscensorName: "ascensor",
-        //	Choose name for each floor
+        // First, choose the ascensor name
         AscensorFloorName: null,
-        //	Specify the child type if there are no 'div'
+        // Choose name for each floor
         ChildType: "div",
-        //	Choose the floor to start on
+        // Specify the child type if there are no 'div'
         WindowsOn: 1,
-        //	specify if direction is x,y or chocolate
+        // Choose the floor to start on
         Direction: "y",
-        //	specify if direction is x,y or chocolate
+        // specify if direction is x,y or chocolate
         Loop: !0,
-        //	If you choose chocolate for direction, speficy position
+        // specify if direction is x,y or chocolate
         AscensorMap: "",
-        //	Specify speed of transition
+        // If you choose chocolate for direction, speficy position
         Time: "1000",
-        //	Specify easing option
+        // Specify speed of transition
         Easing: "linear",
-        //	choose if you want direction key support
+        // Specify easing option
         KeyNavigation: !0,
-        //	choose if you want direction scroll queued
+        // choose if you want direction key support
         Queued: !1,
-        //	choose if you want direction scroll queued "x" or "y" (default : "x")
+        // choose if you want direction scroll queued
         QueuedDirection: "x"
     };
     Plugin.prototype.init = function() {
-        /***********************************************************************
-			5. HASH FUNCTION
-		***********************************************************************/
+        /* Hash function */
         function hashChange(onLoad) {
             //if the url have an "hash"
             window.location.hash && (//cut the "#/" part
@@ -83,9 +53,7 @@
                 onLoad || targetScroll(floorActive, self.options.Time, !0));
             }));
         }
-        /***********************************************************************
-			6. RESIZE FONCTION
-		***********************************************************************/
+        /* Resize function */
         function resize() {
             //if direction is chocolate
             if (//update WW & WH variables
@@ -113,9 +81,7 @@
                 $(node).stop().scrollLeft((target[1] - 1) * WW).scrollTop((target[0] - 1) * WH);
             }
         }
-        /***********************************************************************
-			7. SCROLLTO FONCTION
-		***********************************************************************/
+        /* Scroll function */
         function targetScroll(floor, time, hashChange) {
             //if direction is chocolate
             if (hashChange && scrollStart(), //if direction is y
@@ -272,19 +238,14 @@
                 floorXY[index] === parseInt(floorReference[0], 10) + addCoordY + "|" + (parseInt(floorReference[1], 10) + addCoordX) && targetScroll(index + 1, self.options.Time);
             });
         }
-        /***********************************************************************
-			3. SETTINGS
-		***********************************************************************/
-        //element settings
+        /* Settings */
         var //height/width settings
         WW, WH, //hash 
         hash, self = this, node = this.element, nodeChildren = $(node).children(self.options.ChildType), //floor counter settings
         floorActive = self.options.WindowsOn, floorCounter = 0, //plugins settings
         floorXY = self.options.AscensorMap.split(" & ");
         if (self.options.Direction, null !== self.options.AscensorFloorName) var floorName = self.options.AscensorFloorName.split(" | ");
-        if (/***********************************************************************
-			4. START PLUGIN ACTION
-		***********************************************************************/
+        if (/* Start plugin actions */
         //define position,height & width
         $(node).css("position", "absolute").width(WW).height(WH), //define height & width
         $(nodeChildren).width(WW).height(WH).each(function() {
@@ -347,10 +308,7 @@
             hashChange();
         }), //start hashChange function at document loading
         hashChange(!0);
-    }, /***********************************************************************
-		12. WRAPPER AROUND PLUGIN
-	***********************************************************************/
-    $.fn[pluginName] = function(options) {
+    }, $.fn[pluginName] = function(options) {
         return this.each(function() {
             $.data(this, "plugin_" + pluginName) || $.data(this, "plugin_" + pluginName, new Plugin(this, options));
         });

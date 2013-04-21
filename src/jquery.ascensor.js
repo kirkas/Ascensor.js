@@ -1,84 +1,23 @@
-/*********************************************************************************************************
-
-	INDEX
-		1. PLUGIN DEFAULTS OPTIONS
-		2. NODE OPTIONS DEFINITIONS
-		3. SETTINGS
-		4. START PLUGIN ACTION
-		5. HASH FUNCTION
-		6. RESIZE FONCTION
-		7. SCROLLTO FONCTION
-		8. KEYPRESS FUNCTION
-		9. LINK FONCTION DEFINITION
-		10. MOBILE ROTATION DETECTION
-		11. WINDOW RESIZE EVENT
-		12. WRAPPER AROUND PLUGIN
-
-		check on :
-        - Chrome v22 
-				- Safari v6.0.1
-				- firefox 15.0.1
-				- opera v12.02 
-				- IE 8
-				- IE9
-
-				- Chrome mobile (IOS)
-				- Safari mobile (IOS)
-
-	Please, sand request/bug to contact@kirkas.ch
-
-**********************************************************************************************************/
-
 (function($, window, undefined) {
 
-
-  /***********************************************************************
-		1. PLUGIN DEFAULTS OPTION
-	********************************************************************** */
+  /* Plugin defaults options */
   var pluginName = 'ascensor',
     defaults = {
-
-      //	First, choose the ascensor name
-      AscensorName: "ascensor",
-
-      //	Choose name for each floor
-      AscensorFloorName: null,
-
-      //	Specify the child type if there are no 'div'
-      ChildType: "div",
-
-      //	Choose the floor to start on
-      WindowsOn: 1,
-
-      //	specify if direction is x,y or chocolate
-      Direction: "y",
-
-      //	specify if direction is x,y or chocolate
-      Loop: true,
-
-      //	If you choose chocolate for direction, speficy position
-      AscensorMap: "",
-
-      //	Specify speed of transition
-      Time: "1000",
-
-      //	Specify easing option
-      Easing: "linear",
-
-      //	choose if you want direction key support
-      KeyNavigation: true,
-
-      //	choose if you want direction scroll queued
-      Queued: false,
-
-      //	choose if you want direction scroll queued "x" or "y" (default : "x")
-      QueuedDirection: "x"
+      AscensorName: "ascensor",           // First, choose the ascensor name
+      AscensorFloorName: null,            // Choose name for each floor
+      ChildType: "div",                   // Specify the child type if there are no 'div'
+      WindowsOn: 1,                       // Choose the floor to start on
+      Direction: "y",                     // specify if direction is x,y or chocolate
+      Loop: true,                         // specify if direction is x,y or chocolate
+      AscensorMap: "",                    // If you choose chocolate for direction, speficy position
+      Time: "1000",                       // Specify speed of transition
+      Easing: "linear",                   // Specify easing option
+      KeyNavigation: true,                // choose if you want direction key support
+      Queued: false,                      // choose if you want direction scroll queued
+      QueuedDirection: "x"                // choose if you want direction scroll queued "x" or "y" (default : "x")
     };
 
-
-  /***********************************************************************
-		2. NODE OPTIONS DEFINITIONS
-	***********************************************************************/
+  /* Plugin defaults definitions */
   function Plugin(element, options) {
     this.element = element;
     this.options = $.extend({}, defaults, options);
@@ -86,18 +25,12 @@
     this._name = pluginName;
     this.init();
   }
-
-
+  
   Plugin.prototype.init = function() {
 
 
-    /***********************************************************************
-			3. SETTINGS
-		***********************************************************************/
-
-    //element settings
-    var
-    self = this,
+    /* Settings */
+    var self = this,
       node = this.element,
       nodeChildren = $(node).children(self.options.ChildType),
 
@@ -121,10 +54,8 @@
       var floorName = self.options.AscensorFloorName.split(" | ");
     }
 
-    /***********************************************************************
-			4. START PLUGIN ACTION
-		***********************************************************************/
-
+    /* Start plugin actions */
+    
     //define position,height & width
     $(node).css("position", "absolute").width(WW).height(WH);
 
@@ -151,9 +82,7 @@
 
 
 
-    /***********************************************************************
-			5. HASH FUNCTION
-		***********************************************************************/
+    /* Hash function */
     function hashChange(onLoad) {
 
       //if the url have an "hash"
@@ -187,12 +116,7 @@
 
     }
 
-    
-
-
-    /***********************************************************************
-			6. RESIZE FONCTION
-		***********************************************************************/
+    /* Resize function */
     function resize() {
 
       //update WW & WH variables
@@ -266,9 +190,7 @@
 
 
 
-    /***********************************************************************
-			7. SCROLLTO FONCTION
-		***********************************************************************/
+    /* Scroll function */
     function targetScroll(floor, time, hashChange) {
       
       if(hashChange){
@@ -647,10 +569,6 @@
     //end plugin action
   };
 
-
-  /***********************************************************************
-		12. WRAPPER AROUND PLUGIN
-	***********************************************************************/
   $.fn[pluginName] = function(options) {
     return this.each(function() {
       if (!$.data(this, 'plugin_' + pluginName)) {
