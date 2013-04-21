@@ -1,9 +1,5 @@
 /*********************************************************************************************************
 
-	JQUERY.ASCENSOR.JS
-		VERSION: 1.5.6
-		DATE: 07/03/2013
-
 	INDEX
 		1. PLUGIN DEFAULTS OPTIONS
 		2. NODE OPTIONS DEFINITIONS
@@ -33,8 +29,6 @@
 
 **********************************************************************************************************/
 
-
-;
 (function($, window, undefined) {
 
 
@@ -124,7 +118,7 @@
 
 
     if (self.options.AscensorFloorName !== null) {
-      var floorName = self.options.AscensorFloorName.split(" | ")
+      var floorName = self.options.AscensorFloorName.split(" | ");
     }
 
     /***********************************************************************
@@ -132,7 +126,7 @@
 		***********************************************************************/
 
     //define position,height & width
-    $(node).css("position", "absolute").width(WW).height(WH)
+    $(node).css("position", "absolute").width(WW).height(WH);
 
     //define height & width
     $(nodeChildren).width(WW).height(WH)
@@ -278,7 +272,7 @@
     function targetScroll(floor, time, hashChange) {
       
       if(hashChange){
-        scrollStart()
+        scrollStart();
       }
 
       //if direction is y
@@ -437,55 +431,47 @@
         
         //keyDown  
       case 40:
-	  case 83:
+      case 83:
         $(node).trigger({
           type:"ascensorDown",
           floor: floorActive
-        })
+        });
         break;
 
         //keyUp
       case 38:
-	  case 87:
+      case 87:
         $(node).trigger({
           type:"ascensorUp",
           floor: floorActive
-        })
+        });
         break;
 
         //keyLeft
       case 37:
-	  case 65:
+      case 65:
         $(node).trigger({
           type:"ascensorLeft",
           floor: floorActive
-        })
+        });
         break;
 
         //keyright
       case 39:
-	  case 68:
+      case 68:
         $(node).trigger({
           type:"ascensorRight",
           floor: floorActive
-        })
+        });
         break;
       }
     }
-
-    //if key navigation is true
+    
     if (self.options.KeyNavigation) {
-
-      //if browser is mozilla
-      if ($.browser.mozilla) {
-
-        //use keypress
+      var FIREFOX = /Firefox/i.test(navigator.userAgent);
+      if (FIREFOX) {
         $(document).keypress(checkKey);
-
-        //for all brother
-      } else {
-
-        //use keydown
+      }else{
         $(document).keydown(checkKey);
       }
     }
@@ -494,7 +480,7 @@
       $(node).trigger({
         type:"ascensorStart",
         floor: floorActive
-      })
+      });
     }
 
 
@@ -502,7 +488,7 @@
       $(node).trigger({
         type:"ascensorEnd",
         floor: floorActive
-      })
+      });
     }
 
 
@@ -511,9 +497,9 @@
         $(node).trigger({
           type:"ascensorNext",
           floor: floorActive
-        })
+        });
       } else if (self.options.Direction == "chocolate") {
-        chocolateDirection(1, 0)
+        chocolateDirection(1, 0);
       }
     }
 
@@ -522,9 +508,9 @@
         $(node).trigger({
           type:"ascensorPrev",
           floor: floorActive
-        })
+        });
       } else if (self.options.Direction == "chocolate") {
-        chocolateDirection(-1, 0)
+        chocolateDirection(-1, 0);
       }
     }
 
@@ -533,9 +519,9 @@
         $(node).trigger({
           type:"ascensorPrev",
           floor: floorActive
-        })
+        });
       } else if (self.options.Direction == "chocolate") {
-        chocolateDirection(0, 1)
+        chocolateDirection(0, 1);
       }
     }
 
@@ -544,9 +530,9 @@
         $(node).trigger({
           type:"ascensorNext",
           floor: floorActive
-        })
+        });
       } else if (self.options.Direction == "chocolate") {
-        chocolateDirection(0, -1)
+        chocolateDirection(0, -1);
       }
     }
 
@@ -566,9 +552,9 @@
       floorActive = floorActive + 1;
       if (floorActive > floorCounter) {
         if (self.options.Loop) {
-          floorActive = floorCounter;
-        } else {
           floorActive = 1;
+        } else {
+          floorActive = floorCounter;
         }
       }
       targetScroll(floorActive, self.options.Time);
@@ -585,64 +571,65 @@
 
     $(node).on("ascensorLeft", function() {
       right();
-    })
+    });
 
     $(node).on("ascensorRight", function() {
       left();
-    })
+    });
 
     $(node).on("ascensorUp", function() {
       up();
-    })
+    });
 
     $(node).on("ascensorDown", function() {
       down();
-    })
+    });
 
     $(node).on("ascensorNext", function() {
       next();
-    })
+    });
 
     $(node).on("ascensorPrev", function() {
       prev();
-    })
+    });
 
     //on ascensor prev link click
     $("." + self.options.AscensorName + "LinkPrev").on("click", function() {
-      prev()
+      prev();
     });
 
     //on ascensor next click
     $("." + self.options.AscensorName + "LinkNext").on("click", function() {
-      next()
+      next();
     });
 	
 	// on ancensor left click
 	$("." + self.options.AscensorName + "LinkLeft").on("click", function() {
-      left()
+      left();
     });
 	
 	// on ancensor right click
 	$("." + self.options.AscensorName + "LinkRight").on("click", function() {
-      right()
+      right();
     });
 	
 	// on ancensor up click
 	$("." + self.options.AscensorName + "LinkUp").on("click", function() {
-      down()
+      down();
     });
 	
 	// on ancensor down click
 	$("." + self.options.AscensorName + "LinkDown").on("click", function() {
-      up()
-    });
-    $("." + self.options.AscensorName + "Link").on("click", function() {
+      up();
+  });
+  
+  $("." + self.options.AscensorName + "Link").on("click", function() {
 
-      //look for the second class and split the number
-      var floorReference = parseInt(($(this).attr("class").split(" ")[1].split(self.options.AscensorName + "Link"))[1], 10);
+    //look for the second class and split the number
+    var floorReference = parseInt(($(this).attr("class").split(" ")[1].split(self.options.AscensorName + "Link"))[1], 10);
 
-      //target the floor number
-      targetScroll(floorReference, self.options.Time);
+    //target the floor number
+    targetScroll(floorReference, self.options.Time);
 
     });
 
@@ -657,7 +644,6 @@
     //start hashChange function at document loading
     hashChange(true);
       
-
     //end plugin action
   };
 

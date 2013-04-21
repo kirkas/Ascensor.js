@@ -1,0 +1,46 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+#ascensorBuilding{
+	overflow: hidden;
+}
+
+#ascensorFloor1{
+	background: #F9B233;	
+}
+
+#ascensorFloor2{
+	background: #71B5E5;	
+}
+
+#ascensorFloor3{
+	background: #B3CE4A;	
+}
+
+#ascensorFloor4{
+	background: #EB5D45;	
+}
+
+#ascensorFloor5{
+	background: #4AAEB6;	
+}
+
+#ascensorFloor6{
+	background: #E7DFBF;	
+}
+
+#ascensorFloor7{
+	background: #CA9E67;	
+}
+
+nav{
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}

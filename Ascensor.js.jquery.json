@@ -1,0 +1,27 @@
+{
+  "name": "Ascensor.js",
+  "title": "Ascensor.js",
+  "description": "The best jQuery plugin ever.",
+  "version": "1.5.6",
+  "homepage": "http://kirkas.ch/ascensor/",
+  "author": {
+    "name": "léo galley",
+    "email": "contact@kirkas.ch",
+    "url": "http://kirkas.ch/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kirkas/Ascensor.js.git"
+  },
+  "bugs": "https://github.com/kirkas/Ascensor.js/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://kirkas.ch/ascensor//blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
