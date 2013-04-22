@@ -216,13 +216,13 @@ author: Léo Galley <contact@kirkas.ch>
             "x" == self.options.Direction ? $(node).trigger({
                 type: "ascensorPrev",
                 floor: floorActive
-            }) : "chocolate" == self.options.Direction && chocolateDirection(0, 1);
+            }) : "chocolate" == self.options.Direction && chocolateDirection(0, -1);
         }
         function right() {
             "x" == self.options.Direction ? $(node).trigger({
                 type: "ascensorNext",
                 floor: floorActive
-            }) : "chocolate" == self.options.Direction && chocolateDirection(0, -1);
+            }) : "chocolate" == self.options.Direction && chocolateDirection(0, 1);
         }
         function prev() {
             floorActive -= 1, 1 > floorActive && (floorActive = self.options.Loop ? floorCounter : 1), 

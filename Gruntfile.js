@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 		template: {
 			simple: {
 				src: 'examples/src/layout.ejs',
-				dest: 'examples/examples_simple.html',
+				dest: 'examples/example_simple.html',
 				variables: {
 					title: 'Simple',
 					params:''
@@ -71,10 +71,28 @@ module.exports = function(grunt) {
 			
 			horizontal: {
 				src: 'examples/src/layout.ejs',
-				dest: 'examples/examples_horizontal.html',
+				dest: 'examples/example_horizontal.html',
 				variables: {
 					title: 'Horizontal',
 					params:'{Direction:"x"}'
+				}
+			},
+			
+			chocolat: {
+				src: 'examples/src/layout.ejs',
+				dest: 'examples/example_chocolate.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{Direction:"chocolate", AscensorMap: "1|2 & 1|2 & 2|3 & 1|3 & 1|4 & 2|4 & 3|4"}'
+				}
+			},
+			
+			urlcontrole: {
+				src: 'examples/src/layout.ejs',
+				dest: 'examples/example_url.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{AscensorFloorName:"Home | Implementation | HTML | Jquery | CSS | Smartphone | End"}'
 				}
 			},
 		},

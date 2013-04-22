@@ -440,8 +440,9 @@
           floor: floorActive
         });
       } else if (self.options.Direction == "chocolate") {
-        chocolateDirection(0, 1);
+        chocolateDirection(0, -1);
       }
+      
     }
 
     function right() {
@@ -451,7 +452,7 @@
           floor: floorActive
         });
       } else if (self.options.Direction == "chocolate") {
-        chocolateDirection(0, -1);
+        chocolateDirection(0, 1);
       }
     }
 
