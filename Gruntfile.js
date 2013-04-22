@@ -95,6 +95,18 @@ module.exports = function(grunt) {
 					params:'{AscensorFloorName:"Home | Implementation | HTML | Jquery | CSS | Smartphone | End"}'
 				}
 			}
+		},
+		
+		'ftp-deploy': {
+			build: {
+				auth: {
+					host: 'ftp.kirkas.ch',
+					port: 21,
+					authKey: 'key1'
+				},
+				src: './homepage',
+				dest: './ascensor'
+			}
 		}
 		
 	});
@@ -104,7 +116,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-templater');
-	
+	grunt.loadNpmTasks('grunt-ftp-deploy');
+
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('build', ['clean', 'jshint', 'uglify']);
 	
