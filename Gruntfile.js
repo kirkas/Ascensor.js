@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 		
 		projectOptions:{
 			src:"src",
-			dist:"dist"	
+			dist:"dist",
+			deploy:"deploy"
 		},
 		
 		uglify: {
@@ -33,7 +34,13 @@ module.exports = function(grunt) {
 			ascensormin: {
 				src: '<%= projectOptions.src %>/jquery.ascensor.js',
 				dest: '<%= projectOptions.dist %>/jquery.ascensor.min.js'
+			},
+			
+			homepage:{
+				src: '<%= projectOptions.deploy %>/homepage/src/js/plugins.js',
+				dest: '<%= projectOptions.deploy %>/homepage/dist/js/plugins.js'
 			}
+			
 		},
 		
 		jshint: {
@@ -94,6 +101,32 @@ module.exports = function(grunt) {
 					title: 'Chocolat',
 					params:'{AscensorFloorName:"Home | Implementation | HTML | Jquery | CSS | Smartphone | End"}'
 				}
+			},
+			
+			README:{
+				src: 'deploy/github/readme.ejs',
+				dest: 'README.md',
+				variables: {
+					params : require('./deploy/content.json'),
+					description: "<%= pkg.description %>"
+				}
+			},
+			
+			homepage:{
+				src: 'deploy/homepage/src/index.ejs',
+				dest: 'deploy/homepage/dist/index.html',
+				variables: {
+					params : require('./deploy/content.json'),
+					description: "<%= pkg.description %>"
+				}
+			}
+		},
+		
+		sass: {
+			homepage: {
+				files: {
+					'<%= projectOptions.deploy %>/homepage/dist/css/main.css': '<%= projectOptions.deploy %>/homepage/src/css/main.scss'
+				}
 			}
 		},
 		
@@ -111,14 +144,22 @@ module.exports = function(grunt) {
 		
 	});
 	
+	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-templater');
 	grunt.loadNpmTasks('grunt-ftp-deploy');
-
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('build', ['clean', 'jshint', 'uglify']);
+	
+	
+	
+	grunt.registerTask('deploy-github', ['template']);
+	grunt.registerTask('deploy-kirkas', ['template:homepage', 'ftp-deploy']);
+	
+	
 	
 };

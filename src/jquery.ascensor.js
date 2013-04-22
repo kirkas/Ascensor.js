@@ -445,7 +445,6 @@
       } else if (self.options.Direction == "chocolate") {
         chocolateDirection(0, -1);
       }
-      console.log("left");
     }
 
     function right() {

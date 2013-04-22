@@ -1,0 +1,126 @@
+{
+	"parameters": [
+		{
+			"name":"AscensorName",
+			"type":"string",
+			"default":"ascensor",
+			"description" : "The ascensor name (use for class & selector)"
+		},
+
+		{
+			"name":"AscensorFloorName",
+			"type":"string",
+			"default":"null",
+			"description" : "Choose and name for each floor (ex: 'content1 | content2 | content3')"
+		},
+
+		{
+			"name":"ChildType",
+			"type":"string",
+			"default":"div",
+			"description" : "Specify the child tag if no div ('section' or 'article')"
+		},
+
+		{
+			"name":"WindowsOn",
+			"type":"integer",
+			"default":"1",
+			"description" : "Choose the floor to start on"
+		},
+
+		{
+			"name":"Direction",
+			"type":"string",
+			"default":"y",
+			"description" : "specify the direction ('x', 'y' or 'chocolate')"
+		},
+
+		{
+			"name":"AscensorMap",
+			"type":"string",
+			"default":"null",
+			"description" : "If you choose chocolate for direction, speficy position for x/y (ex: '2|1 & 2|2 & 3|2')"
+		},
+
+		{
+			"name":"Time",
+			"type":"string",
+			"default":"1000",
+			"description" : "Specify speed of transition"
+		},
+
+		{
+			"name":"Easing",
+			"type":"string",
+			"default":"linear",
+			"description" : "Specify easing option"
+		},
+
+		{
+			"name":"Overflow",
+			"type":"string",
+			"default":"scroll",
+			"description" : "Choose your main container overflow default behavior"
+		},
+
+		{
+			"name":"KeyNavigation",
+			"type":"boolean",
+			"default":"true",
+			"description" : "choose if you want direction key support"
+		},
+
+		{
+			"name":"Queued",
+			"type":"boolean",
+			"default":"false",
+			"description" : "choose if you want direction scroll queued"
+		},
+
+		{
+			"name":"QueuedDirection",
+			"type":"string",
+			"default":"x",
+			"description" : "choose if you want direction scroll queued 'x' or 'y'"
+		},
+
+		{
+			"name":"Loop",
+			"type":"boolean",
+			"default":"true",
+			"description" : "specify if you want an loop"
+		}
+	],
+
+	"website":[
+		{
+			"name":"waterevive",
+			"url":"http://www.waterevive.com"
+		},
+
+		{
+			"name":"shanaemairs",
+			"url":"http://shanaemairs.com"
+		},
+
+		{
+			"name":"reverseburo",
+			"url":"http://reverseburo.com"
+		},
+
+		{
+			"name":"robclowes",
+			"url":"http://www.robclowes.com"
+		},
+
+		{
+			"name":"iadindustry",
+			"url":"http://iadindustry.se"
+		},
+
+		{
+			"name":"newworldwhisky",
+			"url":"http://newworldwhisky.com.au"
+		}
+	]
+}

@@ -65,27 +65,76 @@ td { vertical-align: top; }
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
 
-/* desert scheme ported from vim to google prettify */
-pre { display: block; background-color: #333; padding:10px; border-radius:5px;}
-pre .nocode { background-color: none; color: #000 }
-pre .str { color: #ffa0a0 } /* string  - pink */
-pre .kwd { color: #f0e68c; font-weight: normal }
-pre .com { color: #87ceeb; font-style: italic } /* comment - skyblue */
-pre .typ { color: #98fb98 } /* type    - lightgreen */
-pre .lit { color: #cd5c5c } /* literal - darkred */
-pre .pun { color: #fff }    /* punctuation */
-pre .pln { color: #fff }    /* plaintext */
-pre .tag { color: #f0e68c; font-weight: normal } /* html/xml tag    - lightyellow */
-pre .atn { color: #bdb76b; font-weight: normal } /* attribute name  - khaki */
-pre .atv { color: #ffa0a0 } /* attribute value - pink */
-pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+/* Pretty printing styles. Used with prettify.js.
+ *
+ * Name:	Stanley Ng
+ * Email: 	stanleyhlng@googlegroups.com
+ * 
+ * Credits:
+ * https://github.com/chriskempson/tomorrow-theme
+ */
+.pln {
+	color: #4d4d4c; }
+
+.str {
+	color: #718c00; }
+
+.kwd {
+	color: #8959a8; }
+
+.com {
+	color: #8e908c;
+	font-style: italic; }
+
+.typ {
+	color: #f5871f; }
+
+.lit {
+	color: #eab700; }
+
+.pun {
+	color: #4d4d4c; }
+
+.opn {
+	color: #4d4d4c; }
+
+.clo {
+	color: #4d4d4c; }
+
+.tag {
+	color: #c82829; }
+
+.atn {
+	color: #eab700; }
+
+.atv {
+	color: #3e999f; }
+
+.dec {
+	color: #f5871f; }
+
+.var {
+	color: #c82829; }
+
+.fun {
+	color: #c82829; }
+
+/* Put a border around prettyprinted code snippets. */
+pre.prettyprint {
+	background-color: #ffffff;
+	padding: 5px 10px;
+	border: 1px solid #f1f1f1; 
+	border-radius: 3px;
+}
 
 /* Specify class=linenums on a pre to get line numbering */
-ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
-li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
-/* Alternate shading for lines */
-li.L1,li.L3,li.L5,li.L7,li.L9 { }
+ol.linenums {
+	color: #8e908c;
+	margin: 0 0 0 40px; }
 
+ol.linenums li {
+	line-height: 18px;
+	padding-left: 12px; }
 @media print {
 	pre { background-color: none }
 	pre .str, code .str { color: #060 }
@@ -101,7 +150,14 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 }
 
 *{
-	font-family: 'Lato', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	line-height: 2em;
+	font-size:14px;
 }
 
 
@@ -117,7 +173,7 @@ pre, pre span{
 
 section{
 	overflow:auto;
-	box-shadow: inset 0 0 0px 5px rgb(0,0,0);
+
 }
 
 section article{
@@ -153,18 +209,23 @@ section article{
 
 #navigationMap .ascensorLink4{
 	margin-left: 60px;
+	margin-top: 30px;
 }
 
-#navigationMap .ascensorLink5, #navigationMap  .ascensorLink6{
+#navigationMap .ascensorLink5{
 	margin-left: 90px;
+	margin-top: 30px;
 }
 
 #navigationMap .ascensorLink6{
-	margin-top: -30px;
+	
+	margin-left: 90px;
+	margin-top: 0;
 }
 
 #navigationMap .ascensorLink7{
-	margin-left: 120px;
+	margin-left: 90px;
+	margin-top: -30px;
 }
 
 #navigationMap .ascensorLinkActive{

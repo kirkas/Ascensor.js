@@ -12,34 +12,34 @@ In your web page:
 
 ```html
 <div id="ascensor">
-  <div>Content 1</div>
-  <div>Content 2</div>
-  <div>Content 3</div>
-  <div>Content 4</div>
-  <div>Content 5</div>
-  <div>Content 6</div>  
-  <div>Content 7</div>
+	<div>Content 1</div>
+	<div>Content 2</div>
+	<div>Content 3</div>
+	<div>Content 4</div>
+	<div>Content 5</div>
+	<div>Content 6</div>  
+	<div>Content 7</div>
 </div>
 
 <script src="jquery.js"></script>
 <script src="jquery.ascensor.js"></script>
 <script>
-  $('#ascensor').ascensor();
+	$('#ascensor').ascensor();
 </script>
 ```
-
 ## Documentation
 
 ### Options
 
+
 #### AscensorName
 - Type: 'string'
 - Default: 'ascensor'
-- descriptions: The ascensor name (use for class & selector)
+- descriptions: The ascensor name (use for class &amp; selector)
 
 #### AscensorFloorName
 - Type: 'string'
-- Default: null
+- Default: 'null'
 - descriptions: Choose and name for each floor (ex: 'content1 | content2 | content3')
 
 #### ChildType
@@ -48,8 +48,8 @@ In your web page:
 - descriptions: Specify the child tag if no div ('section' or 'article')
 
 #### WindowsOn
-- Type: integer
-- Default: 1
+- Type: 'integer'
+- Default: '1'
 - descriptions: Choose the floor to start on
 
 #### Direction
@@ -59,8 +59,8 @@ In your web page:
 
 #### AscensorMap
 - Type: 'string'
-- Default: ''
-- descriptions: If you choose chocolate for direction, speficy position for x/y (ex: '2|1 & 2|2 & 3|2')
+- Default: 'null'
+- descriptions: If you choose chocolate for direction, speficy position for x/y (ex: '2|1 &amp; 2|2 &amp; 3|2')
 
 #### Time
 - Type: 'string'
@@ -78,23 +78,23 @@ In your web page:
 - descriptions: Choose your main container overflow default behavior
 
 #### KeyNavigation
-- Type: boolean
-- Default: true
+- Type: 'boolean'
+- Default: 'true'
 - descriptions: choose if you want direction key support
 
 #### Queued
-- Type: boolean
-- Default: false
+- Type: 'boolean'
+- Default: 'false'
 - descriptions: choose if you want direction scroll queued
 
 #### QueuedDirection
 - Type: 'string'
 - Default: 'x'
-- descriptions: choose if you want direction scroll queued "x" or "y"
+- descriptions: choose if you want direction scroll queued 'x' or 'y'
 
 #### Loop
-- Type: boolean
-- Default: true
+- Type: 'boolean'
+- Default: 'true'
 - descriptions: specify if you want an loop
 
 
@@ -102,12 +102,19 @@ In your web page:
 https://github.com/kirkas/Ascensor.js/tree/master/examples
 
 ## Website using ascensor
+
 - [waterevive](http://www.waterevive.com)
-- [shanaemairs.com](http://shanaemairs.com/)
-- [reverseburo](http://reverseburo.com/)
-- [robclowes](http://www.robclowes.com/)
-- [iadindustry](http://iadindustry.se/)
-- [newworldwhisky](http://newworldwhisky.com.au/)
+
+- [shanaemairs](http://shanaemairs.com)
+
+- [reverseburo](http://reverseburo.com)
+
+- [robclowes](http://www.robclowes.com)
+
+- [iadindustry](http://iadindustry.se)
+
+- [newworldwhisky](http://newworldwhisky.com.au)
+
 
 ## Contribution
 
@@ -124,4 +131,3 @@ For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm insta
 8. Commit your change (only if "grunt build" return no error)
 9. Push to the branch (git push origin my-new-feature)
 10. Create new Pull Request
-
