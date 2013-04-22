@@ -14,7 +14,8 @@
       Easing: "linear",                   // Specify easing option
       KeyNavigation: true,                // choose if you want direction key support
       Queued: false,                      // choose if you want direction scroll queued
-      QueuedDirection: "x"                // choose if you want direction scroll queued "x" or "y" (default : "x")
+      QueuedDirection: "x",                // choose if you want direction scroll queued "x" or "y" (default : "x")
+      Overflow: "scroll"
     };
 
   /* Plugin defaults definitions */
@@ -58,6 +59,7 @@
     
     //define position,height & width
     $(node).css("position", "absolute").width(WW).height(WH);
+    $(node).css("overflow", self.options.Overflow);
 
     //define height & width
     $(nodeChildren).width(WW).height(WH)
@@ -431,6 +433,7 @@
       } else if (self.options.Direction == "chocolate") {
         chocolateDirection(-1, 0);
       }
+      
     }
 
     function left() {
@@ -442,7 +445,7 @@
       } else if (self.options.Direction == "chocolate") {
         chocolateDirection(0, -1);
       }
-      
+      console.log("left");
     }
 
     function right() {

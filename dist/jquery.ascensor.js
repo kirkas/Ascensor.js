@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.5.8 (2013-04-21)
+version: 1.5.9 (2013-04-21)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -36,7 +36,9 @@ author: Léo Galley <contact@kirkas.ch>
         // choose if you want direction key support
         Queued: !1,
         // choose if you want direction scroll queued
-        QueuedDirection: "x"
+        QueuedDirection: "x",
+        // choose if you want direction scroll queued "x" or "y" (default : "x")
+        Overflow: "scroll"
     };
     Plugin.prototype.init = function() {
         /* Hash function */
@@ -216,7 +218,7 @@ author: Léo Galley <contact@kirkas.ch>
             "x" == self.options.Direction ? $(node).trigger({
                 type: "ascensorPrev",
                 floor: floorActive
-            }) : "chocolate" == self.options.Direction && chocolateDirection(0, -1);
+            }) : "chocolate" == self.options.Direction && chocolateDirection(0, -1), console.log("left");
         }
         function right() {
             "x" == self.options.Direction ? $(node).trigger({
@@ -247,7 +249,8 @@ author: Léo Galley <contact@kirkas.ch>
         if (self.options.Direction, null !== self.options.AscensorFloorName) var floorName = self.options.AscensorFloorName.split(" | ");
         if (/* Start plugin actions */
         //define position,height & width
-        $(node).css("position", "absolute").width(WW).height(WH), //define height & width
+        $(node).css("position", "absolute").width(WW).height(WH), $(node).css("overflow", self.options.Overflow), 
+        //define height & width
         $(nodeChildren).width(WW).height(WH).each(function() {
             //count floor
             floorCounter++, //give class and spcific id

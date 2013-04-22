@@ -83,7 +83,7 @@ module.exports = function(grunt) {
 				dest: 'examples/example_chocolate.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{Direction:"chocolate", AscensorMap: "1|2 & 1|2 & 2|3 & 1|3 & 1|4 & 2|4 & 3|4"}'
+					params:'{Direction:"chocolate", AscensorMap: "1|1 & 1|2 & 2|3 & 1|3 & 1|4 & 2|4 & 3|4"}'
 				}
 			},
 			
@@ -94,8 +94,8 @@ module.exports = function(grunt) {
 					title: 'Chocolat',
 					params:'{AscensorFloorName:"Home | Implementation | HTML | Jquery | CSS | Smartphone | End"}'
 				}
-			},
-		},
+			}
+		}
 		
 	});
 	

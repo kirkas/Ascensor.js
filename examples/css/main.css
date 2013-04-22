@@ -7,10 +7,6 @@ body{
 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-#ascensorBuilding{
-	overflow: hidden;
-}
-
 #ascensorFloor1{
 	background: #F9B233;	
 }

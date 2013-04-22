@@ -72,6 +72,11 @@ In your web page:
 - Default: 'linear'
 - descriptions: Specify easing option
 
+#### Overflow
+- Type: 'string'
+- Default: 'scroll'
+- descriptions: Choose your main container overflow default behavior
+
 #### KeyNavigation
 - Type: boolean
 - Default: true
