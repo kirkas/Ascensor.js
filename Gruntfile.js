@@ -55,9 +55,29 @@ module.exports = function(grunt) {
 		watch: {
 			scripts: {
 				files: ['src/*.js'],
-				tasks: ['jshint:ascensorsrc']
+				tasks: ['jshint:ascensorsrc', 'clean', 'uglify']
 			}
-		}
+		},
+		
+		template: {
+			simple: {
+				src: 'examples/src/layout.ejs',
+				dest: 'examples/examples_simple.html',
+				variables: {
+					title: 'Simple',
+					params:''
+				}
+			},
+			
+			horizontal: {
+				src: 'examples/src/layout.ejs',
+				dest: 'examples/examples_horizontal.html',
+				variables: {
+					title: 'Horizontal',
+					params:'{Direction:"x"}'
+				}
+			},
+		},
 		
 	});
 	
@@ -65,6 +85,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-templater');
 	
 	grunt.registerTask('default', ['jshint']);
 	grunt.registerTask('build', ['clean', 'jshint', 'uglify']);

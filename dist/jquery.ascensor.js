@@ -268,9 +268,9 @@ author: Léo Galley <contact@kirkas.ch>
             FIREFOX ? $(document).keypress(checkKey) : $(document).keydown(checkKey);
         }
         $(node).on("ascensorLeft", function() {
-            right();
-        }), $(node).on("ascensorRight", function() {
             left();
+        }), $(node).on("ascensorRight", function() {
+            right();
         }), $(node).on("ascensorUp", function() {
             up();
         }), $(node).on("ascensorDown", function() {

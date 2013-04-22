@@ -79,9 +79,6 @@
       $(nodeChildren).css("position", "absolute");
     }
 
-
-
-
     /* Hash function */
     function hashChange(onLoad) {
 
@@ -492,11 +489,11 @@
     }
 
     $(node).on("ascensorLeft", function() {
-      right();
+      left();
     });
 
     $(node).on("ascensorRight", function() {
-      left();
+      right();
     });
 
     $(node).on("ascensorUp", function() {
