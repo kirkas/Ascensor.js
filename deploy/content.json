@@ -53,7 +53,7 @@
 			"name":"Easing",
 			"type":"string",
 			"default":"linear",
-			"description" : "Specify easing option"
+			"description" : "Specify easing option (don't forget to add the easing plugin)"
 		},
 
 		{
