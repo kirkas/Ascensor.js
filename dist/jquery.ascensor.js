@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.5.9 (2013-04-22)
+version: 1.5.9 (2013-04-28)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -153,6 +153,7 @@ author: Léo Galley <contact@kirkas.ch>
         }
         //check key function
         function checkKey(e) {
+            if ($("input, textarea, button").is(":focus")) return !1;
             switch (e.keyCode) {
               //keyDown  
                 case 40:
