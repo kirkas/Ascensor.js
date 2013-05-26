@@ -36,7 +36,17 @@ In your web page:
 - Type: '<%= params.parameters[i].type %>'
 - Default: '<%= params.parameters[i].default %>'
 - descriptions: <%= params.parameters[i].description %>
+- example: ```<%= params.parameters[i].example %>```
 <% } %>
+
+### CSS
+<% for (var i=0;i<params.css.length;i++){ %>
+<%= params.css[i].description %>
+
+example: ```<%- params.css[i].example %>```
+<% } %>
+
+
 
 ## Examples
 https://github.com/kirkas/Ascensor.js/tree/master/examples

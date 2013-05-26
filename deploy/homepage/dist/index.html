@@ -10,19 +10,18 @@
 	<meta name="description" content="Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system">
 	<meta name="viewport" content="user-scalable=0,width=device-width,initial-scale=1,maximum-scale=1">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="main.css">
 </head>
 <body>
 
 <nav id="navigationMap">
 	<ul>
+		<li><a class="ascensorLink ascensorLink0"></a></li>
 		<li><a class="ascensorLink ascensorLink1"></a></li>
 		<li><a class="ascensorLink ascensorLink2"></a></li>
 		<li><a class="ascensorLink ascensorLink3"></a></li>
 		<li><a class="ascensorLink ascensorLink4"></a></li>
 		<li><a class="ascensorLink ascensorLink5"></a></li>
-		<li><a class="ascensorLink ascensorLink6"></a></li>
-		<li><a class="ascensorLink ascensorLink7"></a></li>
 	</ul>
 </nav>
 
@@ -71,52 +70,91 @@
 &lt;/script&gt;</pre>
 		</article>
 	</section>
-	
+
 	<section>
 			<article class="container">
 			<h1>Options</h1>
+
 			
+				<div class="option">
+					<p><strong>ascensorName (string, default: ascensor)</strong></p>
+					<p>The ascensor name (use for class &amp; selector)</p>
+					<pre class="prettyprint">ascensorName:'myAscensor'</pre>
+				</div>
 			
-			<p><strong>AscensorName (string, default: ascensor)</strong></p>
-			<p>The ascensor name (use for class &amp; selector)</p>
+				<div class="option">
+					<p><strong>ascensorFloorName (string, default: null)</strong></p>
+					<p>Choose and name for each floor</p>
+					<pre class="prettyprint">ascensorFloorName: ['content1','content2','content3']</pre>
+				</div>
 			
-			<p><strong>AscensorFloorName (string, default: null)</strong></p>
-			<p>Choose and name for each floor (ex: 'content1 | content2 | content3')</p>
+				<div class="option">
+					<p><strong>childType (string, default: div)</strong></p>
+					<p>Specify the child tag if no div ('section' or 'article')</p>
+					<pre class="prettyprint">childType:'article'</pre>
+				</div>
 			
-			<p><strong>ChildType (string, default: div)</strong></p>
-			<p>Specify the child tag if no div ('section' or 'article')</p>
+				<div class="option">
+					<p><strong>windowsOn (integer, default: 1)</strong></p>
+					<p>Choose the floor to start on</p>
+					<pre class="prettyprint">windowsOn: 3</pre>
+				</div>
 			
-			<p><strong>WindowsOn (integer, default: 1)</strong></p>
-			<p>Choose the floor to start on</p>
+				<div class="option">
+					<p><strong>direction (string, default: y)</strong></p>
+					<p>specify the direction ('x', 'y' or 'chocolate')</p>
+					<pre class="prettyprint">direction: 'chocolate'</pre>
+				</div>
 			
-			<p><strong>Direction (string, default: y)</strong></p>
-			<p>specify the direction ('x', 'y' or 'chocolate')</p>
+				<div class="option">
+					<p><strong>ascensorMap (string, default: null)</strong></p>
+					<p>If you choose chocolate for direction, speficy position for x/y (ex: AscensorMap:[[2,1],[2,2],[3,2]])</p>
+					<pre class="prettyprint">ascensorMap:[[2,1],[2,2],[3,2]]</pre>
+				</div>
 			
-			<p><strong>AscensorMap (string, default: null)</strong></p>
-			<p>If you choose chocolate for direction, speficy position for x/y (ex: '2|1 &amp; 2|2 &amp; 3|2')</p>
+				<div class="option">
+					<p><strong>time (string, default: 1000)</strong></p>
+					<p>Specify speed of transition</p>
+					<pre class="prettyprint">time: 3000</pre>
+				</div>
 			
-			<p><strong>Time (string, default: 1000)</strong></p>
-			<p>Specify speed of transition</p>
+				<div class="option">
+					<p><strong>easing (string, default: linear)</strong></p>
+					<p>Specify easing option (don't forget to add the easing plugin)</p>
+					<pre class="prettyprint">easing: 'easeInElastic'</pre>
+				</div>
 			
-			<p><strong>Easing (string, default: linear)</strong></p>
-			<p>Specify easing option (don't forget to add the easing plugin)</p>
+				<div class="option">
+					<p><strong>overflow (string, default: scroll)</strong></p>
+					<p>Choose your main container overflow default behavior</p>
+					<pre class="prettyprint">overflow: 'hidden'</pre>
+				</div>
 			
-			<p><strong>Overflow (string, default: scroll)</strong></p>
-			<p>Choose your main container overflow default behavior</p>
+				<div class="option">
+					<p><strong>keyNavigation (boolean, default: true)</strong></p>
+					<p>choose if you want direction key support</p>
+					<pre class="prettyprint">keyNavigation: false</pre>
+				</div>
 			
-			<p><strong>KeyNavigation (boolean, default: true)</strong></p>
-			<p>choose if you want direction key support</p>
+				<div class="option">
+					<p><strong>queued (boolean, default: false)</strong></p>
+					<p>choose if you want direction scroll queued</p>
+					<pre class="prettyprint">queued: true</pre>
+				</div>
 			
-			<p><strong>Queued (boolean, default: false)</strong></p>
-			<p>choose if you want direction scroll queued</p>
+				<div class="option">
+					<p><strong>queuedDirection (string, default: x)</strong></p>
+					<p>choose if you want direction scroll queued 'x' or 'y'</p>
+					<pre class="prettyprint">queuedDirection: 'y'</pre>
+				</div>
 			
-			<p><strong>QueuedDirection (string, default: x)</strong></p>
-			<p>choose if you want direction scroll queued 'x' or 'y'</p>
+				<div class="option">
+					<p><strong>loop (boolean, default: true)</strong></p>
+					<p>specify if you want an loop</p>
+					<pre class="prettyprint">loop: false</pre>
+				</div>
 			
-			<p><strong>Loop (boolean, default: true)</strong></p>
-			<p>specify if you want an loop</p>
-			
-			
+
 		</article>
 	</section>
 
@@ -125,23 +163,37 @@
 		<article class="container">
 			<h1>CSS</h1>
 
-			<p>Ascensor give floor has the class  'ascensorName'+Floor</p>
-			<p>exemple:<pre class="prettyprint">class=&quot;myAscensorFloor&quot;</pre></p>
-
-			<p>Each floor has for id  'ascensorName'+Floor+index</p>
-			<p>exemple:<pre class="prettyprint">id=&quot;myAscensorFloor1&quot;</pre>
-
-			<p>To create next button, use class 'ascensorName'+LinkNext&quot;</p>
-			<p>exemple:<pre class="prettyprint">class=&quot;myAscensorLinkNext</pre>
-
-			<p>To create prev button, use class 'ascensorName'+LinkPrev</p>
-			<p>exemple:<pre class="prettyprint">class=&quot;myAscensorLinkPrev&quot;</pre>
-
-			<p>To create direct button to one of the floor, use class 'ascensorName'+Link and 'ascensorName'+LinkPrev+index</p>
-			<p>exemple:<pre class="prettyprint">class=&quot;myAscensorLink myAscensorLink3&quot;</pre>
-			<p>the link related to the current page has the class 'ascensorName'+Link and 'ascensorName'+LinkActive</p>
-			<p>exemple:<pre class="prettyprint">class=&quot;myAscensorLinkActive&quot;</pre>
-
+			
+				<div class="option">
+					<p>To create next button, use class 'ascensorName'+LinkNext</p>
+					<pre class="prettyprint">&lt;button class='myAscensorLinkNext'&gt;Next floor&lt;/button&gt;</pre>
+				</div>
+			
+				<div class="option">
+					<p>To create prev button, use class 'ascensorName'+LinkPrev</p>
+					<pre class="prettyprint">&lt;button class='myAscensorLinkPrev'&gt;Previous floor&lt;/button&gt;</pre>
+				</div>
+			
+				<div class="option">
+					<p>To create direct button to one of the floor, use class 'ascensorName'+Link and 'ascensorName'+LinkPrev+index</p>
+					<pre class="prettyprint">&lt;button class='myAscensorLink myAscensorLink3'&gt;Go the the 4 floor (JS count from 0)&lt;/button&gt;</pre>
+				</div>
+			
+				<div class="option">
+					<p>Ascensor assign each floor has the class 'ascensorName'+Floor</p>
+					<pre class="prettyprint">class='myAscensorFloor'</pre>
+				</div>
+			
+				<div class="option">
+					<p>Each floor has for id 'ascensorName'+Floor+Floor-Number</p>
+					<pre class="prettyprint">id='myAscensorFloor1'</pre>
+				</div>
+			
+				<div class="option">
+					<p>the link related to the current page has the class 'ascensorName'+Link and 'ascensorName'+LinkActive</p>
+					<pre class="prettyprint">class='myAscensorLinkActive'</pre>
+				</div>
+			
 
 		</article>
 	</section>
@@ -181,25 +233,25 @@
 
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.min.js"></script>
+<script src="plugins.js"></script>
+
 
 <script>
 	prettyPrint();
 
 	$('#ascensorBuilding').ascensor({
-		AscensorName: 'ascensor',
-		ChildType: 'section',
-		AscensorFloorName: 'Home | Implementation | HTML | Jquery | CSS | Smartphone | Credits',
-		Time: 1000,
-		WindowsOn: 1,
-		Direction: "chocolate",
-		AscensorMap: '2|1 & 2|2 & 3|2 & 3|3 & 3|4 & 2|4 & 1|4',
-		Easing: 'easeInOutQuad',
-		KeyNavigation: true,
-		Queued: false,
-		QueuedDirection: "y",
-		Overflow:"hidden"
+		ascensorName: 'ascensor',
+		childType: 'section',
+		ascensorFloorName: ['Home','Implementation','HTML','Jquery','CSS','martphone ','Credits'],
+		time: 1000,
+		windowsOn: 0,
+		direction: "chocolate",
+		ascensorMap: [[1,0],[1,1],[2,1],[2,2],[2,3],[1,3]],
+		easing: 'easeInOutQuad',
+		keyNavigation: true,
+		queued: false,
+		queuedDirection: "y",
+		overflow:"hidden"
 	})
 </script>
 

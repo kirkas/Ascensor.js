@@ -1,94 +1,139 @@
 {
+	"css":[
+		{
+			"description":"To create next button, use class 'ascensorName'+LinkNext",
+			"example":"<button class='myAscensorLinkNext'>Next floor</button>"
+		},
+		
+		{
+			"description":"To create prev button, use class 'ascensorName'+LinkPrev",
+			"example":"<button class='myAscensorLinkPrev'>Previous floor</button>"
+		},
+		
+		{
+			"description":"To create direct button to one of the floor, use class 'ascensorName'+Link and 'ascensorName'+LinkPrev+index",
+			"example":"<button class='myAscensorLink myAscensorLink3'>Go the the 4 floor (JS count from 0)</button>"
+		},
+		{
+			"description":"Ascensor assign each floor has the class 'ascensorName'+Floor",
+			"example":"class='myAscensorFloor'"
+		},
+		
+		{
+			"description":"Each floor has for id 'ascensorName'+Floor+Floor-Number",
+			"example":"id='myAscensorFloor1'"
+		},
+		
+		{
+			"description":"the link related to the current page has the class 'ascensorName'+Link and 'ascensorName'+LinkActive",
+			"example":"class='myAscensorLinkActive'"
+		}
+	],
+	
+	
 	"parameters": [
 		{
-			"name":"AscensorName",
+			"name":"ascensorName",
 			"type":"string",
 			"default":"ascensor",
-			"description" : "The ascensor name (use for class & selector)"
+			"description" : "The ascensor name (use for class & selector)",
+			"example":"ascensorName:'myAscensor'"
 		},
 
 		{
-			"name":"AscensorFloorName",
+			"name":"ascensorFloorName",
 			"type":"string",
 			"default":"null",
-			"description" : "Choose and name for each floor (ex: 'content1 | content2 | content3')"
+			"description" : "Choose and name for each floor",
+			"example":"ascensorFloorName: ['content1','content2','content3']"
 		},
 
 		{
-			"name":"ChildType",
+			"name":"childType",
 			"type":"string",
 			"default":"div",
-			"description" : "Specify the child tag if no div ('section' or 'article')"
+			"description" : "Specify the child tag if no div ('section' or 'article')",
+			"example":"childType:'article'"
 		},
 
 		{
-			"name":"WindowsOn",
+			"name":"windowsOn",
 			"type":"integer",
 			"default":"1",
-			"description" : "Choose the floor to start on"
+			"description" : "Choose the floor to start on",
+			"example":"windowsOn: 3"
 		},
 
 		{
-			"name":"Direction",
+			"name":"direction",
 			"type":"string",
 			"default":"y",
-			"description" : "specify the direction ('x', 'y' or 'chocolate')"
+			"description" : "specify the direction ('x', 'y' or 'chocolate')",
+			"example":"direction: 'chocolate'"
 		},
 
 		{
-			"name":"AscensorMap",
+			"name":"ascensorMap",
 			"type":"string",
 			"default":"null",
-			"description" : "If you choose chocolate for direction, speficy position for x/y (ex: '2|1 & 2|2 & 3|2')"
+			"description" : "If you choose chocolate for direction, speficy position for x/y (ex: AscensorMap:[[2,1],[2,2],[3,2]])",
+			"example":"ascensorMap:[[2,1],[2,2],[3,2]]"
 		},
 
 		{
-			"name":"Time",
+			"name":"time",
 			"type":"string",
 			"default":"1000",
-			"description" : "Specify speed of transition"
+			"description" : "Specify speed of transition",
+			"example":"time: 3000"
 		},
 
 		{
-			"name":"Easing",
+			"name":"easing",
 			"type":"string",
 			"default":"linear",
-			"description" : "Specify easing option (don't forget to add the easing plugin)"
+			"description" : "Specify easing option (don't forget to add the easing plugin)",
+			"example":"easing: 'easeInElastic'"
 		},
 
 		{
-			"name":"Overflow",
+			"name":"overflow",
 			"type":"string",
 			"default":"scroll",
-			"description" : "Choose your main container overflow default behavior"
+			"description" : "Choose your main container overflow default behavior",
+			"example":"overflow: 'hidden'"
 		},
 
 		{
-			"name":"KeyNavigation",
+			"name":"keyNavigation",
 			"type":"boolean",
 			"default":"true",
-			"description" : "choose if you want direction key support"
+			"description" : "choose if you want direction key support",
+			"example":"keyNavigation: false"
 		},
 
 		{
-			"name":"Queued",
+			"name":"queued",
 			"type":"boolean",
 			"default":"false",
-			"description" : "choose if you want direction scroll queued"
+			"description" : "choose if you want direction scroll queued",
+			"example":"queued: true"
 		},
 
 		{
-			"name":"QueuedDirection",
+			"name":"queuedDirection",
 			"type":"string",
 			"default":"x",
-			"description" : "choose if you want direction scroll queued 'x' or 'y'"
+			"description" : "choose if you want direction scroll queued 'x' or 'y'",
+			"example":"queuedDirection: 'y'"
 		},
 
 		{
-			"name":"Loop",
+			"name":"loop",
 			"type":"boolean",
 			"default":"true",
-			"description" : "specify if you want an loop"
+			"description" : "specify if you want an loop",
+			"example":"loop: false"
 		}
 	],
 

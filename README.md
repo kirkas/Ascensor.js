@@ -32,70 +32,112 @@ In your web page:
 ### Options
 
 
-#### AscensorName
+#### ascensorName
 - Type: 'string'
 - Default: 'ascensor'
 - descriptions: The ascensor name (use for class &amp; selector)
+- example: ```ascensorName:'myAscensor'```
 
-#### AscensorFloorName
+#### ascensorFloorName
 - Type: 'string'
 - Default: 'null'
-- descriptions: Choose and name for each floor (ex: 'content1 | content2 | content3')
+- descriptions: Choose and name for each floor
+- example: ```ascensorFloorName: ['content1','content2','content3']```
 
-#### ChildType
+#### childType
 - Type: 'string'
 - Default: 'div'
 - descriptions: Specify the child tag if no div ('section' or 'article')
+- example: ```childType:'article'```
 
-#### WindowsOn
+#### windowsOn
 - Type: 'integer'
 - Default: '1'
 - descriptions: Choose the floor to start on
+- example: ```windowsOn: 3```
 
-#### Direction
+#### direction
 - Type: 'string'
 - Default: 'y'
 - descriptions: specify the direction ('x', 'y' or 'chocolate')
+- example: ```direction: 'chocolate'```
 
-#### AscensorMap
+#### ascensorMap
 - Type: 'string'
 - Default: 'null'
-- descriptions: If you choose chocolate for direction, speficy position for x/y (ex: '2|1 &amp; 2|2 &amp; 3|2')
+- descriptions: If you choose chocolate for direction, speficy position for x/y (ex: AscensorMap:[[2,1],[2,2],[3,2]])
+- example: ```ascensorMap:[[2,1],[2,2],[3,2]]```
 
-#### Time
+#### time
 - Type: 'string'
 - Default: '1000'
 - descriptions: Specify speed of transition
+- example: ```time: 3000```
 
-#### Easing
+#### easing
 - Type: 'string'
 - Default: 'linear'
 - descriptions: Specify easing option (don't forget to add the easing plugin)
+- example: ```easing: 'easeInElastic'```
 
-#### Overflow
+#### overflow
 - Type: 'string'
 - Default: 'scroll'
 - descriptions: Choose your main container overflow default behavior
+- example: ```overflow: 'hidden'```
 
-#### KeyNavigation
+#### keyNavigation
 - Type: 'boolean'
 - Default: 'true'
 - descriptions: choose if you want direction key support
+- example: ```keyNavigation: false```
 
-#### Queued
+#### queued
 - Type: 'boolean'
 - Default: 'false'
 - descriptions: choose if you want direction scroll queued
+- example: ```queued: true```
 
-#### QueuedDirection
+#### queuedDirection
 - Type: 'string'
 - Default: 'x'
 - descriptions: choose if you want direction scroll queued 'x' or 'y'
+- example: ```queuedDirection: 'y'```
 
-#### Loop
+#### loop
 - Type: 'boolean'
 - Default: 'true'
 - descriptions: specify if you want an loop
+- example: ```loop: false```
+
+
+### CSS
+
+To create next button, use class 'ascensorName'+LinkNext
+
+example: ```<button class='myAscensorLinkNext'>Next floor</button>```
+
+To create prev button, use class 'ascensorName'+LinkPrev
+
+example: ```<button class='myAscensorLinkPrev'>Previous floor</button>```
+
+To create direct button to one of the floor, use class 'ascensorName'+Link and 'ascensorName'+LinkPrev+index
+
+example: ```<button class='myAscensorLink myAscensorLink3'>Go the the 4 floor (JS count from 0)</button>```
+
+Ascensor assign each floor has the class 'ascensorName'+Floor
+
+example: ```class='myAscensorFloor'```
+
+Each floor has for id 'ascensorName'+Floor+Floor-Number
+
+example: ```id='myAscensorFloor1'```
+
+the link related to the current page has the class 'ascensorName'+Link and 'ascensorName'+LinkActive
+
+example: ```class='myAscensorLinkActive'```
+
+
 
 
 ## Examples

@@ -9,6 +9,13 @@ module.exports = function(grunt) {
 			deploy:"deploy"
 		},
 		
+		concat: {
+			homepage: {
+				src: ['<%= projectOptions.deploy %>/homepage/src/plugins.js','<%= projectOptions.dist %>/jquery.ascensor.min.js'],
+				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
+			},
+		},
+		
 		uglify: {
 			options: {
 				banner: '/*\n'+
@@ -36,10 +43,10 @@ module.exports = function(grunt) {
 				dest: '<%= projectOptions.dist %>/jquery.ascensor.min.js'
 			},
 			
-			homepage:{
-				src: '<%= projectOptions.deploy %>/homepage/src/js/plugins.js',
-				dest: '<%= projectOptions.deploy %>/homepage/dist/js/plugins.js'
-			}
+			homepage: {
+				src: '<%= projectOptions.deploy %>/homepage/dist/plugins.js',
+				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
+			},
 			
 		},
 		
@@ -48,7 +55,7 @@ module.exports = function(grunt) {
 				src:'Gruntfile.js'
 			},
 			
-			ascensorsrc: {
+			ascensor: {
 				src:'<%= projectOptions.src %>/jquery.ascensor.js'
 			}
 		},
@@ -56,19 +63,28 @@ module.exports = function(grunt) {
 		clean:{
 			dist:{
 				src: ["dist/"]
+			},
+			homepage:{
+				src: ["./deploy/homepage/dist/"]
 			}
 		},
 		
 		watch: {
-			scripts: {
+			homepage: {
+				files: ['deploy/homepage/src/**/*.**'],
+				tasks: ['home:build']
+			},
+			
+			plugin:{
 				files: ['src/*.js'],
-				tasks: ['jshint:ascensorsrc', 'clean', 'uglify']
+				tasks: ['plugin:build']
 			}
+			
 		},
 		
 		template: {
 			simple: {
-				src: 'examples/src/layout.ejs',
+				src: 'deploy/github/layout.ejs',
 				dest: 'examples/example_simple.html',
 				variables: {
 					title: 'Simple',
@@ -77,29 +93,38 @@ module.exports = function(grunt) {
 			},
 			
 			horizontal: {
-				src: 'examples/src/layout.ejs',
+				src: 'deploy/github/layout.ejs',
 				dest: 'examples/example_horizontal.html',
 				variables: {
 					title: 'Horizontal',
-					params:'{Direction:"x"}'
+					params:'{direction:"x"}'
 				}
 			},
 			
 			chocolat: {
-				src: 'examples/src/layout.ejs',
-				dest: 'examples/example_chocolate.html',
+				src: 'deploy/github/layout.ejs',
+				dest: 'examples/example_chocolat.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{Direction:"chocolate", AscensorMap: "1|1 & 1|2 & 2|3 & 1|3 & 1|4 & 2|4 & 3|4"}'
+					params:'{direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]]}'
 				}
 			},
 			
 			urlcontrole: {
-				src: 'examples/src/layout.ejs',
+				src: 'deploy/github/layout.ejs',
 				dest: 'examples/example_url.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{AscensorFloorName:"Home | Implementation | HTML | Jquery | CSS | Smartphone | End"}'
+					params:'{ascensorFloorName:["Home", "Implementation", "HTML" , "Jquery" , "CSS", "Smartphone", "End"]}'
+				}
+			},
+			
+			queued: {
+				src: 'deploy/github/layout.ejs',
+				dest: 'examples/example_chocolat_queued.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:true, queuedDirection:"y"}'
 				}
 			},
 			
@@ -125,7 +150,7 @@ module.exports = function(grunt) {
 		sass: {
 			homepage: {
 				files: {
-					'<%= projectOptions.deploy %>/homepage/dist/css/main.css': '<%= projectOptions.deploy %>/homepage/src/css/main.scss'
+					'<%= projectOptions.deploy %>/homepage/dist/main.css': './deploy/homepage/src/main.scss'
 				}
 			}
 		},
@@ -137,13 +162,72 @@ module.exports = function(grunt) {
 					port: 21,
 					authKey: 'key1'
 				},
-				src: './homepage',
+				src: './deploy/homepage/dist',
 				dest: './ascensor'
 			}
+		},
+		
+		jasmine: {
+			ascensor: {
+				src: 'dist/jquery.ascensor.js',
+				options: {
+					vendor:[
+						'components/jquery/jquery.js', 
+						'components/jasmine-jquery/lib/jasmine-jquery.js'
+					],
+					specs: 'test/spec/*Spec.js'
+				}
+			},
+
+			jquery2: {
+				src: 'dist/jquery.ascensor.js',
+				options: {
+					vendor:[
+						'http://code.jquery.com/jquery-2.0.0.min.js', 
+						'components/jasmine-jquery/lib/jasmine-jquery.js'
+					],
+					specs: 'test/spec/*Spec.js'
+				}
+			},
+			
+			jquery19: {
+				src: 'dist/jquery.ascensor.js',
+				options: {
+					vendor:[
+						'http://code.jquery.com/jquery-1.9.0.min.js', 
+						'components/jasmine-jquery/lib/jasmine-jquery.js'
+					],
+					specs: 'test/spec/*Spec.js'
+				}
+			},
+			
+			jquery18: {
+				src: 'dist/jquery.ascensor.js',
+				options: {
+					vendor:[
+						'http://code.jquery.com/jquery-1.8.0.min.js', 
+						'components/jasmine-jquery/lib/jasmine-jquery.js'
+					],
+					specs: 'test/spec/*Spec.js'
+				}
+			},
+			
+			jquery17: {
+				src: 'dist/jquery.ascensor.js',
+				options: {
+					vendor:[
+						'http://code.jquery.com/jquery-1.7.0.min.js', 
+						'components/jasmine-jquery/lib/jasmine-jquery.js'
+					],
+					specs: 'test/spec/*Spec.js'
+				}
+			},
 		}
 		
 	});
 	
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -153,13 +237,23 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-ftp-deploy');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.registerTask('default', ['jshint']);
-	grunt.registerTask('build', ['clean', 'jshint', 'uglify']);
 	
 	
 	
-	grunt.registerTask('deploy-github', ['template']);
-	grunt.registerTask('deploy-kirkas', ['template:homepage', 'ftp-deploy']);
+	grunt.registerTask('home:build', ['clean:homepage','sass:homepage','concat:homepage','uglify:homepage','template:homepage']);
+	grunt.registerTask('plugin:build', ['jshint:ascensor','jasmine:ascensor','clean:dist','uglify:ascensormin','uglify:ascensor','template:README']);
+	grunt.registerTask('home:deploy', ['home:build','ftp-deploy']);
 	
 	
+
+	// grunt.registerTask('test:jquery', 'Test jquery.', function(n) {
+	// 	jqueryVersion.forEach(function(index){
+	// 			
+	// 			jqueryTesting=index;
+	// 			console.log("testing with jquery."+jqueryTesting)
+	// 			grunt.task.run('jasmine:ascensortest');
+	// 	})
+	// });
 	
+
 };
