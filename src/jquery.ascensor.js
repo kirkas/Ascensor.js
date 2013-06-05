@@ -115,8 +115,8 @@
     function resize() {
 
       //update WW & WH variables
-      WW = $(window).width();
-      WH = $(window).height();
+      WW = $(document).width();
+      WH = $(document).height();
 
       //node and node children get have window widht & height
       $(nodeChildren).width(WW).height(WH);

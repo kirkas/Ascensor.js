@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			homepage: {
 				src: ['<%= projectOptions.deploy %>/homepage/src/plugins.js','<%= projectOptions.dist %>/jquery.ascensor.min.js'],
 				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
-			},
+			}
 		},
 		
 		uglify: {
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 			homepage: {
 				src: '<%= projectOptions.deploy %>/homepage/dist/plugins.js',
 				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
-			},
+			}
 			
 		},
 		
@@ -221,11 +221,11 @@ module.exports = function(grunt) {
 					],
 					specs: 'test/spec/*Spec.js'
 				}
-			},
+			}
 		}
 		
 	});
-	
+		
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	grunt.loadNpmTasks('grunt-contrib-sass');
@@ -243,17 +243,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('home:build', ['clean:homepage','sass:homepage','concat:homepage','uglify:homepage','template:homepage']);
 	grunt.registerTask('plugin:build', ['jshint:ascensor','jasmine:ascensor','clean:dist','uglify:ascensormin','uglify:ascensor','template:README']);
 	grunt.registerTask('home:deploy', ['home:build','ftp-deploy']);
-	
-	
-
-	// grunt.registerTask('test:jquery', 'Test jquery.', function(n) {
-	// 	jqueryVersion.forEach(function(index){
-	// 			
-	// 			jqueryTesting=index;
-	// 			console.log("testing with jquery."+jqueryTesting)
-	// 			grunt.task.run('jasmine:ascensortest');
-	// 	})
-	// });
 	
 
 };

@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.6.1 (2013-05-26)
+version: 1.6.2 (2013-06-05)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -58,7 +58,7 @@ author: Léo Galley <contact@kirkas.ch>
         /* Resize function */
         function resize() {
             //update WW & WH variables
-            WW = $(window).width(), WH = $(window).height(), //node and node children get have window widht & height
+            WW = $(document).width(), WH = $(document).height(), //node and node children get have window widht & height
             $(nodeChildren).width(WW).height(WH), $(node).width(WW).height(WH), //if direction is y
             "y" === self.options.direction && //stop animation and update node scrollTop
             $(node).stop().scrollTop(floorActive * WH), //if direction is x
