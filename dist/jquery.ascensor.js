@@ -144,7 +144,7 @@ author: Léo Galley <contact@kirkas.ch>
         //check key function
         function checkKey(e) {
             if ($("input, textarea, button").is(":focus")) return !1;
-            switch (e.keyCode) {
+            switch (e.which) {
               //keyDown  
                 case 40:
               case 83:
@@ -260,8 +260,7 @@ author: Léo Galley <contact@kirkas.ch>
         $(window).bind("orientationchange", function() {
             resize();
         }), self.options.keyNavigation) {
-            var FIREFOX = /Firefox/i.test(navigator.userAgent);
-            FIREFOX ? $(document).keypress(checkKey) : $(document).keydown(checkKey);
+            $(document).keydown(checkKey);
         }
         $(node).on("ascensorLeft", function() {
             left();
