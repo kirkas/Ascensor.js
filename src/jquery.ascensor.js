@@ -13,6 +13,7 @@
       time: "1000",                       // Specify speed of transition
       easing: "linear",                   // Specify easing option
       keyNavigation: true,                // choose if you want direction key support
+      touchSwipeIntegration: false,       // choose if you want swipe event support (requires http://labs.rampinteractive.co.uk/touchSwipe/)
       queued: false,                      // choose if you want direction scroll queued
       queuedDirection: "x",                // choose if you want direction scroll queued "x" or "y" (default : "x")
       overflow: "scroll"
@@ -382,6 +383,27 @@
     if (self.options.keyNavigation) {
         $(document).keydown(checkKey);
     }
+
+      //Enable swiping...
+    if (self.options.touchSwipeIntegration){
+        $(node).swipe( {
+          //Generic swipe handler for all directions
+          swipe:function(event, direction, distance, duration, fingerCount) {
+           //  this[direction]();
+           var ascensorDirStr="";
+           if (direction=="up") ascensorDirStr="Down";
+           else if (direction=="down") ascensorDirStr="Up";
+           else if (direction=="left") ascensorDirStr="Right";
+           else if (direction=="right") ascensorDirStr="Left";
+             $(node).trigger({
+                      type: "ascensor"+ascensorDirStr,
+                      floor: floorActive
+                  });
+          },
+            threshold:70
+        });
+    }
+
 
     function scrollStart(){
       $(node).trigger({
