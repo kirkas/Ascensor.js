@@ -337,7 +337,7 @@
     //check key function
     function checkKey(e) {
       if($("input, textarea, button").is(":focus")){
-        return false;
+        return;
       }
       switch (e.which) {
         
