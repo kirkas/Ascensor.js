@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.6.2 (2013-06-05)
+version: 1.6.2 (2013-10-12)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -275,25 +275,27 @@ author: Léo Galley <contact@kirkas.ch>
             next();
         }), $(node).on("ascensorPrev", function() {
             prev();
-        }), //on ascensor prev link click
-        $("." + self.options.ascensorName + "LinkPrev").on("click", function() {
+        });
+        var className = self.options.ascensorName;
+        //on ascensor prev link click
+        $("." + className + "LinkPrev").on("click", function() {
             prev();
         }), //on ascensor next click
-        $("." + self.options.ascensorName + "LinkNext").on("click", function() {
+        $("." + className + "LinkNext").on("click", function() {
             next();
         }), // on ancensor left click
-        $("." + self.options.ascensorName + "LinkLeft").on("click", function() {
+        $("." + className + "LinkLeft").on("click", function() {
             left();
         }), // on ancensor right click
-        $("." + self.options.ascensorName + "LinkRight").on("click", function() {
+        $("." + className + "LinkRight").on("click", function() {
             right();
         }), // on ancensor up click
-        $("." + self.options.ascensorName + "LinkUp").on("click", function() {
+        $("." + className + "LinkUp").on("click", function() {
             down();
         }), // on ancensor down click
-        $("." + self.options.ascensorName + "LinkDown").on("click", function() {
+        $("." + className + "LinkDown").on("click", function() {
             up();
-        }), $("." + self.options.ascensorName + "Link").on("click", function() {
+        }), $("." + className + "Link").on("click", function() {
             //look for the second class and split the number
             var floorReference = parseInt($(this).attr("class").split(" ")[1].split(self.options.ascensorName + "Link")[1], 10);
             //target the floor number

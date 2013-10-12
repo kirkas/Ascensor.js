@@ -1,7 +1,8 @@
 (function($, window, undefined) {
 
   /* Plugin defaults options */
-  var pluginName = 'ascensor',
+  var 
+    pluginName = 'ascensor',
     defaults = {
       ascensorName: "ascensor",           // First, choose the ascensor name
       ascensorFloorName: null,            // Choose name for each floor
@@ -31,7 +32,8 @@
 
 
     /* Settings */
-    var self = this,
+    var 
+      self = this,
       node = this.element,
       nodeChildren = $(node).children(self.options.childType),
 
@@ -508,37 +510,39 @@
       prev();
     });
 
+    var className = self.options.ascensorName;
+
     //on ascensor prev link click
-    $("." + self.options.ascensorName + "LinkPrev").on("click", function() {
+    $("." + className + "LinkPrev").on("click", function() {
       prev();
     });
 
     //on ascensor next click
-    $("." + self.options.ascensorName + "LinkNext").on("click", function() {
+    $("." + className + "LinkNext").on("click", function() {
       next();
     });
 	
 	// on ancensor left click
-	$("." + self.options.ascensorName + "LinkLeft").on("click", function() {
+	$("." + className + "LinkLeft").on("click", function() {
       left();
     });
 	
 	// on ancensor right click
-	$("." + self.options.ascensorName + "LinkRight").on("click", function() {
+	$("." + className + "LinkRight").on("click", function() {
       right();
-    });
+  });
 	
 	// on ancensor up click
-	$("." + self.options.ascensorName + "LinkUp").on("click", function() {
+	$("." + className + "LinkUp").on("click", function() {
       down();
     });
 	
 	// on ancensor down click
-	$("." + self.options.ascensorName + "LinkDown").on("click", function() {
+	$("." + className + "LinkDown").on("click", function() {
       up();
   });
   
-  $("." + self.options.ascensorName + "Link").on("click", function() {
+  $("." + className + "Link").on("click", function() {
 
     //look for the second class and split the number
     var floorReference = parseInt(($(this).attr("class").split(" ")[1].split(self.options.ascensorName + "Link"))[1], 10);
