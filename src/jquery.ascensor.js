@@ -339,9 +339,9 @@
     //check key function
     function checkKey(e) {
       if($("input, textarea, button").is(":focus")){
-        return false;
+        return;
       }
-      switch (e.keyCode) {
+      switch (e.which) {
         
         //keyDown  
       case 40:
@@ -382,12 +382,7 @@
     }
     
     if (self.options.keyNavigation) {
-      var FIREFOX = /Firefox/i.test(navigator.userAgent);
-      if (FIREFOX) {
-        $(document).keypress(checkKey);
-      }else{
         $(document).keydown(checkKey);
-      }
     }
 
     function scrollStart(){

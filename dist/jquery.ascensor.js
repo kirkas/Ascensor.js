@@ -143,8 +143,7 @@ author: Léo Galley <contact@kirkas.ch>
         }
         //check key function
         function checkKey(e) {
-            if ($("input, textarea, button").is(":focus")) return !1;
-            switch (e.keyCode) {
+            if (!$("input, textarea, button").is(":focus")) switch (e.which) {
               //keyDown  
                 case 40:
               case 83:
@@ -237,7 +236,7 @@ author: Léo Galley <contact@kirkas.ch>
         WW, WH, //hash 
         hash, self = this, node = this.element, nodeChildren = $(node).children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1;
-        if (self.options.direction, /* Start plugin actions */
+        self.options.direction, /* Start plugin actions */
         //define position,height & width
         $(node).css("position", "absolute").width(WW).height(WH), $(node).css("overflow", self.options.overflow), 
         //define height & width
@@ -259,11 +258,7 @@ author: Léo Galley <contact@kirkas.ch>
         window.DeviceOrientationEvent && //add orientation check
         $(window).bind("orientationchange", function() {
             resize();
-        }), self.options.keyNavigation) {
-            var FIREFOX = /Firefox/i.test(navigator.userAgent);
-            FIREFOX ? $(document).keypress(checkKey) : $(document).keydown(checkKey);
-        }
-        $(node).on("ascensorLeft", function() {
+        }), self.options.keyNavigation && $(document).keydown(checkKey), $(node).on("ascensorLeft", function() {
             left();
         }), $(node).on("ascensorRight", function() {
             right();
