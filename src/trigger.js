@@ -12,7 +12,7 @@ function scrollEnd() {
   });
 }
 
-node.on("scrollToStage", function(event, direction) {
+node.on("scrollToDirection", function(event, direction) {
   if (direction == "next") {
     next();
   } else if (direction == "prev") {
@@ -22,7 +22,7 @@ node.on("scrollToStage", function(event, direction) {
   }
 });
 
-node.on("scrollToFloor", function(event, floor) {
+node.on("scrollToStage", function(event, floor) {
   if(floor > floorCounter) return;
   scrollToStage(floor);
 });
@@ -35,7 +35,6 @@ node.on("next", function(event, floor) {
 node.on("prev", function(event, floor) {
   prev();
 });
-
 
 node.on("update", function() {
   nodeChildren = node.children(self.options.childType);

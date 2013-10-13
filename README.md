@@ -32,12 +32,6 @@ In your web page:
 ### Options
 
 
-#### ascensorName
-- Type: 'string'
-- Default: 'ascensor'
-- descriptions: The ascensor name (use for class &amp; selector)
-- example: ```ascensorName:'myAscensor'```
-
 #### ascensorFloorName
 - Type: 'string'
 - Default: 'null'
@@ -105,32 +99,25 @@ In your web page:
 - example: ```loop: false```
 
 
-### CSS
 
-To create next button, use class 'ascensorName'+LinkNext
+### Triggers
+You can navigate by using jquery trigger system
 
-example: ```<button class='myAscensorLinkNext'>Next floor</button>```
+```html
+var ascensor = $('#ascensor').ascensor();
+ascensor.trigger("prev");
+ascensor.trigger("next");
+ascensor.trigger("scrollToFloor", 4);
+ascensor.trigger("scrollToDirection" ,"up");
+ascensor.trigger("scrollToDirection" ,"down");
+ascensor.trigger("scrollToDirection" ,"left");
+ascensor.trigger("scrollToDirection" ,"right");
+```
 
-To create prev button, use class 'ascensorName'+LinkPrev
-
-example: ```<button class='myAscensorLinkPrev'>Previous floor</button>```
-
-To create direct button to one of the floor, use class 'ascensorName'+Link and 'ascensorName'+LinkPrev+index
-
-example: ```<button class='myAscensorLink myAscensorLink3'>Go the the 4 floor (JS count from 0)</button>```
-
-Ascensor assign each floor has the class 'ascensorName'+Floor
-
-example: ```class='myAscensorFloor'```
-
-Each floor has for id 'ascensorName'+Floor+Floor-Number
-
-example: ```id='myAscensorFloor1'```
-
-the link related to the current page has the class 'ascensorName'+Link and 'ascensorName'+LinkActive
-
-example: ```class='myAscensorLinkActive'```
-
+### CSS navigation class
+#### Update
+Since i've added the trigger system, i've removed the css
+navigation class system
 
 
 

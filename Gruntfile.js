@@ -11,7 +11,9 @@ module.exports = function(grunt) {
 		
 		concat: {
 			homepage: {
-				src: ['<%= projectOptions.deploy %>/homepage/src/plugins.js','<%= projectOptions.dist %>/jquery.ascensor.min.js'],
+				src: [
+				'<%= projectOptions.deploy %>/homepage/src/plugins.js',
+				'<%= projectOptions.dist %>/jquery.ascensor.min.js'],
 				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
 			},
 			plugin: {

@@ -14,8 +14,6 @@ author: Léo Galley <contact@kirkas.ch>
         this._name = pluginName, this.init();
     }
     var pluginName = "ascensor", defaults = {
-        ascensorName: "ascensor",
-        // First, choose the ascensor name
         ascensorFloorName: null,
         // Choose name for each floor
         childType: "div",
@@ -125,8 +123,6 @@ author: Léo Galley <contact@kirkas.ch>
             }
             node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback), 
             hashChange || null === self.options.ascensorFloorName || (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
-            $("." + self.options.ascensorName + "Link").removeClass(self.options.ascensorName + "LinkActive"), 
-            $("." + self.options.ascensorName + "Link" + floor).addClass(self.options.ascensorName + "LinkActive"), 
             floorActive = floor;
         }
         function scrollEnd() {
@@ -162,9 +158,9 @@ author: Léo Galley <contact@kirkas.ch>
         hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
         $(document)), $window = $(window);
-        node.on("scrollToStage", function(event, direction) {
+        node.on("scrollToDirection", function(event, direction) {
             "next" == direction ? next() : "prev" == direction ? prev() : handleDirection(direction);
-        }), node.on("scrollToFloor", function(event, floor) {
+        }), node.on("scrollToStage", function(event, floor) {
             floor > floorCounter || scrollToStage(floor);
         }), node.on("next", function() {
             next();

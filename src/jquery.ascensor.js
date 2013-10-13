@@ -4,7 +4,6 @@
   var pluginName = 'ascensor';
   
   var defaults = {
-    ascensorName: "ascensor",           // First, choose the ascensor name
     ascensorFloorName: null,            // Choose name for each floor
     childType: "div",                   // Specify the child type if there are no 'div'
     windowsOn: 0,                       // Choose the floor to start on
@@ -223,8 +222,6 @@ function scrollToStage(floor, time, hashChange) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
 
-  $("." + self.options.ascensorName + "Link").removeClass(self.options.ascensorName + "LinkActive");
-  $("." + self.options.ascensorName + "Link" + floor).addClass(self.options.ascensorName + "LinkActive");
   floorActive = floor;
 }
 function scrollStart() {
@@ -241,7 +238,7 @@ function scrollEnd() {
   });
 }
 
-node.on("scrollToStage", function(event, direction) {
+node.on("scrollToDirection", function(event, direction) {
   if (direction == "next") {
     next();
   } else if (direction == "prev") {
@@ -251,7 +248,7 @@ node.on("scrollToStage", function(event, direction) {
   }
 });
 
-node.on("scrollToFloor", function(event, floor) {
+node.on("scrollToStage", function(event, floor) {
   if(floor > floorCounter) return;
   scrollToStage(floor);
 });
@@ -264,7 +261,6 @@ node.on("next", function(event, floor) {
 node.on("prev", function(event, floor) {
   prev();
 });
-
 
 node.on("update", function() {
   nodeChildren = node.children(self.options.childType);

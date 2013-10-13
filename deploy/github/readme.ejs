@@ -39,12 +39,25 @@ In your web page:
 - example: ```<%= params.parameters[i].example %>```
 <% } %>
 
-### CSS
-<% for (var i=0;i<params.css.length;i++){ %>
-<%= params.css[i].description %>
 
-example: ```<%- params.css[i].example %>```
-<% } %>
+### Triggers
+You can navigate by using jquery trigger system
+
+```html
+var ascensor = $('#ascensor').ascensor();
+ascensor.trigger("prev");
+ascensor.trigger("next");
+ascensor.trigger("scrollToFloor", 4);
+ascensor.trigger("scrollToDirection" ,"up");
+ascensor.trigger("scrollToDirection" ,"down");
+ascensor.trigger("scrollToDirection" ,"left");
+ascensor.trigger("scrollToDirection" ,"right");
+```
+
+### CSS navigation class
+#### Update
+Since i've added the trigger system, i've removed the css
+navigation class system
 
 
 

@@ -14,32 +14,32 @@
 </head>
 <body>
 
-<nav id="navigationMap">
-	<ul>
-		<li><a class="ascensorLink ascensorLink0"></a></li>
-		<li><a class="ascensorLink ascensorLink1"></a></li>
-		<li><a class="ascensorLink ascensorLink2"></a></li>
-		<li><a class="ascensorLink ascensorLink3"></a></li>
-		<li><a class="ascensorLink ascensorLink4"></a></li>
-		<li><a class="ascensorLink ascensorLink5"></a></li>
-	</ul>
-</nav>
 
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kirkas.ch/ascensor/" data-via="Kirkas_ch">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-<div class="fb-like" data-href="http://kirkas.ch/ascensor/" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kirkas.ch/ascensor/" data-via="Kirkas_ch">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	<div class="fb-like" data-href="http://kirkas.ch/ascensor/" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+	<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://kirkas.ch/ascensor/"></a>
+	<noscript><a href="http://flattr.com/thing/863282/jquery-ascensor-js" target="_blank">
+	<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+	<form action="https://www.paypal.com/cgi-bin/webscr" class="paypalButton" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="SHS7YMYEEBPC6">
+		<input type="image" src="https://www.paypalobjects.com/en_US/CH/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+	</form>
 
-<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://kirkas.ch/ascensor/"></a>
-<noscript><a href="http://flattr.com/thing/863282/jquery-ascensor-js" target="_blank">
-<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 
-<form action="https://www.paypal.com/cgi-bin/webscr" class="paypalButton" method="post">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="SHS7YMYEEBPC6">
-<input type="image" src="https://www.paypalobjects.com/en_US/CH/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+	<nav id="navigationMap">
+		<ul class="links-to-floor">
+			<li><a class="ascensorLink ascensorLink0"></a></li>
+			<li><a class="ascensorLink ascensorLink1"></a></li>
+			<li><a class="ascensorLink ascensorLink2"></a></li>
+			<li><a class="ascensorLink ascensorLink3"></a></li>
+			<li><a class="ascensorLink ascensorLink4"></a></li>
+			<li><a class="ascensorLink ascensorLink5"></a></li>
+		</ul>
+	</nav>
 
 	<div id="ascensorBuilding">
 	<section>
@@ -50,7 +50,6 @@
 			<a href="https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.min.js">jquery.ascensor.min.js</a>
 		</article>
 	</section>
-
 	<section>
 		<article class="container">
 			<h1>Implementation</h1>
@@ -70,17 +69,9 @@
 &lt;/script&gt;</pre>
 		</article>
 	</section>
-
 	<section>
 			<article class="container">
 			<h1>Options</h1>
-
-			
-				<div class="option">
-					<p><strong>ascensorName (string, default: ascensor)</strong></p>
-					<p>The ascensor name (use for class &amp; selector)</p>
-					<pre class="prettyprint">ascensorName:'myAscensor'</pre>
-				</div>
 			
 				<div class="option">
 					<p><strong>ascensorFloorName (string, default: null)</strong></p>
@@ -148,50 +139,25 @@
 					<pre class="prettyprint">loop: false</pre>
 				</div>
 			
-
 		</article>
 	</section>
-
-
 	<section>
 		<article class="container">
-			<h1>CSS</h1>
-
-			
-				<div class="option">
-					<p>To create next button, use class 'ascensorName'+LinkNext</p>
-					<pre class="prettyprint">&lt;button class='myAscensorLinkNext'&gt;Next floor&lt;/button&gt;</pre>
-				</div>
-			
-				<div class="option">
-					<p>To create prev button, use class 'ascensorName'+LinkPrev</p>
-					<pre class="prettyprint">&lt;button class='myAscensorLinkPrev'&gt;Previous floor&lt;/button&gt;</pre>
-				</div>
-			
-				<div class="option">
-					<p>To create direct button to one of the floor, use class 'ascensorName'+Link and 'ascensorName'+LinkPrev+index</p>
-					<pre class="prettyprint">&lt;button class='myAscensorLink myAscensorLink3'&gt;Go the the 4 floor (JS count from 0)&lt;/button&gt;</pre>
-				</div>
-			
-				<div class="option">
-					<p>Ascensor assign each floor has the class 'ascensorName'+Floor</p>
-					<pre class="prettyprint">class='myAscensorFloor'</pre>
-				</div>
-			
-				<div class="option">
-					<p>Each floor has for id 'ascensorName'+Floor+Floor-Number</p>
-					<pre class="prettyprint">id='myAscensorFloor1'</pre>
-				</div>
-			
-				<div class="option">
-					<p>the link related to the current page has the class 'ascensorName'+Link and 'ascensorName'+LinkActive</p>
-					<pre class="prettyprint">class='myAscensorLinkActive'</pre>
-				</div>
-			
-
+			<h1>Trigger</h1>
+			<div class="option">
+				<p>You can navigate by using jquery trigger system</p>
+				<pre class="prettyprint">
+var ascensor = $('#ascensor').ascensor();
+ascensor.trigger("prev");
+ascensor.trigger("next");
+ascensor.trigger("scrollToFloor", 4);
+ascensor.trigger("scrollToDirection" ,"up");
+ascensor.trigger("scrollToDirection" ,"down");
+ascensor.trigger("scrollToDirection" ,"left");
+ascensor.trigger("scrollToDirection" ,"right");</pre>
+			</div>
 		</article>
 	</section>
-
 	<section>
 		<article class="container">
 			<h1>Smartphone</h1>
@@ -200,7 +166,6 @@
 			<p>It will control the iphone zoom option and make a better view of your website </p>
 		</article>
 	</section>
-
 	<section>
 		<article class="container">
 			<h1>Credits</h1>
@@ -222,19 +187,14 @@
 			
 		</article>
 	</section>
-
 </div>
-
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="plugins.js"></script>
-
-
+	
 <script>
 	prettyPrint();
-
-	$('#ascensorBuilding').ascensor({
-		ascensorName: 'ascensor',
+	var ascensor = $('#ascensorBuilding').ascensor({
 		childType: 'section',
 		ascensorFloorName: ['Home','Implementation','HTML','Jquery','CSS','martphone ','Credits'],
 		time: 1000,
@@ -246,9 +206,39 @@
 		queued: false,
 		queuedDirection: "y",
 		overflow:"hidden"
-	})
+	});
+			
+	$(".links-to-floor li").click(function(event, index) {
+		ascensor.trigger("scrollToStage", $(this).index());
+	});
+			
+	$(".prev").click(function() {
+		ascensor.trigger("prev");
+	});
+			
+	$(".next").click(function() {
+		ascensor.trigger("next");
+	});
+			
+	$(".up").click(function() {
+		ascensor.trigger("scrollToDirection" ,"up");
+	});
+			
+	$(".down").click(function() {
+		ascensor.trigger("scrollToDirection" ,"down");
+	});
+			
+	$(".left").click(function() {
+		ascensor.trigger("scrollToDirection" ,"left");
+	});
+			
+	$(".right").click(function() {
+		ascensor.trigger("scrollToDirection" ,"right");
+	});
+			
 </script>
-
+		
+		
 <!-- FLATTR BUTTON ANALYTICS -->
 <script type="text/javascript">
 	/* <![CDATA[ */

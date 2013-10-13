@@ -30,6 +30,13 @@
 				<li class="next" ><a>next</a></li>
 			</ul>
 			
+			<ul class="direction-links">
+				<li class="up" ><a>up</a></li>
+				<li class="down" ><a>down</a></li>
+				<li class="left" ><a>left</a></li>
+				<li class="right" ><a>right</a></li>
+			</ul>
+			
 		</nav>
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
@@ -37,16 +44,33 @@
 			var ascensor = $('#ascensorBuilding').ascensor({direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:true, queuedDirection:"y"});
 			
 			$(".links-to-floor li").click(function(event, index) {
-				ascensor.trigger("scrollToFloor", $(this).index());
+				ascensor.trigger("scrollToStage", $(this).index());
 			});
 			
-			$(".prev").click(function(event, index) {
+			$(".prev").click(function() {
 				ascensor.trigger("prev");
 			});
 			
-			$(".next").click(function(event, index) {
+			$(".next").click(function() {
 				ascensor.trigger("next");
 			});
+			
+			$(".up").click(function() {
+				ascensor.trigger("scrollToDirection" ,"up");
+			});
+			
+			$(".down").click(function() {
+				ascensor.trigger("scrollToDirection" ,"down");
+			});
+			
+			$(".left").click(function() {
+				ascensor.trigger("scrollToDirection" ,"left");
+			});
+			
+			$(".right").click(function() {
+				ascensor.trigger("scrollToDirection" ,"right");
+			});
+			
 			
 		</script>
 

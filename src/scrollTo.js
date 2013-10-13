@@ -76,7 +76,5 @@ function scrollToStage(floor, time, hashChange) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
 
-  $("." + self.options.ascensorName + "Link").removeClass(self.options.ascensorName + "LinkActive");
-  $("." + self.options.ascensorName + "Link" + floor).addClass(self.options.ascensorName + "LinkActive");
   floorActive = floor;
 }

@@ -33,14 +33,6 @@
 	
 	"parameters": [
 		{
-			"name":"ascensorName",
-			"type":"string",
-			"default":"ascensor",
-			"description" : "The ascensor name (use for class & selector)",
-			"example":"ascensorName:'myAscensor'"
-		},
-
-		{
 			"name":"ascensorFloorName",
 			"type":"string",
 			"default":"null",
