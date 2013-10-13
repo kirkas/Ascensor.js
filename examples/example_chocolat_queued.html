@@ -7,29 +7,47 @@
 	</head>
 	<body>
 		<div id="ascensorBuilding">
-			<div>Content 1</div>
-			<div>Content 2</div>
-			<div>Content 3</div>
-			<div>Content 4</div>
-			<div>Content 5</div>
-			<div>Content 6</div>
-			<div>Content 7</div>
+			<div class="floor-1">Content 1</div>
+			<div class="floor-2">Content 2</div>
+			<div class="floor-3">Content 3</div>
+			<div class="floor-4">Content 4</div>
+			<div class="floor-5">Content 5</div>
+			<div class="floor-6">Content 6</div>
+			<div class="floor-7">Content 7</div>
 		</div>
 		<nav>
-			<ul>
-				<li><a class="ascensorLink ascensorLink0">Navigation 1</a></li>
-				<li><a class="ascensorLink ascensorLink1">Navigation 2</a></li>
-				<li><a class="ascensorLink ascensorLink2">Navigation 3</a></li>
-				<li><a class="ascensorLink ascensorLink3">Navigation 4</a></li>
-				<li><a class="ascensorLink ascensorLink4">Navigation 5</a></li>
-				<li><a class="ascensorLink ascensorLink5">Navigation 6</a></li>
-				<li><a class="ascensorLink ascensorLink6">Navigation 7</a></li>
+			<ul class="links-to-floor">
+				<li><a>Floor 1</a></li>
+				<li><a>Floor 2</a></li>
+				<li><a>Floor 3</a></li>
+				<li><a>Floor 4</a></li>
+				<li><a>Floor 5</a></li>
+				<li><a>Floor 6</a></li>
+				<li><a>Floor 7</a></li>
 			</ul>
+			<ul class="prev-next-links">
+				<li class="prev" ><a>prev</a></li>
+				<li class="next" ><a>next</a></li>
+			</ul>
+			
 		</nav>
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
 		<script>
-			$('#ascensorBuilding').ascensor({direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:true, queuedDirection:"y"});
+			var ascensor = $('#ascensorBuilding').ascensor({direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:true, queuedDirection:"y"});
+			
+			$(".links-to-floor li").click(function(event, index) {
+				ascensor.trigger("scrollToFloor", $(this).index());
+			});
+			
+			$(".prev").click(function(event, index) {
+				ascensor.trigger("prev");
+			});
+			
+			$(".next").click(function(event, index) {
+				ascensor.trigger("next");
+			});
+			
 		</script>
 
 	</body>

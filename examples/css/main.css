@@ -7,34 +7,13 @@ body{
 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-#ascensorFloor0{
-	background: #F9B233;	
-}
-
-#ascensorFloor1{
-	background: #71B5E5;	
-}
-
-#ascensorFloor2{
-	background: #B3CE4A;	
-}
-
-#ascensorFloor3{
-	background: #EB5D45;	
-}
-
-#ascensorFloor4{
-	background: #4AAEB6;	
-}
-
-#ascensorFloor5{
-	background: #E7DFBF;	
-}
-
-#ascensorFloor6{
-	background: #CA9E67;	
-}
-
+.floor-1{background: #F9B233;}
+.floor-1{background: #71B5E5;}
+.floor-2{background: #B3CE4A;}
+.floor-3{background: #EB5D45;}
+.floor-4{background: #4AAEB6;}
+.floor-5{background: #E7DFBF;}
+.floor-6{background: #CA9E67;}
 nav{
 	position: absolute;
 	bottom: 20px;

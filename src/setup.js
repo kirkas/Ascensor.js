@@ -6,7 +6,6 @@ node.css({
 
 nodeChildren.width(WW).height(WH).each(function(index) {
   floorCounter += 1;
-  $(this).attr("id", self.options.ascensorName + "Floor" + floorCounter).addClass(self.options.ascensorName + "Floor");
 });
 
 if (self.options.direction === "x" || self.options.direction === "chocolate") {
@@ -31,7 +30,6 @@ if (window.DeviceOrientationEvent) {
     resize();
   });
 }
-
 
 $window.on("hashchange", function() {
   hashChange();

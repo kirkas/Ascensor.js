@@ -251,26 +251,25 @@ node.on("scrollToStage", function(event, direction) {
   }
 });
 
+node.on("scrollToFloor", function(event, floor) {
+  if(floor > floorCounter) return;
+  scrollToStage(floor);
+});
+
+
+node.on("next", function(event, floor) {
+  next();
+});
+
+node.on("prev", function(event, floor) {
+  prev();
+});
+
+
 node.on("update", function() {
   nodeChildren = node.children(self.options.childType);
   resize();
 });
-
-
-var className = self.options.ascensorName;
-
-
-
-
-  $("." + className + "Link").on("click", function() {
-
-    //look for the second class and split the number
-    var floorReference = parseInt(($(this).attr("class").split(" ")[1].split(self.options.ascensorName + "Link"))[1], 10);
-
-    //target the floor number
-    scrollToStage(floorReference, self.options.time);
-
-  });
 function checkKey(e){
   if ($("input, textarea, button").is(":focus")) {
     return;
@@ -304,7 +303,6 @@ node.css({
 
 nodeChildren.width(WW).height(WH).each(function(index) {
   floorCounter += 1;
-  $(this).attr("id", self.options.ascensorName + "Floor" + floorCounter).addClass(self.options.ascensorName + "Floor");
 });
 
 if (self.options.direction === "x" || self.options.direction === "chocolate") {
@@ -329,7 +327,6 @@ if (window.DeviceOrientationEvent) {
     resize();
   });
 }
-
 
 $window.on("hashchange", function() {
   hashChange();

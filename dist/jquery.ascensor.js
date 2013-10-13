@@ -164,21 +164,20 @@ author: Léo Galley <contact@kirkas.ch>
         $(document)), $window = $(window);
         node.on("scrollToStage", function(event, direction) {
             "next" == direction ? next() : "prev" == direction ? prev() : handleDirection(direction);
+        }), node.on("scrollToFloor", function(event, floor) {
+            floor > floorCounter || scrollToStage(floor);
+        }), node.on("next", function() {
+            next();
+        }), node.on("prev", function() {
+            prev();
         }), node.on("update", function() {
             nodeChildren = node.children(self.options.childType), resize();
-        });
-        var className = self.options.ascensorName;
-        $("." + className + "Link").on("click", function() {
-            //look for the second class and split the number
-            var floorReference = parseInt($(this).attr("class").split(" ")[1].split(self.options.ascensorName + "Link")[1], 10);
-            //target the floor number
-            scrollToStage(floorReference, self.options.time);
         }), node.css({
             position: "absolute",
             width: WW,
             height: WH
         }), nodeChildren.width(WW).height(WH).each(function() {
-            floorCounter += 1, $(this).attr("id", self.options.ascensorName + "Floor" + floorCounter).addClass(self.options.ascensorName + "Floor");
+            floorCounter += 1;
         }), ("x" === self.options.direction || "chocolate" === self.options.direction) && nodeChildren.css({
             position: "absolute",
             overflow: "auto"
