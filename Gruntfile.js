@@ -13,6 +13,20 @@ module.exports = function(grunt) {
 			homepage: {
 				src: ['<%= projectOptions.deploy %>/homepage/src/plugins.js','<%= projectOptions.dist %>/jquery.ascensor.min.js'],
 				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
+			},
+			plugin: {
+				src: [
+					'<%= projectOptions.src %>/open.js',
+					'<%= projectOptions.src %>/resize.js',
+					'<%= projectOptions.src %>/direction.js',
+					'<%= projectOptions.src %>/hash.js',
+					'<%= projectOptions.src %>/scrollTo.js',
+					'<%= projectOptions.src %>/trigger.js',
+					'<%= projectOptions.src %>/checkKey.js',
+					'<%= projectOptions.src %>/setup.js',
+					'<%= projectOptions.src %>/close.js'
+				],
+				dest: '<%= projectOptions.src %>/jquery.ascensor.js'
 			}
 		},
 		
@@ -31,11 +45,12 @@ module.exports = function(grunt) {
 			ascensor:{
 				options:{
 					beautify: true,
-					mangle:false,
-					preserveComments:true
+					mangle: false,
+					preserveComments: true
 				},
-				src: '<%= projectOptions.src %>/jquery.ascensor.js',
-				dest: '<%= projectOptions.dist %>/jquery.ascensor.js'
+				files: {
+					'<%= projectOptions.dist %>/jquery.ascensor.js' : ['<%= projectOptions.src %>/jquery.ascensor.js']
+				}
 			},
 			
 			ascensormin: {
@@ -76,7 +91,7 @@ module.exports = function(grunt) {
 			},
 			
 			plugin:{
-				files: ['src/*.js'],
+				files: ['src/**/*.js', '!src/jquery.ascensor.js'],
 				tasks: ['plugin:build']
 			}
 			
@@ -241,7 +256,17 @@ module.exports = function(grunt) {
 	
 	
 	grunt.registerTask('home:build', ['clean:homepage','sass:homepage','concat:homepage','uglify:homepage','template:homepage']);
-	grunt.registerTask('plugin:build', ['jshint:ascensor','jasmine:ascensor','clean:dist','uglify:ascensormin','uglify:ascensor','template:README']);
+	
+	grunt.registerTask('plugin:build', [
+		'clean:dist',
+		'concat:plugin',
+		'jshint:ascensor',
+		'uglify:ascensor',
+		'uglify:ascensormin',
+		'jasmine:ascensor',
+		'template:README'
+	]);
+	
 	grunt.registerTask('home:deploy', ['home:build','ftp-deploy']);
 	
 

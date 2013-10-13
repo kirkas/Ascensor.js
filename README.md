@@ -80,12 +80,6 @@ In your web page:
 - descriptions: Specify easing option (don't forget to add the easing plugin)
 - example: ```easing: 'easeInElastic'```
 
-#### overflow
-- Type: 'string'
-- Default: 'scroll'
-- descriptions: Choose your main container overflow default behavior
-- example: ```overflow: 'hidden'```
-
 #### keyNavigation
 - Type: 'boolean'
 - Default: 'true'

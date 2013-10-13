@@ -97,14 +97,6 @@
 		},
 
 		{
-			"name":"overflow",
-			"type":"string",
-			"default":"scroll",
-			"description" : "Choose your main container overflow default behavior",
-			"example":"overflow: 'hidden'"
-		},
-
-		{
 			"name":"keyNavigation",
 			"type":"boolean",
 			"default":"true",
