@@ -8,7 +8,7 @@ function handleDirection(direction) {
       prev();
     }
 
-  } else if (self.options.direction == "y") {
+  } else if (self.options.direction == "x") {
     if (direction == ("up" || "down")) return;
     if (direction == "left") {
       prev();

@@ -1,15 +1,17 @@
-function scrollStart() {
-  node.trigger({
-    type: "ascensorStart",
-    floor: floorActive
-  });
+function scrollStart(from, to) {
+  var floor = {
+    from: from, 
+    to: to
+  };
+  node.trigger("scrollStart", floor);
 }
 
-function scrollEnd() {
-  node.trigger({
-    type: "ascensorEnd",
-    floor: floorActive
-  });
+function scrollEnd(from, to) {
+  var floor = {
+    from: from, 
+    to: to
+  };
+  node.trigger("scrollEnd", floor);
 }
 
 node.on("scrollToDirection", function(event, direction) {
@@ -23,7 +25,7 @@ node.on("scrollToDirection", function(event, direction) {
 });
 
 node.on("scrollToStage", function(event, floor) {
-  if(floor > floorCounter) return;
+  if (floor > floorCounter) return;
   scrollToStage(floor);
 });
 

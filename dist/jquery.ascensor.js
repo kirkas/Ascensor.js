@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.6.2 (2013-10-12)
+version: 1.6.2 (2013-10-13)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -41,22 +41,21 @@ author: Léo Galley <contact@kirkas.ch>
     Plugin.prototype.init = function() {
         function resize() {
             WW = $window.width(), WH = $window.height(), nodeChildren.width(WW).height(WH), 
-            node.width(WW).height(WH), "y" === self.options.direction && node.stop().scrollTop(self.floorActive * WH), 
-            "x" === self.options.direction && (node.stop().scrollLeft(self.floorActive * WW), 
-            nodeChildren.each(function(index) {
+            node.width(WW).height(WH), "y" === self.options.direction && node.stop().scrollTop(floorActive * WH), 
+            "x" === self.options.direction && (node.stop().scrollLeft(floorActive * WW), nodeChildren.each(function(index) {
                 $(this).css("left", index * WW);
             })), "chocolate" === self.options.direction && (nodeChildren.each(function(index) {
                 $(this).css({
                     left: self.options.ascensorMap[index][1] * WW,
                     top: self.options.ascensorMap[index][0] * WH
                 });
-            }), node.stop().scrollLeft(self.options.ascensorMap[floorActive][1] * WW).scrollTop(self.options.ascensorMap[floorActive][0] * WH));
+            }), scrollToStage(floorActive, 1), node.stop().scrollLeft(self.options.ascensorMap[floorActive][1] * WW).scrollTop(self.options.ascensorMap[floorActive][0] * WH));
         }
         function handleDirection(direction) {
             if ("y" == self.options.direction) {
                 if ("left" == direction) return;
                 "down" == direction ? next() : "up" == direction && prev();
-            } else if ("y" == self.options.direction) {
+            } else if ("x" == self.options.direction) {
                 if ("up" == direction) return;
                 "left" == direction ? prev() : "right" == direction && next();
             } else "chocolate" == self.options.direction && ("down" == direction ? handleChocolateDirection(1, 0) : "up" == direction ? handleChocolateDirection(-1, 0) : "left" == direction ? handleChocolateDirection(0, -1) : "right" == direction && handleChocolateDirection(0, 1));
@@ -76,18 +75,22 @@ author: Léo Galley <contact@kirkas.ch>
                 "" + floorReference == "" + self.options.ascensorMap[index] && scrollToStage(index, self.options.time);
             });
         }
-        function hashChange(onLoad) {
-            window.location.hash && (hash = window.location.hash.split("/").pop(), $(self.options.ascensorFloorName).each(function(index) {
-                hash === self.options.ascensorFloorName[index] && (floorActive = index, $("." + self.options.ascensorName + "Link").removeClass(self.options.ascensorName + "LinkActive").eq(floorActive).addClass(self.options.ascensorName + "LinkActive"), 
-                onLoad || scrollToStage(floorActive, self.options.time, !0));
-            }));
+        function getFloorFromHash() {
+            if (window.location.hash) {
+                hash = window.location.hash.split("/").pop();
+                var floor = !1;
+                return $(self.options.ascensorFloorName).each(function(index) {
+                    hash === self.options.ascensorFloorName[index] && (floor = index);
+                }), floor;
+            }
         }
-        function scrollToStage(floor, time, hashChange) {
+        function scrollToStage(floor, time) {
+            scrollStart(floorActive, floor);
             var animationParams = {
                 time: time,
                 easing: self.options.easing,
                 callback: function() {
-                    scrollEnd();
+                    scrollEnd(floorActive, floor);
                 }
             };
             if ("y" === self.options.direction) animationParams.property = {
@@ -107,7 +110,7 @@ author: Léo Galley <contact@kirkas.ch>
                     node.stop().animate({
                         scrollTop: self.options.ascensorMap[floor][0] * WH
                     }, time, self.options.easing, function() {
-                        scrollEnd();
+                        scrollEnd(floorActive, floor);
                     });
                 }) : "y" === self.options.queuedDirection && (sameYposition ? animationParams.property = {
                     scrollLeft: self.options.ascensorMap[floor][1] * WW
@@ -117,19 +120,27 @@ author: Léo Galley <contact@kirkas.ch>
                     node.stop().animate({
                         scrollLeft: self.options.ascensorMap[floor][1] * WW
                     }, time, self.options.easing, function() {
-                        scrollEnd();
+                        scrollEnd(floorActive, floor);
                     });
                 }));
             }
             node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback), 
-            hashChange || null === self.options.ascensorFloorName || (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
+            self.options.ascensorFloorName && (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
             floorActive = floor;
         }
-        function scrollEnd() {
-            node.trigger({
-                type: "ascensorEnd",
-                floor: floorActive
-            });
+        function scrollStart(from, to) {
+            var floor = {
+                from: from,
+                to: to
+            };
+            node.trigger("scrollStart", floor);
+        }
+        function scrollEnd(from, to) {
+            var floor = {
+                from: from,
+                to: to
+            };
+            node.trigger("scrollEnd", floor);
         }
         function checkKey(e) {
             if (!$("input, textarea, button").is(":focus")) switch (e.which) {
@@ -158,7 +169,7 @@ author: Léo Galley <contact@kirkas.ch>
         hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
         $(document)), $window = $(window);
-        node.on("scrollToDirection", function(event, direction) {
+        if (node.on("scrollToDirection", function(event, direction) {
             "next" == direction ? next() : "prev" == direction ? prev() : handleDirection(direction);
         }), node.on("scrollToStage", function(event, floor) {
             floor > floorCounter || scrollToStage(floor);
@@ -177,15 +188,11 @@ author: Léo Galley <contact@kirkas.ch>
         }), ("x" === self.options.direction || "chocolate" === self.options.direction) && nodeChildren.css({
             position: "absolute",
             overflow: "auto"
-        }), self.options.keyNavigation && $document.keydown(checkKey), $window.resize(function() {
-            resize();
-        }).load(function() {
-            resize();
-        }).resize(), window.DeviceOrientationEvent && $window.bind("orientationchange", function() {
-            resize();
-        }), $window.on("hashchange", function() {
-            hashChange();
-        }), scrollToStage(floorActive, 1, !0), hashChange(!0), self.options.touchSwipeIntegration && node.swipe({
+        }), self.options.keyNavigation && $document.keydown(checkKey), self.options.ascensorFloorName && window.location.hash) {
+            var hashFloor = getFloorFromHash();
+            hashFloor && (floorActive = hashFloor);
+        }
+        scrollToStage(floorActive, 1, !0), self.options.touchSwipeIntegration && node.swipe({
             swipe: function(event, direction) {
                 var ascensorDirStr = "";
                 "up" == direction ? ascensorDirStr = "Down" : "down" == direction ? ascensorDirStr = "Up" : "left" == direction ? ascensorDirStr = "Right" : "right" == direction && (ascensorDirStr = "Left"), 
@@ -195,6 +202,10 @@ author: Léo Galley <contact@kirkas.ch>
                 });
             },
             threshold: 70
+        }), $window.resize(function() {
+            resize();
+        }).resize(), window.DeviceOrientationEvent && $window.bind("orientationchange", function() {
+            resize();
         });
     }, $.fn[pluginName] = function(options) {
         return this.each(function() {

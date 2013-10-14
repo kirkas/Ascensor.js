@@ -6,11 +6,11 @@ function resize() {
   node.width(WW).height(WH);
 
   if (self.options.direction === "y") {
-    node.stop().scrollTop((self.floorActive) * WH);
+    node.stop().scrollTop((floorActive) * WH);
   }
 
   if (self.options.direction === "x") {
-    node.stop().scrollLeft((self.floorActive) * WW);
+    node.stop().scrollLeft((floorActive) * WW);
     nodeChildren.each(function(index) {
       $(this).css("left", index * WW);
     });
@@ -23,6 +23,9 @@ function resize() {
         "top": (self.options.ascensorMap[index][0]) * WH
       });
     });
+    
+    scrollToStage(floorActive, 1);
+    
     node.stop().scrollLeft((self.options.ascensorMap[floorActive][1]) * WW).scrollTop((self.options.ascensorMap[floorActive][0]) * WH);
   }
 }

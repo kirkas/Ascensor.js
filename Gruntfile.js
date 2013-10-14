@@ -101,7 +101,7 @@ module.exports = function(grunt) {
 		
 		template: {
 			simple: {
-				src: 'deploy/github/layout.ejs',
+				src: 'deploy/github/example_layout.ejs',
 				dest: 'examples/example_simple.html',
 				variables: {
 					title: 'Simple',
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 			},
 			
 			horizontal: {
-				src: 'deploy/github/layout.ejs',
+				src: 'deploy/github/example_layout.ejs',
 				dest: 'examples/example_horizontal.html',
 				variables: {
 					title: 'Horizontal',
@@ -119,7 +119,7 @@ module.exports = function(grunt) {
 			},
 			
 			chocolat: {
-				src: 'deploy/github/layout.ejs',
+				src: 'deploy/github/example_layout.ejs',
 				dest: 'examples/example_chocolat.html',
 				variables: {
 					title: 'Chocolat',
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
 			},
 			
 			urlcontrole: {
-				src: 'deploy/github/layout.ejs',
+				src: 'deploy/github/example_layout.ejs',
 				dest: 'examples/example_url.html',
 				variables: {
 					title: 'Chocolat',
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 			},
 			
 			queued: {
-				src: 'deploy/github/layout.ejs',
+				src: 'deploy/github/example_layout.ejs',
 				dest: 'examples/example_chocolat_queued.html',
 				variables: {
 					title: 'Chocolat',

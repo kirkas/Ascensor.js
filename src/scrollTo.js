@@ -1,9 +1,10 @@
-function scrollToStage(floor, time, hashChange) {
+function scrollToStage(floor, time) {  
+  scrollStart(floorActive, floor);
   var animationParams = {
     time: time,
     easing: self.options.easing,
     callback: function() {
-      scrollEnd();
+      scrollEnd(floorActive, floor);
     }
   };
 
@@ -41,7 +42,7 @@ function scrollToStage(floor, time, hashChange) {
             self.options.easing,
 
             function() {
-              scrollEnd();
+              scrollEnd(floorActive, floor);
             });
           };
         }
@@ -62,7 +63,7 @@ function scrollToStage(floor, time, hashChange) {
             self.options.easing,
 
             function() {
-              scrollEnd();
+              scrollEnd(floorActive, floor);
             });
           };
         }
@@ -71,10 +72,8 @@ function scrollToStage(floor, time, hashChange) {
   }
 
   node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback);
-
-  if (!hashChange && self.options.ascensorFloorName !== null) {
+  if(self.options.ascensorFloorName) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
-
   floorActive = floor;
 }

@@ -55,11 +55,11 @@ function resize() {
   node.width(WW).height(WH);
 
   if (self.options.direction === "y") {
-    node.stop().scrollTop((self.floorActive) * WH);
+    node.stop().scrollTop((floorActive) * WH);
   }
 
   if (self.options.direction === "x") {
-    node.stop().scrollLeft((self.floorActive) * WW);
+    node.stop().scrollLeft((floorActive) * WW);
     nodeChildren.each(function(index) {
       $(this).css("left", index * WW);
     });
@@ -72,6 +72,9 @@ function resize() {
         "top": (self.options.ascensorMap[index][0]) * WH
       });
     });
+    
+    scrollToStage(floorActive, 1);
+    
     node.stop().scrollLeft((self.options.ascensorMap[floorActive][1]) * WW).scrollTop((self.options.ascensorMap[floorActive][0]) * WH);
   }
 }
@@ -85,7 +88,7 @@ function handleDirection(direction) {
       prev();
     }
 
-  } else if (self.options.direction == "y") {
+  } else if (self.options.direction == "x") {
     if (direction == ("up" || "down")) return;
     if (direction == "left") {
       prev();
@@ -130,26 +133,25 @@ function handleChocolateDirection(addCoordY, addCoordX) {
     }
   });
 }
-function hashChange(onLoad) {
+function getFloorFromHash() {
   if (window.location.hash) {
     hash = window.location.hash.split("/").pop();
+    var floor = false;
     $(self.options.ascensorFloorName).each(function(index, floorName) {
       if (hash === self.options.ascensorFloorName[index]) {
-        floorActive = index;
-        $("." + self.options.ascensorName + "Link").removeClass(self.options.ascensorName + "LinkActive").eq(floorActive).addClass(self.options.ascensorName + "LinkActive");
-        if (!onLoad) {
-          scrollToStage(floorActive, self.options.time, true);
-        }
+        floor = index ;
       }
     });
+    return floor;
   }
 }
-function scrollToStage(floor, time, hashChange) {
+function scrollToStage(floor, time) {  
+  scrollStart(floorActive, floor);
   var animationParams = {
     time: time,
     easing: self.options.easing,
     callback: function() {
-      scrollEnd();
+      scrollEnd(floorActive, floor);
     }
   };
 
@@ -187,7 +189,7 @@ function scrollToStage(floor, time, hashChange) {
             self.options.easing,
 
             function() {
-              scrollEnd();
+              scrollEnd(floorActive, floor);
             });
           };
         }
@@ -208,7 +210,7 @@ function scrollToStage(floor, time, hashChange) {
             self.options.easing,
 
             function() {
-              scrollEnd();
+              scrollEnd(floorActive, floor);
             });
           };
         }
@@ -217,25 +219,25 @@ function scrollToStage(floor, time, hashChange) {
   }
 
   node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback);
-
-  if (!hashChange && self.options.ascensorFloorName !== null) {
+  if(self.options.ascensorFloorName) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
-
   floorActive = floor;
 }
-function scrollStart() {
-  node.trigger({
-    type: "ascensorStart",
-    floor: floorActive
-  });
+function scrollStart(from, to) {
+  var floor = {
+    from: from, 
+    to: to
+  };
+  node.trigger("scrollStart", floor);
 }
 
-function scrollEnd() {
-  node.trigger({
-    type: "ascensorEnd",
-    floor: floorActive
-  });
+function scrollEnd(from, to) {
+  var floor = {
+    from: from, 
+    to: to
+  };
+  node.trigger("scrollEnd", floor);
 }
 
 node.on("scrollToDirection", function(event, direction) {
@@ -249,7 +251,7 @@ node.on("scrollToDirection", function(event, direction) {
 });
 
 node.on("scrollToStage", function(event, floor) {
-  if(floor > floorCounter) return;
+  if (floor > floorCounter) return;
   scrollToStage(floor);
 });
 
@@ -312,24 +314,14 @@ if (self.options.keyNavigation) {
   $document.keydown(checkKey);
 }
 
-$window.resize(function() {
-  resize();
-}).load(function() {
-  resize();
-}).resize();
-
-if (window.DeviceOrientationEvent) {
-  $window.bind('orientationchange', function() {
-    resize();
-  });
+if (self.options.ascensorFloorName && window.location.hash) {
+  var hashFloor = getFloorFromHash();
+  if(hashFloor){
+    floorActive = hashFloor;
+  }
 }
 
-$window.on("hashchange", function() {
-  hashChange();
-});
-
 scrollToStage(floorActive, 1, true);
-hashChange(true);
 
 if (self.options.touchSwipeIntegration) {
   node.swipe({
@@ -345,6 +337,16 @@ if (self.options.touchSwipeIntegration) {
       });
     },
     threshold: 70
+  });
+}
+
+$window.resize(function() {
+  resize();
+}).resize();
+
+if (window.DeviceOrientationEvent) {
+  $window.bind('orientationchange', function() {
+    resize();
   });
 }
 };

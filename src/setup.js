@@ -19,24 +19,14 @@ if (self.options.keyNavigation) {
   $document.keydown(checkKey);
 }
 
-$window.resize(function() {
-  resize();
-}).load(function() {
-  resize();
-}).resize();
-
-if (window.DeviceOrientationEvent) {
-  $window.bind('orientationchange', function() {
-    resize();
-  });
+if (self.options.ascensorFloorName && window.location.hash) {
+  var hashFloor = getFloorFromHash();
+  if(hashFloor){
+    floorActive = hashFloor;
+  }
 }
 
-$window.on("hashchange", function() {
-  hashChange();
-});
-
 scrollToStage(floorActive, 1, true);
-hashChange(true);
 
 if (self.options.touchSwipeIntegration) {
   node.swipe({
@@ -52,5 +42,15 @@ if (self.options.touchSwipeIntegration) {
       });
     },
     threshold: 70
+  });
+}
+
+$window.resize(function() {
+  resize();
+}).resize();
+
+if (window.DeviceOrientationEvent) {
+  $window.bind('orientationchange', function() {
+    resize();
   });
 }

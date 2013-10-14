@@ -47,6 +47,15 @@
 				ascensor.trigger("scrollToStage", $(this).index());
 			});
 			
+			ascensor.on("scrollStart", function(event, floor){
+				$(".links-to-floor li").removeClass("selected");
+				$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
+			});
+
+			ascensor.on("scrollEnd", function(event, floor){
+				console.log("scrollEnd");
+			});
+		
 			$(".prev").click(function() {
 				ascensor.trigger("prev");
 			});

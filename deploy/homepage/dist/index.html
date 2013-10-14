@@ -207,9 +207,18 @@ ascensor.trigger("scrollToDirection" ,"right");</pre>
 		queuedDirection: "y",
 		overflow:"hidden"
 	});
+	
+
 			
 	$(".links-to-floor li").click(function(event, index) {
 		ascensor.trigger("scrollToStage", $(this).index());
+	});
+	
+	ascensor.on("scrollStart", function(event, floor){
+		$(".links-to-floor li").removeClass("selected");
+		console.log(floor.to);
+
+		$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
 	});
 			
 	$(".prev").click(function() {

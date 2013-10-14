@@ -9,8 +9,6 @@ describe("Ascensor.js test suite", function() {
 
 	afterEach(function(){
 		fixture.children("div").each(function(index, elements){
-			expect($(elements).hasClass("ascensorFloor")).toBe(true);
-			expect($(elements).attr("id")=="ascensorFloor"+(index)).toBe(true);
 			expect(elements).toHaveCss({width: $(window).width()+"px"})
 			expect(elements).toHaveCss({height: $(window).height()+"px"})
 		})

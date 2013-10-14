@@ -14,10 +14,15 @@ body{
 .floor-4{background: #4AAEB6;}
 .floor-5{background: #E7DFBF;}
 .floor-6{background: #CA9E67;}
+
 nav{
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
+}
+
+li.selected{
+	color: #0f0;
 }
 
 #ascensorBuilding{
