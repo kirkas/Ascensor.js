@@ -1,6 +1,6 @@
 {
   "name": "Ascensor.js",
-  "version": "1.6.2",
+  "version": "1.6.4",
   "author": "Léo Galley <contact@kirkas.ch>",
   "description": "Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system",
   "main": "jquery.ascensor.js",

@@ -118,6 +118,13 @@
 			"default":"true",
 			"description" : "specify if you want an loop",
 			"example":"loop: false"
+		},
+		{
+			"name" : "touchSwipeIntegration",
+			"type" : "boolean",
+			"default": "false",
+			"description" : "Specify if you want jquery swipe implentation",
+			"example": "touchSwipeIntegration: true"
 		}
 	],
 

@@ -2,7 +2,7 @@
 
 <%= description %> ([homepage](http://kirkas.ch/ascensor))
 
-## Getting Started
+### Getting Started
 Download the [production version][min] or the [development version][max].
 
 [max]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.js
@@ -27,48 +27,63 @@ In your web page:
 	$('#ascensor').ascensor();
 </script>
 ```
-## Documentation
+
+### Triggers
+You can navigate by using jquery trigger system
+
+```js
+var ascensor = $('#ascensor').ascensor();
+
+// Go to previous floor
+ascensor.trigger("prev");
+
+// Go to next floor
+ascensor.trigger("next");
+
+// Go to the 5th floor (JS calcul from 0)
+ascensor.trigger("scrollToFloor", 4);
+
+// Go up, down, left or right
+ascensor.trigger("scrollToDirection" ,"up");
+ascensor.trigger("scrollToDirection" ,"down");
+ascensor.trigger("scrollToDirection" ,"left");
+ascensor.trigger("scrollToDirection" ,"right");
+
+// Ascensor also trigger a scrollStart & ScrollEnd event
+ascensor.on("scrollStart", function(event, floor){
+	console.log(floor.from) 		// Return the origin floor
+	console.log(floor.to) 			// Return the targeted floor
+});
+
+ascensor.on("scrollEnd", function(event, floor){
+	console.log(floor.from) 		// Return the origin floor
+	console.log(floor.to) 			// Return the targeted floor
+});
+```
+
+###CSS navigation class
+**Update**
+Since i've added the trigger system, i've removed the css
+navigation class system
 
 ### Options
 
 <% for (var i=0;i<params.parameters.length;i++){ %>
-#### <%= params.parameters[i].name %>
+**<%= params.parameters[i].name %>**
 - Type: '<%= params.parameters[i].type %>'
 - Default: '<%= params.parameters[i].default %>'
 - descriptions: <%= params.parameters[i].description %>
 - example: ```<%= params.parameters[i].example %>```
 <% } %>
 
-
-### Triggers
-You can navigate by using jquery trigger system
-
-```html
-var ascensor = $('#ascensor').ascensor();
-ascensor.trigger("prev");
-ascensor.trigger("next");
-ascensor.trigger("scrollToFloor", 4);
-ascensor.trigger("scrollToDirection" ,"up");
-ascensor.trigger("scrollToDirection" ,"down");
-ascensor.trigger("scrollToDirection" ,"left");
-ascensor.trigger("scrollToDirection" ,"right");
-```
-
-### CSS navigation class
-#### Update
-Since i've added the trigger system, i've removed the css
-navigation class system
-
-
-
-## Examples
+####Examples
 https://github.com/kirkas/Ascensor.js/tree/master/examples
 
-## Website using ascensor
+####Website using ascensor
 <% for (var i=0;i<params.website.length;i++){ %>
 - [<%= params.website[i].name %>](<%= params.website[i].url %>)<% } %>
 
-## Contribution
+####Contribution
 
 You want help? great!
 For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm installed)

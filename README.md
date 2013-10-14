@@ -2,7 +2,7 @@
 
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
 
-## Getting Started
+### Getting Started
 Download the [production version][min] or the [development version][max].
 
 [max]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.js
@@ -27,104 +27,125 @@ In your web page:
 	$('#ascensor').ascensor();
 </script>
 ```
-## Documentation
+
+### Triggers
+You can navigate by using jquery trigger system
+
+```js
+var ascensor = $('#ascensor').ascensor();
+
+// Go to previous floor
+ascensor.trigger("prev");
+
+// Go to next floor
+ascensor.trigger("next");
+
+// Go to the 5th floor (JS calcul from 0)
+ascensor.trigger("scrollToFloor", 4);
+
+// Go up, down, left or right
+ascensor.trigger("scrollToDirection" ,"up");
+ascensor.trigger("scrollToDirection" ,"down");
+ascensor.trigger("scrollToDirection" ,"left");
+ascensor.trigger("scrollToDirection" ,"right");
+
+// Ascensor also trigger a scrollStart & ScrollEnd event
+ascensor.on("scrollStart", function(event, floor){
+	console.log(floor.from) 		// Return the origin floor
+	console.log(floor.to) 			// Return the targeted floor
+});
+
+ascensor.on("scrollEnd", function(event, floor){
+	console.log(floor.from) 		// Return the origin floor
+	console.log(floor.to) 			// Return the targeted floor
+});
+```
+
+###CSS navigation class
+**Update**
+Since i've added the trigger system, i've removed the css
+navigation class system
 
 ### Options
 
 
-#### ascensorFloorName
+**ascensorFloorName**
 - Type: 'string'
 - Default: 'null'
 - descriptions: Choose and name for each floor
 - example: ```ascensorFloorName: ['content1','content2','content3']```
 
-#### childType
+**childType**
 - Type: 'string'
 - Default: 'div'
 - descriptions: Specify the child tag if no div ('section' or 'article')
 - example: ```childType:'article'```
 
-#### windowsOn
+**windowsOn**
 - Type: 'integer'
 - Default: '1'
 - descriptions: Choose the floor to start on
 - example: ```windowsOn: 3```
 
-#### direction
+**direction**
 - Type: 'string'
 - Default: 'y'
 - descriptions: specify the direction ('x', 'y' or 'chocolate')
 - example: ```direction: 'chocolate'```
 
-#### ascensorMap
+**ascensorMap**
 - Type: 'string'
 - Default: 'null'
 - descriptions: If you choose chocolate for direction, speficy position for x/y (ex: AscensorMap:[[2,1],[2,2],[3,2]])
 - example: ```ascensorMap:[[2,1],[2,2],[3,2]]```
 
-#### time
+**time**
 - Type: 'string'
 - Default: '1000'
 - descriptions: Specify speed of transition
 - example: ```time: 3000```
 
-#### easing
+**easing**
 - Type: 'string'
 - Default: 'linear'
 - descriptions: Specify easing option (don't forget to add the easing plugin)
 - example: ```easing: 'easeInElastic'```
 
-#### keyNavigation
+**keyNavigation**
 - Type: 'boolean'
 - Default: 'true'
 - descriptions: choose if you want direction key support
 - example: ```keyNavigation: false```
 
-#### queued
+**queued**
 - Type: 'boolean'
 - Default: 'false'
 - descriptions: choose if you want direction scroll queued
 - example: ```queued: true```
 
-#### queuedDirection
+**queuedDirection**
 - Type: 'string'
 - Default: 'x'
 - descriptions: choose if you want direction scroll queued 'x' or 'y'
 - example: ```queuedDirection: 'y'```
 
-#### loop
+**loop**
 - Type: 'boolean'
 - Default: 'true'
 - descriptions: specify if you want an loop
 - example: ```loop: false```
 
+**touchSwipeIntegration**
+- Type: 'boolean'
+- Default: 'false'
+- descriptions: Specify if you want jquery swipe implentation
+- example: ```touchSwipeIntegration: true```
 
 
-### Triggers
-You can navigate by using jquery trigger system
-
-```html
-var ascensor = $('#ascensor').ascensor();
-ascensor.trigger("prev");
-ascensor.trigger("next");
-ascensor.trigger("scrollToFloor", 4);
-ascensor.trigger("scrollToDirection" ,"up");
-ascensor.trigger("scrollToDirection" ,"down");
-ascensor.trigger("scrollToDirection" ,"left");
-ascensor.trigger("scrollToDirection" ,"right");
-```
-
-### CSS navigation class
-#### Update
-Since i've added the trigger system, i've removed the css
-navigation class system
-
-
-
-## Examples
+####Examples
 https://github.com/kirkas/Ascensor.js/tree/master/examples
 
-## Website using ascensor
+####Website using ascensor
 
 - [waterevive](http://www.waterevive.com)
 - [shanaemairs](http://shanaemairs.com)
@@ -133,7 +154,7 @@ https://github.com/kirkas/Ascensor.js/tree/master/examples
 - [iadindustry](http://iadindustry.se)
 - [newworldwhisky](http://newworldwhisky.com.au)
 
-## Contribution
+####Contribution
 
 You want help? great!
 For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm installed)

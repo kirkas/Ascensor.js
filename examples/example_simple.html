@@ -3,7 +3,38 @@
 	<head>
 		<meta charset="utf-8">
 		<title>ascensor - example - Simple</title>
-		<link href="css/main.css" rel="stylesheet" type="text/css">
+		<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+		}
+		
+		.floor-1{background: #F9B233;}
+		.floor-2{background: #71B5E5;}
+		.floor-3{background: #B3CE4A;}
+		.floor-4{background: #EB5D45;}
+		.floor-5{background: #4AAEB6;}
+		.floor-6{background: #E7DFBF;}
+		.floor-7{background: #CA9E67;}
+		
+		nav{
+			position: absolute;
+			bottom: 20px;
+			right: 20px;
+		}
+		
+		li.selected{
+			color: #0f0;
+		}
+		
+		#ascensorBuilding{
+			overflow: hidden;
+		}
+		</style>
 	</head>
 	<body>
 		<div id="ascensorBuilding">
@@ -52,10 +83,6 @@
 				$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
 			});
 
-			ascensor.on("scrollEnd", function(event, floor){
-				console.log("scrollEnd");
-			});
-		
 			$(".prev").click(function() {
 				ascensor.trigger("prev");
 			});
