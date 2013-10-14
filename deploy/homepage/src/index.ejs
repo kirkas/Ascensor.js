@@ -82,13 +82,32 @@
 				<p>You can navigate by using jquery trigger system</p>
 				<pre class="prettyprint">
 var ascensor = $('#ascensor').ascensor();
+
+// Go to previous floor
 ascensor.trigger("prev");
+
+// Go to next floor
 ascensor.trigger("next");
+
+// Go to the 5th floor (JS calcul from 0)
 ascensor.trigger("scrollToFloor", 4);
+
+// Go up, down, left or right
 ascensor.trigger("scrollToDirection" ,"up");
 ascensor.trigger("scrollToDirection" ,"down");
 ascensor.trigger("scrollToDirection" ,"left");
-ascensor.trigger("scrollToDirection" ,"right");</pre>
+ascensor.trigger("scrollToDirection" ,"right");
+
+// Ascensor also trigger a scrollStart & ScrollEnd event
+ascensor.on("scrollStart", function(event, floor){
+	console.log(floor.from) 		// Return the origin floor
+	console.log(floor.to) 			// Return the targeted floor
+});
+
+ascensor.on("scrollEnd", function(event, floor){
+	console.log(floor.from) 		// Return the origin floor
+	console.log(floor.to) 			// Return the targeted floor
+});</pre>
 			</div>
 		</article>
 	</section>
@@ -120,7 +139,7 @@ ascensor.trigger("scrollToDirection" ,"right");</pre>
 	prettyPrint();
 	var ascensor = $('#ascensorBuilding').ascensor({
 		childType: 'section',
-		ascensorFloorName: ['Home','Implementation','HTML','Jquery','CSS','martphone ','Credits'],
+		ascensorFloorName: ['Home','Implementation','Options','Triggers','Smartphone','martphone '],
 		time: 1000,
 		windowsOn: 0,
 		direction: "chocolate",
