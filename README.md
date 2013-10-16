@@ -21,7 +21,8 @@ In your web page:
   <div>Content 7</div>
 </div>
 
-<script src="jquery.js"></script>
+
+<script src="jquery['>=1.7'].js"></script>
 <script src="jquery.ascensor.js"></script>
 <script>
   $('#ascensor').ascensor();
