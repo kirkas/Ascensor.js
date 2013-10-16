@@ -31,15 +31,7 @@ scrollToStage(floorActive, 1, true);
 if (self.options.touchSwipeIntegration) {
   node.swipe({
     swipe: function(event, direction, distance, duration, fingerCount) {
-      var ascensorDirStr = "";
-      if (direction == "up") ascensorDirStr = "Down";
-      else if (direction == "down") ascensorDirStr = "Up";
-      else if (direction == "left") ascensorDirStr = "Right";
-      else if (direction == "right") ascensorDirStr = "Left";
-      node.trigger({
-        type: "ascensor" + ascensorDirStr,
-        floor: floorActive
-      });
+      node.trigger("scrollToDirection", direction);
     },
     threshold: 70
   });

@@ -183,12 +183,7 @@ author: Léo Galley <contact@kirkas.ch>
         }
         scrollToStage(floorActive, 1, !0), self.options.touchSwipeIntegration && node.swipe({
             swipe: function(event, direction) {
-                var ascensorDirStr = "";
-                "up" == direction ? ascensorDirStr = "Down" : "down" == direction ? ascensorDirStr = "Up" : "left" == direction ? ascensorDirStr = "Right" : "right" == direction && (ascensorDirStr = "Left"), 
-                node.trigger({
-                    type: "ascensor" + ascensorDirStr,
-                    floor: floorActive
-                });
+                node.trigger("scrollToDirection", direction);
             },
             threshold: 70
         }), $window.resize(function() {
