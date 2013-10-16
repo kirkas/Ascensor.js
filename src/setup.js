@@ -1,10 +1,8 @@
 node.css({
-  "position" : "absolute",
-  "width" : WW,
-  "height" : WH
+  "position" : "absolute"
 });
 
-nodeChildren.width(WW).height(WH).each(function(index) {
+nodeChildren.each(function(index) {
   floorCounter += 1;
 });
 
@@ -38,6 +36,8 @@ if (self.options.touchSwipeIntegration) {
 }
 
 $window.resize(function() {
+  resize();
+}).load(function(){
   resize();
 }).resize();
 

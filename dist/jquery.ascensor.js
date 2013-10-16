@@ -169,10 +169,8 @@ author: Léo Galley <contact@kirkas.ch>
         }), node.on("update", function() {
             nodeChildren = node.children(self.options.childType), resize();
         }), node.css({
-            position: "absolute",
-            width: WW,
-            height: WH
-        }), nodeChildren.width(WW).height(WH).each(function() {
+            position: "absolute"
+        }), nodeChildren.each(function() {
             floorCounter += 1;
         }), ("x" === self.options.direction || "chocolate" === self.options.direction) && nodeChildren.css({
             position: "absolute",
@@ -187,6 +185,8 @@ author: Léo Galley <contact@kirkas.ch>
             },
             threshold: 70
         }), $window.resize(function() {
+            resize();
+        }).load(function() {
             resize();
         }).resize(), window.DeviceOrientationEvent && $window.bind("orientationchange", function() {
             resize();
