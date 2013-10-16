@@ -146,8 +146,7 @@ ascensor.on("scrollEnd", function(event, floor){
 		ascensorMap: [[1,0],[1,1],[2,1],[2,2],[2,3],[1,3]],
 		easing: 'easeInOutQuad',
 		keyNavigation: true,
-		queued: false,
-		queuedDirection: "y",
+		queued: "y",
 		overflow:"hidden"
 	});
 	
@@ -159,7 +158,6 @@ ascensor.on("scrollEnd", function(event, floor){
 	
 	ascensor.on("scrollStart", function(event, floor){
 		$(".links-to-floor li").removeClass("selected");
-		console.log(floor.to);
 
 		$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
 	});

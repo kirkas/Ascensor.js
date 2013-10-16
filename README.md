@@ -118,16 +118,10 @@ navigation class system
 - example: ```keyNavigation: false```
 
 **queued**
-- Type: 'boolean'
+- Type: 'boolean or string'
 - Default: 'false'
-- descriptions: choose if you want direction scroll queued
-- example: ```queued: true```
-
-**queuedDirection**
-- Type: 'string'
-- Default: 'x'
-- descriptions: choose if you want direction scroll queued 'x' or 'y'
-- example: ```queuedDirection: 'y'```
+- descriptions: can be false, 'x' or 'y' (queued axis)
+- example: ```queued: x```
 
 **loop**
 - Type: 'boolean'

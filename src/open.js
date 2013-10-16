@@ -1,23 +1,40 @@
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
 ;(function ( $, window, document, undefined ) {  
   var pluginName = 'ascensor';
   
-  var defaults = {
-    ascensorFloorName: null,            // Choose name for each floor
-    childType: "div",                   // Specify the child type if there are no 'div'
-    windowsOn: 0,                       // Choose the floor to start on
-    direction: "y",                     // specify if direction is x,y or chocolate
-    loop: true,                         // specify if direction is x,y or chocolate
-    ascensorMap: "",                    // If you choose chocolate for direction, speficy position
-    time: "1000",                       // Specify speed of transition
-    easing: "linear",                   // Specify easing option
-    keyNavigation: true,                // choose if you want direction key support
-    touchSwipeIntegration: false,       // choose if you want swipe event support (requires http://labs.rampinteractive.co.uk/touchSwipe/)
-    queued: false,                      // choose if you want direction scroll queued
-    queuedDirection: "x"               // choose if you want direction scroll queued "x" or "y" (default : "x")
-  };
+  /*
+    Parameters => 
+      ascensorFloorName           => Choose name for each floor, default to false
+      childType                   => Specify the child type if not a 'div' element
+      windowsOn                   => Choose the floor to start on
+      direction                   => specify if direction is x,y or chocolate
+      loop                        => If ascensor should loop at the end
+      ascensorMap                 => If you choose chocolate for direction, speficy position
+      time                        => Specify speed of transition
+      easing                      => Specify if direction is x,y or chocolate
+      keyNavigation               => Choose if you want direction key support
+      touchSwipeIntegration       => Choose if you want swipe event support (requires http://labs.rampinteractive.co.uk/touchSwipe/)
+      queued                      => Choose if you want direction scroll queued
+      queuedDirection             => Choose if you want direction scroll queued "x" or "y"
+  */
   
+  var defaults = {
+    ascensorFloorName: null,
+    childType: "div",
+    windowsOn: 0,
+    direction: "y",
+    loop: true,
+    ascensorMap: "",
+    time: "1000",
+    easing: "linear",
+    keyNavigation: true,
+    touchSwipeIntegration: false,
+    queued: false,
+    queuedDirection: "x"
+  };
+
+  /*
+    Create plugin instance
+  */
   function Plugin(element, options) {
     this.element = element;
     this.options = $.extend({}, defaults, options);

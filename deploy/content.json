@@ -98,18 +98,10 @@
 
 		{
 			"name":"queued",
-			"type":"boolean",
+			"type":"boolean or string",
 			"default":"false",
-			"description" : "choose if you want direction scroll queued",
-			"example":"queued: true"
-		},
-
-		{
-			"name":"queuedDirection",
-			"type":"string",
-			"default":"x",
-			"description" : "choose if you want direction scroll queued 'x' or 'y'",
-			"example":"queuedDirection: 'y'"
+			"description" : "can be false, 'x' or 'y' (queued axis)",
+			"example":"queued: x"
 		},
 
 		{

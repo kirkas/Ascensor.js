@@ -122,15 +122,9 @@
 				</div>
 			
 				<div class="option">
-					<p><strong>queued (boolean, default: false)</strong></p>
-					<p>choose if you want direction scroll queued</p>
-					<pre class="prettyprint">queued: true</pre>
-				</div>
-			
-				<div class="option">
-					<p><strong>queuedDirection (string, default: x)</strong></p>
-					<p>choose if you want direction scroll queued 'x' or 'y'</p>
-					<pre class="prettyprint">queuedDirection: 'y'</pre>
+					<p><strong>queued (boolean or string, default: false)</strong></p>
+					<p>can be false, 'x' or 'y' (queued axis)</p>
+					<pre class="prettyprint">queued: x</pre>
 				</div>
 			
 				<div class="option">
@@ -228,8 +222,7 @@ ascensor.on("scrollEnd", function(event, floor){
 		ascensorMap: [[1,0],[1,1],[2,1],[2,2],[2,3],[1,3]],
 		easing: 'easeInOutQuad',
 		keyNavigation: true,
-		queued: false,
-		queuedDirection: "y",
+		queued: "y",
 		overflow:"hidden"
 	});
 	
@@ -241,7 +234,6 @@ ascensor.on("scrollEnd", function(event, floor){
 	
 	ascensor.on("scrollStart", function(event, floor){
 		$(".links-to-floor li").removeClass("selected");
-		console.log(floor.to);
 
 		$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
 	});

@@ -1,41 +1,31 @@
 /*
 Ascensor.js 
-version: 1.6.5 (2013-10-13)
+version: 1.6.5 (2013-10-15)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
 author: Léo Galley <contact@kirkas.ch>
 */
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
 (function($, window, document) {
+    /*
+    Create plugin instance
+  */
     function Plugin(element, options) {
         this.element = element, this.options = $.extend({}, defaults, options), this._defaults = defaults, 
         this._name = pluginName, this.init();
     }
     var pluginName = "ascensor", defaults = {
         ascensorFloorName: null,
-        // Choose name for each floor
         childType: "div",
-        // Specify the child type if there are no 'div'
         windowsOn: 0,
-        // Choose the floor to start on
         direction: "y",
-        // specify if direction is x,y or chocolate
         loop: !0,
-        // specify if direction is x,y or chocolate
         ascensorMap: "",
-        // If you choose chocolate for direction, speficy position
         time: "1000",
-        // Specify speed of transition
         easing: "linear",
-        // Specify easing option
         keyNavigation: !0,
-        // choose if you want direction key support
         touchSwipeIntegration: !1,
-        // choose if you want swipe event support (requires http://labs.rampinteractive.co.uk/touchSwipe/)
         queued: !1,
-        // choose if you want direction scroll queued
         queuedDirection: "x"
     };
     Plugin.prototype.init = function() {
@@ -102,7 +92,7 @@ author: Léo Galley <contact@kirkas.ch>
                 scrollTop: self.options.ascensorMap[floor][0] * WH
             }, self.options.queued)) {
                 var sameXposition = node.scrollLeft() === self.options.ascensorMap[floor][1] * WW, sameYposition = node.scrollTop() === self.options.ascensorMap[floor][0] * WH;
-                "x" === self.options.queuedDirection ? sameXposition ? animationParams.property = {
+                "x" === self.options.queued ? sameXposition ? animationParams.property = {
                     scrollTop: self.options.ascensorMap[floor][0] * WH
                 } : (animationParams.property = {
                     scrollLeft: self.options.ascensorMap[floor][1] * WW
@@ -112,7 +102,7 @@ author: Léo Galley <contact@kirkas.ch>
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });
-                }) : "y" === self.options.queuedDirection && (sameYposition ? animationParams.property = {
+                }) : "y" === self.options.queued && (sameYposition ? animationParams.property = {
                     scrollLeft: self.options.ascensorMap[floor][1] * WW
                 } : (animationParams.property = {
                     scrollTop: self.options.ascensorMap[floor][0] * WH

@@ -25,7 +25,7 @@ function scrollToStage(floor, time) {
     if (self.options.queued) {
       var sameXposition = node.scrollLeft() === self.options.ascensorMap[floor][1] * WW;
       var sameYposition = node.scrollTop() === self.options.ascensorMap[floor][0] * WH;
-      if (self.options.queuedDirection === "x") {
+      if (self.options.queued === "x") {
         if (sameXposition) {
           animationParams.property = {
             scrollTop: (self.options.ascensorMap[floor][0]) * WH
@@ -46,7 +46,7 @@ function scrollToStage(floor, time) {
             });
           };
         }
-      } else if (self.options.queuedDirection === "y") {
+      } else if (self.options.queued === "y") {
         if (sameYposition) {
           animationParams.property = {
             scrollLeft: (self.options.ascensorMap[floor][1]) * WW
