@@ -12,19 +12,19 @@ In your web page:
 
 ```html
 <div id="ascensor">
-	<div>Content 1</div>
-	<div>Content 2</div>
-	<div>Content 3</div>
-	<div>Content 4</div>
-	<div>Content 5</div>
-	<div>Content 6</div>  
-	<div>Content 7</div>
+  <div>Content 1</div>
+  <div>Content 2</div>
+  <div>Content 3</div>
+  <div>Content 4</div>
+  <div>Content 5</div>
+  <div>Content 6</div>  
+  <div>Content 7</div>
 </div>
 
 <script src="jquery.js"></script>
 <script src="jquery.ascensor.js"></script>
 <script>
-	$('#ascensor').ascensor();
+  $('#ascensor').ascensor();
 </script>
 ```
 
@@ -51,13 +51,13 @@ ascensor.trigger("scrollToDirection" ,"right");
 
 // Ascensor also trigger a scrollStart & ScrollEnd event
 ascensor.on("scrollStart", function(event, floor){
-	console.log(floor.from) 		// Return the origin floor
-	console.log(floor.to) 			// Return the targeted floor
+  console.log(floor.from) 		// Return the origin floor
+  console.log(floor.to) 			// Return the targeted floor
 });
 
 ascensor.on("scrollEnd", function(event, floor){
-	console.log(floor.from) 		// Return the origin floor
-	console.log(floor.to) 			// Return the targeted floor
+  console.log(floor.from) 		// Return the origin floor
+  console.log(floor.to) 			// Return the targeted floor
 });
 ```
 

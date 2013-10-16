@@ -25,8 +25,7 @@ author: Léo Galley <contact@kirkas.ch>
         easing: "linear",
         keyNavigation: !0,
         touchSwipeIntegration: !1,
-        queued: !1,
-        queuedDirection: "x"
+        queued: !1
     };
     Plugin.prototype.init = function() {
         function resize() {

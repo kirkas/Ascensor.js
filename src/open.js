@@ -14,9 +14,7 @@
       keyNavigation               => Choose if you want direction key support
       touchSwipeIntegration       => Choose if you want swipe event support (requires http://labs.rampinteractive.co.uk/touchSwipe/)
       queued                      => Choose if you want direction scroll queued
-      queuedDirection             => Choose if you want direction scroll queued "x" or "y"
   */
-  
   var defaults = {
     ascensorFloorName: null,
     childType: "div",
@@ -28,8 +26,7 @@
     easing: "linear",
     keyNavigation: true,
     touchSwipeIntegration: false,
-    queued: false,
-    queuedDirection: "x"
+    queued: false
   };
 
   /*
