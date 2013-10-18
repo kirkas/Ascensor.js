@@ -42,7 +42,7 @@ ascensor.trigger("prev");
 ascensor.trigger("next");
 
 // Go to the 5th floor (JS calcul from 0)
-ascensor.trigger("scrollToFloor", 4);
+ascensor.trigger("scrollToStage", 4);
 
 // Go up, down, left or right
 ascensor.trigger("scrollToDirection" ,"up");
