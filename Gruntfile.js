@@ -132,7 +132,7 @@ module.exports = function(grunt) {
 				dest: 'examples/example_chocolat.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]]}'
+					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]]}'
 				}
 			},
 			
@@ -150,7 +150,7 @@ module.exports = function(grunt) {
 				dest: 'examples/example_chocolat_queued.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{direction:"chocolate", ascensorMap: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:"x"}'
+					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:"x"}'
 				}
 			},
 			

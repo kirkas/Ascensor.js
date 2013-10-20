@@ -20,7 +20,6 @@ author: Léo Galley <contact@kirkas.ch>
         windowsOn: 0,
         direction: "y",
         loop: !0,
-        ascensorMap: "",
         time: 300,
         easing: "linear",
         keyNavigation: !0,
@@ -33,12 +32,12 @@ author: Léo Galley <contact@kirkas.ch>
             node.width(WW).height(WH), "y" === self.options.direction && node.stop().scrollTop(floorActive * WH), 
             "x" === self.options.direction && (node.stop().scrollLeft(floorActive * WW), nodeChildren.each(function(index) {
                 $(this).css("left", index * WW);
-            })), "chocolate" === self.options.direction && (nodeChildren.each(function(index) {
+            })), chocolate && (nodeChildren.each(function(index) {
                 $(this).css({
-                    left: self.options.ascensorMap[index][1] * WW,
-                    top: self.options.ascensorMap[index][0] * WH
+                    left: self.options.direction[index][1] * WW,
+                    top: self.options.direction[index][0] * WH
                 });
-            }), scrollToStage(floorActive, 1), node.stop().scrollLeft(self.options.ascensorMap[floorActive][1] * WW).scrollTop(self.options.ascensorMap[floorActive][0] * WH));
+            }), scrollToStage(floorActive, 1), node.stop().scrollLeft(self.options.direction[floorActive][1] * WW).scrollTop(self.options.direction[floorActive][0] * WH));
         }
         function handleDirection(direction) {
             if ("y" == self.options.direction) {
@@ -47,7 +46,7 @@ author: Léo Galley <contact@kirkas.ch>
             } else if ("x" == self.options.direction) {
                 if ("up" == direction) return;
                 "left" == direction ? prev() : "right" == direction && self.next();
-            } else "chocolate" == self.options.direction && ("down" == direction ? handleChocolateDirection(1, 0) : "up" == direction ? handleChocolateDirection(-1, 0) : "left" == direction ? handleChocolateDirection(0, -1) : "right" == direction && handleChocolateDirection(0, 1));
+            } else chocolate && ("down" == direction ? handleChocolateDirection(1, 0) : "up" == direction ? handleChocolateDirection(-1, 0) : "left" == direction ? handleChocolateDirection(0, -1) : "right" == direction && handleChocolateDirection(0, 1));
         }
         function prev() {
             var prevFloor = floorActive - 1;
@@ -58,9 +57,9 @@ author: Léo Galley <contact@kirkas.ch>
             scrollToStage(prevFloor, self.options.time);
         }
         function handleChocolateDirection(addCoordY, addCoordX) {
-            var floorReference = [ self.options.ascensorMap[floorActive][0] + addCoordY, self.options.ascensorMap[floorActive][1] + addCoordX ];
-            $.each(self.options.ascensorMap, function(index) {
-                "" + floorReference == "" + self.options.ascensorMap[index] && scrollToStage(index, self.options.time);
+            var floorReference = [ self.options.direction[floorActive][0] + addCoordY, self.options.direction[floorActive][1] + addCoordX ];
+            $.each(self.options.direction, function(index) {
+                "" + floorReference == "" + self.options.direction[index] && scrollToStage(index, self.options.time);
             });
         }
         function getFloorFromHash() {
@@ -85,28 +84,28 @@ author: Léo Galley <contact@kirkas.ch>
                 scrollTop: floor * WH
             }; else if ("x" === self.options.direction) animationParams.property = {
                 scrollLeft: floor * WW
-            }; else if ("chocolate" === self.options.direction && (animationParams.property = {
-                scrollLeft: self.options.ascensorMap[floor][1] * WW,
-                scrollTop: self.options.ascensorMap[floor][0] * WH
+            }; else if (chocolate && (animationParams.property = {
+                scrollLeft: self.options.direction[floor][1] * WW,
+                scrollTop: self.options.direction[floor][0] * WH
             }, self.options.queued)) {
-                var sameXposition = node.scrollLeft() === self.options.ascensorMap[floor][1] * WW, sameYposition = node.scrollTop() === self.options.ascensorMap[floor][0] * WH;
+                var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * WW, sameYposition = node.scrollTop() === self.options.direction[floor][0] * WH;
                 "x" === self.options.queued ? sameXposition ? animationParams.property = {
-                    scrollTop: self.options.ascensorMap[floor][0] * WH
+                    scrollTop: self.options.direction[floor][0] * WH
                 } : (animationParams.property = {
-                    scrollLeft: self.options.ascensorMap[floor][1] * WW
+                    scrollLeft: self.options.direction[floor][1] * WW
                 }, animationParams.callback = function() {
                     node.stop().animate({
-                        scrollTop: self.options.ascensorMap[floor][0] * WH
+                        scrollTop: self.options.direction[floor][0] * WH
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });
                 }) : "y" === self.options.queued && (sameYposition ? animationParams.property = {
-                    scrollLeft: self.options.ascensorMap[floor][1] * WW
+                    scrollLeft: self.options.direction[floor][1] * WW
                 } : (animationParams.property = {
-                    scrollTop: self.options.ascensorMap[floor][0] * WH
+                    scrollTop: self.options.direction[floor][0] * WH
                 }, animationParams.callback = function() {
                     node.stop().animate({
-                        scrollLeft: self.options.ascensorMap[floor][1] * WW
+                        scrollLeft: self.options.direction[floor][1] * WW
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });
@@ -160,7 +159,7 @@ author: Léo Galley <contact@kirkas.ch>
         WW, WH, //hash 
         hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
-        $(document)), $window = $(window);
+        $(document)), $window = $(window), chocolate = "object" == typeof self.options.direction;
         if (this.next = function() {
             var nextFloor = floorActive + 1;
             if (nextFloor > floorCounter) {
@@ -182,7 +181,7 @@ author: Léo Galley <contact@kirkas.ch>
             position: "absolute"
         }), nodeChildren.each(function() {
             floorCounter += 1;
-        }), ("x" === self.options.direction || "chocolate" === self.options.direction) && nodeChildren.css({
+        }), ("x" === self.options.direction || chocolate) && nodeChildren.css({
             position: "absolute",
             overflow: "auto"
         }), self.options.keyNavigation && $document.keydown(checkKey), self.options.ascensorFloorName && window.location.hash) {

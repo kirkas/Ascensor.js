@@ -8,7 +8,6 @@
       windowsOn                   => Choose the floor to start on
       direction                   => specify if direction is x,y or chocolate
       loop                        => If ascensor should loop at the end
-      ascensorMap                 => If you choose chocolate for direction, speficy position
       time                        => Specify speed of transition
       easing                      => Specify if direction is x,y or chocolate
       keyNavigation               => Choose if you want direction key support
@@ -21,7 +20,6 @@
     windowsOn: 0,
     direction: "y",
     loop: true,
-    ascensorMap: "",
     time: 300,
     easing: "linear",
     keyNavigation: true,
@@ -60,7 +58,10 @@
       $window = $(window),
       
       //hash 
-      hash;
+      hash,
+      chocolate = (typeof(self.options.direction) == "object");
+
+      
 function resize() {
   WW = $window.width();
   WH = $window.height();
@@ -79,17 +80,17 @@ function resize() {
     });
   }
 
-  if (self.options.direction === "chocolate") {
+  if (chocolate) {
     nodeChildren.each(function(index) {
       $(this).css({
-        "left": (self.options.ascensorMap[index][1]) * WW,
-        "top": (self.options.ascensorMap[index][0]) * WH
+        "left": (self.options.direction[index][1]) * WW,
+        "top": (self.options.direction[index][0]) * WH
       });
     });
     
     scrollToStage(floorActive, 1);
     
-    node.stop().scrollLeft((self.options.ascensorMap[floorActive][1]) * WW).scrollTop((self.options.ascensorMap[floorActive][0]) * WH);
+    node.stop().scrollLeft((self.options.direction[floorActive][1]) * WW).scrollTop((self.options.direction[floorActive][0]) * WH);
   }
 }
 function handleDirection(direction) {
@@ -110,7 +111,7 @@ function handleDirection(direction) {
       self.next();
     }
 
-  } else if (self.options.direction == "chocolate") {
+} else if (chocolate) {
     if (direction == "down") {
       handleChocolateDirection(1, 0);
     } else if (direction == "up") {
@@ -142,9 +143,9 @@ this.next = function(){
 };
 
 function handleChocolateDirection(addCoordY, addCoordX) {
-  var floorReference = [self.options.ascensorMap[floorActive][0] + addCoordY, self.options.ascensorMap[floorActive][1] + addCoordX];
-  $.each(self.options.ascensorMap, function(index) {
-    if (floorReference.toString() == self.options.ascensorMap[index].toString()) {
+  var floorReference = [self.options.direction[floorActive][0] + addCoordY, self.options.direction[floorActive][1] + addCoordX];
+  $.each(self.options.direction, function(index) {
+    if (floorReference.toString() == self.options.direction[index].toString()) {
       scrollToStage(index, self.options.time);
     }
   });
@@ -179,27 +180,27 @@ function scrollToStage(floor, time) {
     animationParams.property = {
       scrollLeft: (floor) * WW
     };
-  } else if (self.options.direction === "chocolate") {
+  } else if (chocolate) {
     animationParams.property = {
-      scrollLeft: (self.options.ascensorMap[floor][1]) * WW,
-      scrollTop: (self.options.ascensorMap[floor][0]) * WH
+      scrollLeft: (self.options.direction[floor][1]) * WW,
+      scrollTop: (self.options.direction[floor][0]) * WH
     };
 
     if (self.options.queued) {
-      var sameXposition = node.scrollLeft() === self.options.ascensorMap[floor][1] * WW;
-      var sameYposition = node.scrollTop() === self.options.ascensorMap[floor][0] * WH;
+      var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * WW;
+      var sameYposition = node.scrollTop() === self.options.direction[floor][0] * WH;
       if (self.options.queued === "x") {
         if (sameXposition) {
           animationParams.property = {
-            scrollTop: (self.options.ascensorMap[floor][0]) * WH
+            scrollTop: (self.options.direction[floor][0]) * WH
           };
         } else {
           animationParams.property = {
-            scrollLeft: (self.options.ascensorMap[floor][1]) * WW
+            scrollLeft: (self.options.direction[floor][1]) * WW
           };
           animationParams.callback = function() {
             node.stop().animate({
-              scrollTop: (self.options.ascensorMap[floor][0]) * WH
+              scrollTop: (self.options.direction[floor][0]) * WH
             },
             time,
             self.options.easing,
@@ -212,15 +213,15 @@ function scrollToStage(floor, time) {
       } else if (self.options.queued === "y") {
         if (sameYposition) {
           animationParams.property = {
-            scrollLeft: (self.options.ascensorMap[floor][1]) * WW
+            scrollLeft: (self.options.direction[floor][1]) * WW
           };
         } else {
           animationParams.property = {
-            scrollTop: (self.options.ascensorMap[floor][0]) * WH
+            scrollTop: (self.options.direction[floor][0]) * WH
           };
           animationParams.callback = function() {
             node.stop().animate({
-              scrollLeft: (self.options.ascensorMap[floor][1]) * WW
+              scrollLeft: (self.options.direction[floor][1]) * WW
             },
             time,
             self.options.easing,
@@ -315,7 +316,7 @@ nodeChildren.each(function(index) {
   floorCounter += 1;
 });
 
-if (self.options.direction === "x" || self.options.direction === "chocolate") {
+if (self.options.direction === "x" || chocolate) {
   nodeChildren.css({
     "position": "absolute",
     "overflow": "auto"

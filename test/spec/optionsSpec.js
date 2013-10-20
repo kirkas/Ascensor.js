@@ -13,6 +13,8 @@ describe("Options", function() {
   });
 
   function getInstanceOfAscensor(parameter) {
+    var fixture = $('<div id="ascensorBuilding"><div></div><div></div><div></div></div>');
+    var ascensor = fixture.ascensor(parameter);
     return $fixture.ascensor(parameter);
   }
 
@@ -29,7 +31,7 @@ describe("Options", function() {
       it("true (default)", function() {
 
         var ascensor = getInstanceOfAscensor({});
-        var floorArray;
+        var floorArray = new Object;
 
         ascensor.on("scrollStart", function(event, floor) {
           floorArray = floor;
@@ -148,8 +150,7 @@ describe("Options", function() {
           var R5 = 1 + Math.floor(Math.random() * 30);
           var R6 = 1 + Math.floor(Math.random() * 30);
           var parameter = {
-            direction: "chocolate",
-            ascensorMap: [
+            direction: [
               [R1, R2],
               [R3, R4],
               [R5, R6]
@@ -162,10 +163,10 @@ describe("Options", function() {
               position: "absolute"
             });
             expect(elements).toHaveCss({
-              left: parameter.ascensorMap[index][1] * WW + "px"
+              left: parameter.direction[index][1] * WW + "px"
             });
             expect(elements).toHaveCss({
-              top: parameter.ascensorMap[index][0] * WH + "px"
+              top: parameter.direction[index][0] * WH + "px"
             });
           });
         });
@@ -358,7 +359,7 @@ describe("Options", function() {
           var R6 = 1 + Math.floor(Math.random() * 30);
           var parameter = {
             direction: "chocolate",
-            ascensorMap: [
+            direction: [
               [R1, R2],
               [R3, R4],
               [R5, R6]

@@ -71,68 +71,62 @@ navigation class system
 
 
 **ascensorFloorName**
-- Type: 'string'
-- Default: 'null'
-- descriptions: Choose and name for each floor
+- Type: ```array ``` of ```string```
+- Default: ```null```
+- descriptions: Choose and name for each floor, this name will be added in the url as #name
 - example: ```ascensorFloorName: ['content1','content2','content3']```
 
 **childType**
-- Type: 'string'
-- Default: 'div'
+- Type: ```string```
+- Default: ```div```
 - descriptions: Specify the child tag if no div ('section' or 'article')
 - example: ```childType:'article'```
 
 **windowsOn**
-- Type: 'integer'
-- Default: '1'
+- Type: ```integer```
+- Default: ```0```
 - descriptions: Choose the floor to start on
 - example: ```windowsOn: 3```
 
 **direction**
-- Type: 'string'
-- Default: 'y'
-- descriptions: specify the direction ('x', 'y' or 'chocolate')
-- example: ```direction: 'chocolate'```
-
-**ascensorMap**
-- Type: 'string'
-- Default: 'null'
-- descriptions: If you choose chocolate for direction, speficy position for x/y (ex: AscensorMap:[[2,1],[2,2],[3,2]])
-- example: ```ascensorMap:[[2,1],[2,2],[3,2]]```
+- Type: ```string``` or ```object```
+- Default: ```y```
+- descriptions: specify the direction ``'x'``, ``'y'`` or and array of x/y position for each floor ``[[2,1],[2,2],[3,2]]``
+- example: ```direction: [[2,1],[2,2],[3,2]]```
 
 **time**
-- Type: 'string'
-- Default: '1000'
+- Type: ```integer```
+- Default: ```300```
 - descriptions: Specify speed of transition
-- example: ```time: 3000```
+- example: ```time: 500```
 
 **easing**
-- Type: 'string'
-- Default: 'linear'
+- Type: ```string```
+- Default: ```linear```
 - descriptions: Specify easing option (don't forget to add the easing plugin)
 - example: ```easing: 'easeInElastic'```
 
 **keyNavigation**
-- Type: 'boolean'
-- Default: 'true'
+- Type: ```boolean```
+- Default: ```true```
 - descriptions: choose if you want direction key support
 - example: ```keyNavigation: false```
 
 **queued**
-- Type: 'boolean or string'
-- Default: 'false'
+- Type: ```boolean``` or ```string```
+- Default: ```false```
 - descriptions: can be false, 'x' or 'y' (queued axis)
-- example: ```queued: x```
+- example: ```queued: 'x'```
 
 **loop**
-- Type: 'boolean'
-- Default: 'true'
+- Type: ```boolean```
+- Default: ```true```
 - descriptions: specify if you want an loop
 - example: ```loop: false```
 
 **touchSwipeIntegration**
-- Type: 'boolean'
-- Default: 'false'
+- Type: ```boolean```
+- Default: ```false```
 - descriptions: Specify if you want jquery swipe implentation
 - example: ```touchSwipeIntegration: true```
 

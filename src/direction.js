@@ -16,7 +16,7 @@ function handleDirection(direction) {
       self.next();
     }
 
-  } else if (self.options.direction == "chocolate") {
+} else if (chocolate) {
     if (direction == "down") {
       handleChocolateDirection(1, 0);
     } else if (direction == "up") {
@@ -48,9 +48,9 @@ this.next = function(){
 };
 
 function handleChocolateDirection(addCoordY, addCoordX) {
-  var floorReference = [self.options.ascensorMap[floorActive][0] + addCoordY, self.options.ascensorMap[floorActive][1] + addCoordX];
-  $.each(self.options.ascensorMap, function(index) {
-    if (floorReference.toString() == self.options.ascensorMap[index].toString()) {
+  var floorReference = [self.options.direction[floorActive][0] + addCoordY, self.options.direction[floorActive][1] + addCoordX];
+  $.each(self.options.direction, function(index) {
+    if (floorReference.toString() == self.options.direction[index].toString()) {
       scrollToStage(index, self.options.time);
     }
   });

@@ -16,16 +16,16 @@ function resize() {
     });
   }
 
-  if (self.options.direction === "chocolate") {
+  if (chocolate) {
     nodeChildren.each(function(index) {
       $(this).css({
-        "left": (self.options.ascensorMap[index][1]) * WW,
-        "top": (self.options.ascensorMap[index][0]) * WH
+        "left": (self.options.direction[index][1]) * WW,
+        "top": (self.options.direction[index][0]) * WH
       });
     });
     
     scrollToStage(floorActive, 1);
     
-    node.stop().scrollLeft((self.options.ascensorMap[floorActive][1]) * WW).scrollTop((self.options.ascensorMap[floorActive][0]) * WH);
+    node.stop().scrollLeft((self.options.direction[floorActive][1]) * WW).scrollTop((self.options.direction[floorActive][0]) * WH);
   }
 }

@@ -6,7 +6,7 @@ nodeChildren.each(function(index) {
   floorCounter += 1;
 });
 
-if (self.options.direction === "x" || self.options.direction === "chocolate") {
+if (self.options.direction === "x" || chocolate) {
   nodeChildren.css({
     "position": "absolute",
     "overflow": "auto"

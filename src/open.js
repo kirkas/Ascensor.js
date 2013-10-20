@@ -8,7 +8,6 @@
       windowsOn                   => Choose the floor to start on
       direction                   => specify if direction is x,y or chocolate
       loop                        => If ascensor should loop at the end
-      ascensorMap                 => If you choose chocolate for direction, speficy position
       time                        => Specify speed of transition
       easing                      => Specify if direction is x,y or chocolate
       keyNavigation               => Choose if you want direction key support
@@ -21,7 +20,6 @@
     windowsOn: 0,
     direction: "y",
     loop: true,
-    ascensorMap: "",
     time: 300,
     easing: "linear",
     keyNavigation: true,
@@ -60,4 +58,7 @@
       $window = $(window),
       
       //hash 
-      hash;
+      hash,
+      chocolate = (typeof(self.options.direction) == "object");
+
+      
