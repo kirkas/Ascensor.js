@@ -90,7 +90,7 @@ navigation class system
 
 **direction**
 - Type: ```string``` or ```object```
-- Default: ```y```
+- Default: ```'y'```
 - descriptions: specify the direction ``'x'``, ``'y'`` or and array of x/y position for each floor ``[[2,1],[2,2],[3,2]]``
 - example: ```direction: [[2,1],[2,2],[3,2]]```
 

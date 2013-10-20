@@ -271,7 +271,7 @@ module.exports = function(grunt) {
 	
 	
 	
-	grunt.registerTask('home:build', ['clean:homepage','sass:homepage','concat:homepage','uglify:homepage','template:homepage']);
+	grunt.registerTask('home:build', ['plugin:build','clean:homepage','sass:homepage','concat:homepage','uglify:homepage','template:homepage']);
 	
 	grunt.registerTask('plugin:build', [
 		'clean:dist',
