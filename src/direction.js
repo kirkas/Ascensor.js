@@ -3,7 +3,7 @@ function handleDirection(direction) {
     if (direction == ("left" || "right")) {
       return;
     } else if (direction == "down") {
-      next();
+      self.next();
     } else if (direction == "up") {
       prev();
     }
@@ -13,7 +13,7 @@ function handleDirection(direction) {
     if (direction == "left") {
       prev();
     } else if (direction == "right") {
-      next();
+      self.next();
     }
 
   } else if (self.options.direction == "chocolate") {
@@ -32,18 +32,20 @@ function handleDirection(direction) {
 function prev() {
   var prevFloor = floorActive - 1;
   if (prevFloor < 0) {
-    prevFloor = (self.options.loop) ? floorCounter : 0;
+    if (!self.options.loop) return;
+    prevFloor = floorCounter;
   }
   scrollToStage(prevFloor, self.options.time);
 }
 
-function next() {
+this.next = function(){
   var nextFloor = floorActive + 1;
   if (nextFloor > floorCounter) {
-    nextFloor = (self.options.loop) ? 0 : floorCounter;
+    if (!self.options.loop) return;
+    nextFloor = 0;
   }
   scrollToStage(nextFloor, self.options.time);
-}
+};
 
 function handleChocolateDirection(addCoordY, addCoordX) {
   var floorReference = [self.options.ascensorMap[floorActive][0] + addCoordY, self.options.ascensorMap[floorActive][1] + addCoordX];

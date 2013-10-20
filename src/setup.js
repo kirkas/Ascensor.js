@@ -24,7 +24,7 @@ if (self.options.ascensorFloorName && window.location.hash) {
   }
 }
 
-scrollToStage(floorActive, 1, true);
+scrollToStage(floorActive, 1);
 
 if (self.options.touchSwipeIntegration) {
   node.swipe({

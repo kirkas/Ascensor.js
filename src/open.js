@@ -22,7 +22,7 @@
     direction: "y",
     loop: true,
     ascensorMap: "",
-    time: "1000",
+    time: 300,
     easing: "linear",
     keyNavigation: true,
     touchSwipeIntegration: false,

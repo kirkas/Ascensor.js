@@ -109,6 +109,15 @@ module.exports = function(grunt) {
 				}
 			},
 			
+			noloop: {
+				src: 'deploy/github/example_layout.ejs',
+				dest: 'examples/no_loop.html',
+				variables: {
+					title: 'no loop',
+					params:'{loop:false}'
+				}
+			},
+			
 			horizontal: {
 				src: 'deploy/github/example_layout.ejs',
 				dest: 'examples/example_horizontal.html',
@@ -185,11 +194,16 @@ module.exports = function(grunt) {
 		},
 		
 		jasmine: {
+			options: {
+				'--web-security' : false,
+				'--local-to-remote-url-access' : true,
+				'--ignore-ssl-errors' : true,
+			},
 			ascensor: {
 				src: 'dist/jquery.ascensor.js',
 				options: {
 					vendor:[
-						'components/jquery/jquery.js', 
+						'http://code.jquery.com/jquery-2.0.0.min.js', 
 						'components/jasmine-jquery/lib/jasmine-jquery.js'
 					],
 					specs: 'test/spec/*Spec.js'
@@ -265,7 +279,7 @@ module.exports = function(grunt) {
 		'jshint:ascensor',
 		'uglify:ascensor',
 		'uglify:ascensormin',
-		'jasmine:ascensor',
+		// 'jasmine:ascensor',
 		'template:README'
 	]);
 	

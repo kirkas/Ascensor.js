@@ -22,7 +22,7 @@
     direction: "y",
     loop: true,
     ascensorMap: "",
-    time: "1000",
+    time: 300,
     easing: "linear",
     keyNavigation: true,
     touchSwipeIntegration: false,
@@ -97,7 +97,7 @@ function handleDirection(direction) {
     if (direction == ("left" || "right")) {
       return;
     } else if (direction == "down") {
-      next();
+      self.next();
     } else if (direction == "up") {
       prev();
     }
@@ -107,7 +107,7 @@ function handleDirection(direction) {
     if (direction == "left") {
       prev();
     } else if (direction == "right") {
-      next();
+      self.next();
     }
 
   } else if (self.options.direction == "chocolate") {
@@ -126,18 +126,20 @@ function handleDirection(direction) {
 function prev() {
   var prevFloor = floorActive - 1;
   if (prevFloor < 0) {
-    prevFloor = (self.options.loop) ? floorCounter : 0;
+    if (!self.options.loop) return;
+    prevFloor = floorCounter;
   }
   scrollToStage(prevFloor, self.options.time);
 }
 
-function next() {
+this.next = function(){
   var nextFloor = floorActive + 1;
   if (nextFloor > floorCounter) {
-    nextFloor = (self.options.loop) ? 0 : floorCounter;
+    if (!self.options.loop) return;
+    nextFloor = 0;
   }
   scrollToStage(nextFloor, self.options.time);
-}
+};
 
 function handleChocolateDirection(addCoordY, addCoordX) {
   var floorReference = [self.options.ascensorMap[floorActive][0] + addCoordY, self.options.ascensorMap[floorActive][1] + addCoordX];
@@ -255,23 +257,17 @@ function scrollEnd(from, to) {
 }
 
 node.on("scrollToDirection", function(event, direction) {
-  if (direction == "next") {
-    next();
-  } else if (direction == "prev") {
-    prev();
-  } else {
-    handleDirection(direction);
-  }
+  handleDirection(direction);
 });
 
 node.on("scrollToStage", function(event, floor) {
   if (floor > floorCounter) return;
-  scrollToStage(floor);
+  scrollToStage(floor, self.options.time);
 });
 
 
 node.on("next", function(event, floor) {
-  next();
+  self.next();
 });
 
 node.on("prev", function(event, floor) {
@@ -289,21 +285,25 @@ function checkKey(e){
   switch (e.which) {
   case 40:
   case 83:
-    handleDirection("down");
+    if(self.options.direction == "x") return;
+    node.trigger("scrollToDirection", "down");
     break;
   case 38:
   case 87:
-    handleDirection("up");
+    if(self.options.direction == "x") return;
+    node.trigger("scrollToDirection", "up");
     break;
 
   case 37:
   case 65:
-    handleDirection("left");
+    if(self.options.direction == "y") return;
+    node.trigger("scrollToDirection", "left");
     break;
 
   case 39:
   case 68:
-    handleDirection("right");
+    if(self.options.direction == "y") return;
+    node.trigger("scrollToDirection", "right");
     break;
   }
 }
@@ -333,7 +333,7 @@ if (self.options.ascensorFloorName && window.location.hash) {
   }
 }
 
-scrollToStage(floorActive, 1, true);
+scrollToStage(floorActive, 1);
 
 if (self.options.touchSwipeIntegration) {
   node.swipe({

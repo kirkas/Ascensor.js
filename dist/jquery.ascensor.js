@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.6.5 (2013-10-15)
+version: 1.6.5 (2013-10-19)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -21,7 +21,7 @@ author: Léo Galley <contact@kirkas.ch>
         direction: "y",
         loop: !0,
         ascensorMap: "",
-        time: "1000",
+        time: 300,
         easing: "linear",
         keyNavigation: !0,
         touchSwipeIntegration: !1,
@@ -43,20 +43,19 @@ author: Léo Galley <contact@kirkas.ch>
         function handleDirection(direction) {
             if ("y" == self.options.direction) {
                 if ("left" == direction) return;
-                "down" == direction ? next() : "up" == direction && prev();
+                "down" == direction ? self.next() : "up" == direction && prev();
             } else if ("x" == self.options.direction) {
                 if ("up" == direction) return;
-                "left" == direction ? prev() : "right" == direction && next();
+                "left" == direction ? prev() : "right" == direction && self.next();
             } else "chocolate" == self.options.direction && ("down" == direction ? handleChocolateDirection(1, 0) : "up" == direction ? handleChocolateDirection(-1, 0) : "left" == direction ? handleChocolateDirection(0, -1) : "right" == direction && handleChocolateDirection(0, 1));
         }
         function prev() {
             var prevFloor = floorActive - 1;
-            0 > prevFloor && (prevFloor = self.options.loop ? floorCounter : 0), scrollToStage(prevFloor, self.options.time);
-        }
-        function next() {
-            var nextFloor = floorActive + 1;
-            nextFloor > floorCounter && (nextFloor = self.options.loop ? 0 : floorCounter), 
-            scrollToStage(nextFloor, self.options.time);
+            if (0 > prevFloor) {
+                if (!self.options.loop) return;
+                prevFloor = floorCounter;
+            }
+            scrollToStage(prevFloor, self.options.time);
         }
         function handleChocolateDirection(addCoordY, addCoordX) {
             var floorReference = [ self.options.ascensorMap[floorActive][0] + addCoordY, self.options.ascensorMap[floorActive][1] + addCoordX ];
@@ -135,22 +134,26 @@ author: Léo Galley <contact@kirkas.ch>
             if (!$("input, textarea, button").is(":focus")) switch (e.which) {
               case 40:
               case 83:
-                handleDirection("down");
+                if ("x" == self.options.direction) return;
+                node.trigger("scrollToDirection", "down");
                 break;
 
               case 38:
               case 87:
-                handleDirection("up");
+                if ("x" == self.options.direction) return;
+                node.trigger("scrollToDirection", "up");
                 break;
 
               case 37:
               case 65:
-                handleDirection("left");
+                if ("y" == self.options.direction) return;
+                node.trigger("scrollToDirection", "left");
                 break;
 
               case 39:
               case 68:
-                handleDirection("right");
+                if ("y" == self.options.direction) return;
+                node.trigger("scrollToDirection", "right");
             }
         }
         var //height/width settings
@@ -158,12 +161,19 @@ author: Léo Galley <contact@kirkas.ch>
         hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
         $(document)), $window = $(window);
-        if (node.on("scrollToDirection", function(event, direction) {
-            "next" == direction ? next() : "prev" == direction ? prev() : handleDirection(direction);
+        if (this.next = function() {
+            var nextFloor = floorActive + 1;
+            if (nextFloor > floorCounter) {
+                if (!self.options.loop) return;
+                nextFloor = 0;
+            }
+            scrollToStage(nextFloor, self.options.time);
+        }, node.on("scrollToDirection", function(event, direction) {
+            handleDirection(direction);
         }), node.on("scrollToStage", function(event, floor) {
-            floor > floorCounter || scrollToStage(floor);
+            floor > floorCounter || scrollToStage(floor, self.options.time);
         }), node.on("next", function() {
-            next();
+            self.next();
         }), node.on("prev", function() {
             prev();
         }), node.on("update", function() {
@@ -179,7 +189,7 @@ author: Léo Galley <contact@kirkas.ch>
             var hashFloor = getFloorFromHash();
             hashFloor && (floorActive = hashFloor);
         }
-        scrollToStage(floorActive, 1, !0), self.options.touchSwipeIntegration && node.swipe({
+        scrollToStage(floorActive, 1), self.options.touchSwipeIntegration && node.swipe({
             swipe: function(event, direction) {
                 node.trigger("scrollToDirection", direction);
             },

@@ -15,23 +15,17 @@ function scrollEnd(from, to) {
 }
 
 node.on("scrollToDirection", function(event, direction) {
-  if (direction == "next") {
-    next();
-  } else if (direction == "prev") {
-    prev();
-  } else {
-    handleDirection(direction);
-  }
+  handleDirection(direction);
 });
 
 node.on("scrollToStage", function(event, floor) {
   if (floor > floorCounter) return;
-  scrollToStage(floor);
+  scrollToStage(floor, self.options.time);
 });
 
 
 node.on("next", function(event, floor) {
-  next();
+  self.next();
 });
 
 node.on("prev", function(event, floor) {
