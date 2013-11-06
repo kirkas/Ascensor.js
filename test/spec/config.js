@@ -1,0 +1,1 @@
+jasmine.getFixtures().fixturesPath = './test/spec/javascripts/fixtures'

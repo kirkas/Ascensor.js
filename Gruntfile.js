@@ -204,7 +204,8 @@ module.exports = function(grunt) {
 				options: {
 					vendor:[
 						'http://code.jquery.com/jquery-2.0.0.min.js', 
-						'components/jasmine-jquery/lib/jasmine-jquery.js'
+						'components/jasmine-jquery/lib/jasmine-jquery.js',
+						'test/spec/config.js'
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -215,7 +216,8 @@ module.exports = function(grunt) {
 				options: {
 					vendor:[
 						'http://code.jquery.com/jquery-2.0.0.min.js', 
-						'components/jasmine-jquery/lib/jasmine-jquery.js'
+						'components/jasmine-jquery/lib/jasmine-jquery.js',
+						'test/spec/config.js'
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -226,7 +228,8 @@ module.exports = function(grunt) {
 				options: {
 					vendor:[
 						'http://code.jquery.com/jquery-1.9.0.min.js', 
-						'components/jasmine-jquery/lib/jasmine-jquery.js'
+						'components/jasmine-jquery/lib/jasmine-jquery.js',
+						'test/spec/config.js'
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -237,7 +240,8 @@ module.exports = function(grunt) {
 				options: {
 					vendor:[
 						'http://code.jquery.com/jquery-1.8.0.min.js', 
-						'components/jasmine-jquery/lib/jasmine-jquery.js'
+						'components/jasmine-jquery/lib/jasmine-jquery.js',
+						'test/spec/config.js'
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -248,7 +252,8 @@ module.exports = function(grunt) {
 				options: {
 					vendor:[
 						'http://code.jquery.com/jquery-1.7.0.min.js', 
-						'components/jasmine-jquery/lib/jasmine-jquery.js'
+						'components/jasmine-jquery/lib/jasmine-jquery.js',
+						'test/spec/config.js'
 					],
 					specs: 'test/spec/*Spec.js'
 				}

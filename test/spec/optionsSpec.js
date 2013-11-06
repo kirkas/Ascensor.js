@@ -1,3 +1,4 @@
+
 describe("Options", function() {
 
   var defaultTime = 300;
@@ -6,15 +7,15 @@ describe("Options", function() {
   var WH = $(window).height();
   var scrollEndSpy;
   var scrollStartSpy;
-
+  var fixture;
   beforeEach(function() {
     loadFixtures("ascensor.html");
     $fixture = $("#ascensorBuilding");
+    fixture = $('<div id="ascensorBuilding"><div></div><div></div><div></div></div>');
   });
 
   function getInstanceOfAscensor(parameter) {
-    var fixture = $('<div id="ascensorBuilding"><div></div><div></div><div></div></div>');
-    var ascensor = fixture.ascensor(parameter);
+
     return $fixture.ascensor(parameter);
   }
 
@@ -32,7 +33,8 @@ describe("Options", function() {
 
         var ascensor = getInstanceOfAscensor({});
         var floorArray = new Object;
-
+        var spyOnEventScrollStart = spyOnEvent(ascensor, "scrollStart");
+        
         ascensor.on("scrollStart", function(event, floor) {
           floorArray = floor;
         });
@@ -42,7 +44,11 @@ describe("Options", function() {
         expect(floorArray.from).toBe(0);
         expect(floorArray.to).toBe(1);
         
+        expect(spyOnEventScrollStart).toHaveBeenTriggered();
+        spyOnEventScrollStart.reset();
+        
         ascensor.trigger("prev").trigger("prev").trigger("prev").trigger("prev");
+        expect(spyOnEventScrollStart).toHaveBeenTriggered();
         
         expect(floorArray.from).toBe(1);
         expect(floorArray.to).toBe(0);
