@@ -41,6 +41,9 @@ ascensor.trigger("prev");
 // Go to next floor
 ascensor.trigger("next");
 
+// refresh floor position, usefull when you dynamically append element
+ascensor.trigger("refresh");
+
 // Go to the 5th floor (JS calcul from 0)
 ascensor.trigger("scrollToStage", 4);
 
@@ -64,8 +67,7 @@ ascensor.on("scrollEnd", function(event, floor){
 
 ###CSS navigation class
 **Update**
-Since i've added the trigger system, i've removed the css
-navigation class system
+I've added the trigger system & removed the css navigation class system
 
 ### Options
 
