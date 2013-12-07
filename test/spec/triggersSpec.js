@@ -74,4 +74,20 @@ describe("Triggers", function() {
       ascensor.trigger("prev");
     });
   });
+  
+  describe("Refresh on dom change", function(){
+    it("append element", function(){
+      refreshSpy = spyOnEvent(ascensor, "refresh");
+      ascensor.append("<div></div>");
+      expect(refreshSpy).toHaveBeenTriggered();
+    });
+    
+    // it("remove element", function(){
+    //   refreshSpy = spyOnEvent(ascensor, "refresh");
+    //   ascensor.find("div:first-child").remove();
+    //   expect(refreshSpy).toHaveBeenTriggered();
+    // });
+    
+  });
+  
 });

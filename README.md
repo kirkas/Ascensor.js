@@ -64,12 +64,11 @@ ascensor.on("scrollEnd", function(event, floor){
 
 ###CSS navigation class
 **Update**
-Since i've added the trigger system, i've removed the css navigation class system
+Since i've added the trigger system, i've removed the css
+navigation class system
 
 ### Options
-**Update**
-- I've merged the options ```ascensorMap``` & ```direction``` together.
-- I've merged the options ```queued``` & ```queuedDirection``` together.
+
 
 **ascensorFloorName**
 - Type: ```array ``` of ```string```

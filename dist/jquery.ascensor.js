@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.6.5 (2013-10-25)
+version: 1.6.5 (2013-12-07)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -181,6 +181,14 @@ author: Léo Galley <contact@kirkas.ch>
             position: "absolute"
         }), nodeChildren.each(function() {
             floorCounter += 1;
+        }), node.bind("DOMNodeInserted", function() {
+            (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) && (nodeChildren = node.children(self.options.childType), 
+            ("x" === self.options.direction || chocolate) && nodeChildren.css({
+                position: "absolute",
+                overflow: "auto"
+            }), floorCounter = -1, nodeChildren.each(function() {
+                floorCounter += 1;
+            }), childrenLenght = node.children().length, node.trigger("refresh"), resize());
         }), ("x" === self.options.direction || chocolate) && nodeChildren.css({
             position: "absolute",
             overflow: "auto"

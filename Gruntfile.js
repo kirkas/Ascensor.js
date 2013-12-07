@@ -132,7 +132,7 @@ module.exports = function(grunt) {
 				dest: 'examples/example_chocolat.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]]}'
+					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4],[2,5]]}'
 				}
 			},
 			
@@ -150,7 +150,7 @@ module.exports = function(grunt) {
 				dest: 'examples/example_chocolat_queued.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4]], queued:"x"}'
+					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4],[2,5]], queued:"x"}'
 				}
 			},
 			
@@ -197,7 +197,7 @@ module.exports = function(grunt) {
 			options: {
 				'--web-security' : false,
 				'--local-to-remote-url-access' : true,
-				'--ignore-ssl-errors' : true,
+				'--ignore-ssl-errors' : true
 			},
 			ascensor: {
 				src: 'dist/jquery.ascensor.js',
@@ -284,7 +284,7 @@ module.exports = function(grunt) {
 		'jshint:ascensor',
 		'uglify:ascensor',
 		'uglify:ascensormin',
-		// 'jasmine:ascensor',
+		'jasmine:ascensor',
 		'template:README'
 	]);
 	

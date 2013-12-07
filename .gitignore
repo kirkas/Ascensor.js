@@ -7,3 +7,5 @@
 /.grunt/
 /deploy/
 *.log
+Icon^M^M
+Icon
