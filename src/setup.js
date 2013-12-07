@@ -6,28 +6,6 @@ nodeChildren.each(function(index) {
   floorCounter += 1;
 });
 
-node.bind("DOMNodeInserted", function(event){
-  if(node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) {
-    nodeChildren = node.children(self.options.childType);
-    if (self.options.direction === "x" || chocolate) {
-      nodeChildren.css({
-        "position": "absolute",
-        "overflow": "auto"
-      });
-    }
-    floorCounter = -1;
-    nodeChildren.each(function(index) {
-      floorCounter += 1;
-    });
-
-    childrenLenght = node.children().length;
-    node.trigger("refresh");
-    resize();
-  }
-});
-
-
-
 if (self.options.direction === "x" || chocolate) {
   nodeChildren.css({
     "position": "absolute",

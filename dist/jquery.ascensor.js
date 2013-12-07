@@ -175,13 +175,7 @@ author: Léo Galley <contact@kirkas.ch>
             self.next();
         }), node.on("prev", function() {
             prev();
-        }), node.on("update", function() {
-            nodeChildren = node.children(self.options.childType), resize();
-        }), node.css({
-            position: "absolute"
-        }), nodeChildren.each(function() {
-            floorCounter += 1;
-        }), node.bind("DOMNodeInserted", function() {
+        }), node.on("refresh", function() {
             (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) && (nodeChildren = node.children(self.options.childType), 
             ("x" === self.options.direction || chocolate) && nodeChildren.css({
                 position: "absolute",
@@ -189,6 +183,10 @@ author: Léo Galley <contact@kirkas.ch>
             }), floorCounter = -1, nodeChildren.each(function() {
                 floorCounter += 1;
             }), childrenLenght = node.children().length, node.trigger("refresh"), resize());
+        }), node.css({
+            position: "absolute"
+        }), nodeChildren.each(function() {
+            floorCounter += 1;
         }), ("x" === self.options.direction || chocolate) && nodeChildren.css({
             position: "absolute",
             overflow: "auto"

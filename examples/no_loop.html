@@ -80,6 +80,7 @@
 				$(".add-floor").click(function(){
 					if(!floorAdded){
 					$('#ascensorBuilding').append('<div class="floor-8">This floor has been dynamically appended!</div>');
+					ascensor.trigger("refresh");
 					$(this).text("Floor Added!");
 					floorAdded = true;
 					}

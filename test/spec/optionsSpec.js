@@ -1,4 +1,3 @@
-
 describe("Options", function() {
 
   var defaultTime = 300;
