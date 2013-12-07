@@ -74,51 +74,51 @@
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
 		<script>
-			$(function(){
-				var ascensor = $('#ascensorBuilding').ascensor({direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4],[2,5]]});
-				var floorAdded = false;
-				$(".add-floor").click(function(){
-					if(!floorAdded){
-					$('#ascensorBuilding').append('<div class="floor-8">This floor has been dynamically appended!</div>');
-					ascensor.trigger("refresh");
-					$(this).text("Floor Added!");
-					floorAdded = true;
-					}
-				});
+			var ascensor = $('#ascensorBuilding').ascensor({direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4],[2,5]]});
+			var floorAdded = false;
+			$(".add-floor").click(function(){
+				if(!floorAdded){
+				$('#ascensorBuilding').append('<div class="floor-8">This floor has been dynamically appended!</div>');
+				ascensor.trigger("refresh");
+				$(this).text("Floor Added!");
+				floorAdded = true;
+				}
+			});
 				
-				$(".links-to-floor li").click(function(event, index) {
-					ascensor.trigger("scrollToStage", $(this).index());
-				});
-				
-				ascensor.on("scrollStart", function(event, floor){
-					$(".links-to-floor li").removeClass("selected");
-					$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
-				});
+			$(".links-to-floor li").click(function(event, index) {
+				ascensor.trigger("scrollToStage", $(this).index());
+			});
+			
+			$(".links-to-floor li:eq("+ ascensor.data("current-floor") +")").addClass("selected");
+
+			ascensor.on("scrollStart", function(event, floor){
+				$(".links-to-floor li").removeClass("selected");
+				$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
+			});
 	
-				$(".prev").click(function() {
-					ascensor.trigger("prev");
-				});
+			$(".prev").click(function() {
+				ascensor.trigger("prev");
+			});
 				
-				$(".next").click(function() {
-					ascensor.trigger("next");
-				});
+			$(".next").click(function() {
+				ascensor.trigger("next");
+			});
 				
-				$(".up").click(function() {
-					ascensor.trigger("scrollToDirection" ,"up");
-				});
+			$(".up").click(function() {
+				ascensor.trigger("scrollToDirection" ,"up");
+			});
 				
-				$(".down").click(function() {
-					ascensor.trigger("scrollToDirection" ,"down");
-				});
+			$(".down").click(function() {
+				ascensor.trigger("scrollToDirection" ,"down");
+			});
 				
-				$(".left").click(function() {
-					ascensor.trigger("scrollToDirection" ,"left");
-				});
+			$(".left").click(function() {
+				ascensor.trigger("scrollToDirection" ,"left");
+			});
 				
-				$(".right").click(function() {
-					ascensor.trigger("scrollToDirection" ,"right");
-				});
-			});			
+			$(".right").click(function() {
+				ascensor.trigger("scrollToDirection" ,"right");
+			});		
 		</script>
 
 	</body>

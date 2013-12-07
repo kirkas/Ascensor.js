@@ -74,7 +74,7 @@ author: Léo Galley <contact@kirkas.ch>
         function scrollToStage(floor, time) {
             scrollStart(floorActive, floor);
             var animationParams = {
-                time: time,
+                time: time || self.options.time,
                 easing: self.options.easing,
                 callback: function() {
                     scrollEnd(floorActive, floor);
@@ -170,7 +170,13 @@ author: Léo Galley <contact@kirkas.ch>
         }, node.on("scrollToDirection", function(event, direction) {
             handleDirection(direction);
         }), node.on("scrollToStage", function(event, floor) {
-            floor > floorCounter || scrollToStage(floor, self.options.time);
+            if ("string" == typeof floor) {
+                var floorId = $.inArray(floor, self.options.ascensorFloorName);
+                -1 !== floorId && scrollToStage(floorId, self.options.time);
+            } else if ("number" == typeof floor) {
+                if (floor > floorCounter) return;
+                scrollToStage(floor, self.options.time);
+            }
         }), node.on("next", function() {
             self.next();
         }), node.on("prev", function() {

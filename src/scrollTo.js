@@ -1,7 +1,7 @@
 function scrollToStage(floor, time) {  
   scrollStart(floorActive, floor);
   var animationParams = {
-    time: time,
+    time: time || self.options.time,
     easing: self.options.easing,
     callback: function() {
       scrollEnd(floorActive, floor);

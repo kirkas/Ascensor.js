@@ -165,7 +165,7 @@ function getFloorFromHash() {
 function scrollToStage(floor, time) {  
   scrollStart(floorActive, floor);
   var animationParams = {
-    time: time,
+    time: time || self.options.time,
     easing: self.options.easing,
     callback: function() {
       scrollEnd(floorActive, floor);
@@ -263,8 +263,13 @@ node.on("scrollToDirection", function(event, direction) {
 });
 
 node.on("scrollToStage", function(event, floor) {
-  if (floor > floorCounter) return;
-  scrollToStage(floor, self.options.time);
+  if (typeof floor == 'string') {
+    var floorId = $.inArray(floor, self.options.ascensorFloorName);
+    if (floorId !== -1) scrollToStage(floorId, self.options.time);
+  } else if(typeof floor == 'number') {
+    if (floor > floorCounter) return;
+    scrollToStage(floor, self.options.time);
+  }
 });
 
 
@@ -276,7 +281,6 @@ node.on("next", function(event, floor) {
 node.on("prev", function(event, floor) {
   prev();
 });
-
 
 node.on("refresh", function() {
   if(node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) {

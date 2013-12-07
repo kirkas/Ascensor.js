@@ -141,7 +141,7 @@ module.exports = function(grunt) {
 				dest: 'examples/example_url.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{ascensorFloorName:["Home", "Implementation", "HTML" , "Jquery" , "CSS", "Smartphone", "End"]}'
+					params:'{ascensorFloorName:["Home", "Implementation", "HTML" , "Jquery" , "CSS", "Smartphone", "End", "Yaaay"]}'
 				}
 			},
 			
@@ -284,7 +284,7 @@ module.exports = function(grunt) {
 		'jshint:ascensor',
 		'uglify:ascensor',
 		'uglify:ascensormin',
-		'jasmine:ascensor',
+		'jasmine',
 		'template:README'
 	]);
 	

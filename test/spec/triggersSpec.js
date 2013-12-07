@@ -8,7 +8,9 @@ describe("Triggers", function() {
   beforeEach(function() {
     loadFixtures("ascensor.html");
     $fixture = $("#ascensorBuilding");
-    ascensor = $fixture.ascensor({direction:"x"});
+    ascensor = $fixture.ascensor({
+      direction:"x"
+    });
   });
   
   afterEach(function() {
@@ -48,6 +50,7 @@ describe("Triggers", function() {
       
       ascensor.trigger("scrollToDirection", "down");
     });
+    
     it("scrollToStage", function(){
       ascensor.on("scrollStart", function(event, floor){
         expect(floor.from).toBe(0);
@@ -56,6 +59,7 @@ describe("Triggers", function() {
       
       ascensor.trigger("scrollToStage", 2);
     });
+    
     it("next", function(){
       ascensor.on("scrollStart", function(event, floor){
         expect(floor.from).toBe(0);

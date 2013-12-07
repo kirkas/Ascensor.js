@@ -21,7 +21,6 @@ In your web page:
   <div>Content 7</div>
 </div>
 
-
 <script src="jquery['>=1.7'].js"></script>
 <script src="jquery.ascensor.js"></script>
 <script>
@@ -47,8 +46,9 @@ ascensor.trigger("refresh");
 // Get current floor (integer)
 ascensor.data("current-floor");
 
-// Go to the 5th floor (Javascript calcul from 0)
+// Go to floor index or floor name
 ascensor.trigger("scrollToStage", 4);
+ascensor.trigger("scrollToStage", "content2")
 
 // Go up, down, left or right
 ascensor.trigger("scrollToDirection" ,"up");
