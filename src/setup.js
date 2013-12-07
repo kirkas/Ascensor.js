@@ -13,6 +13,8 @@ if (self.options.direction === "x" || chocolate) {
   });
 }
 
+node.data("current-floor", floorActive);
+
 if (self.options.keyNavigation) {
   $document.keydown(checkKey);
 }
@@ -34,6 +36,8 @@ if (self.options.touchSwipeIntegration) {
     threshold: 70
   });
 }
+
+
 
 $window.resize(function() {
   resize();

@@ -44,7 +44,10 @@ ascensor.trigger("next");
 // refresh floor position, usefull when you dynamically append element
 ascensor.trigger("refresh");
 
-// Go to the 5th floor (JS calcul from 0)
+// Get current floor (integer)
+ascensor.data("current-floor");
+
+// Go to the 5th floor (Javascript calcul from 0)
 ascensor.trigger("scrollToStage", 4);
 
 // Go up, down, left or right

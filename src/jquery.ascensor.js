@@ -240,6 +240,7 @@ function scrollToStage(floor, time) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
   floorActive = floor;
+  node.data("current-floor", floorActive);
 }
 function scrollStart(from, to) {
   var floor = {
@@ -340,6 +341,8 @@ if (self.options.direction === "x" || chocolate) {
   });
 }
 
+node.data("current-floor", floorActive);
+
 if (self.options.keyNavigation) {
   $document.keydown(checkKey);
 }
@@ -361,6 +364,8 @@ if (self.options.touchSwipeIntegration) {
     threshold: 70
   });
 }
+
+
 
 $window.resize(function() {
   resize();

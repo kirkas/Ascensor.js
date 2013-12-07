@@ -76,4 +76,5 @@ function scrollToStage(floor, time) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
   floorActive = floor;
+  node.data("current-floor", floorActive);
 }

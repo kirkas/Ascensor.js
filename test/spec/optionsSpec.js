@@ -51,7 +51,7 @@ describe("Options", function() {
         
         expect(floorArray.from).toBe(1);
         expect(floorArray.to).toBe(0);
-
+        expect(ascensor.data("current-floor")).toBe(0);
       });
 
       it("false", function() {

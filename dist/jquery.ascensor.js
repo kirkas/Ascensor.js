@@ -113,7 +113,7 @@ author: Léo Galley <contact@kirkas.ch>
             }
             node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback), 
             self.options.ascensorFloorName && (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
-            floorActive = floor;
+            floorActive = floor, node.data("current-floor", floorActive);
         }
         function scrollStart(from, to) {
             var floor = {
@@ -190,7 +190,8 @@ author: Léo Galley <contact@kirkas.ch>
         }), ("x" === self.options.direction || chocolate) && nodeChildren.css({
             position: "absolute",
             overflow: "auto"
-        }), self.options.keyNavigation && $document.keydown(checkKey), self.options.ascensorFloorName && window.location.hash) {
+        }), node.data("current-floor", floorActive), self.options.keyNavigation && $document.keydown(checkKey), 
+        self.options.ascensorFloorName && window.location.hash) {
             var hashFloor = getFloorFromHash();
             hashFloor && (floorActive = hashFloor);
         }
