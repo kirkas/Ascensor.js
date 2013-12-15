@@ -25,7 +25,6 @@ function resize() {
     });
     
     scrollToStage(floorActive, 1);
-    
     node.stop().scrollLeft((self.options.direction[floorActive][1]) * WW).scrollTop((self.options.direction[floorActive][0]) * WH);
   }
 }

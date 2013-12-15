@@ -28,9 +28,9 @@ describe("Options", function() {
   describe("options", function() {
     describe("loop", function() {
       
-      it("true (default)", function() {
+      it("true", function() {
 
-        var ascensor = getInstanceOfAscensor({});
+        var ascensor = getInstanceOfAscensor({loop:true});
         var floorArray = new Object;
         var spyOnEventScrollStart = spyOnEvent(ascensor, "scrollStart");
         
@@ -55,9 +55,7 @@ describe("Options", function() {
       });
 
       it("false", function() {
-        var ascensor = getInstanceOfAscensor({
-          loop: false
-        });
+        var ascensor = getInstanceOfAscensor();
         var floorArray;
 
         ascensor.on("scrollStart", function(event, floor) {

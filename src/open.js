@@ -19,12 +19,13 @@
     childType: "div",
     windowsOn: 0,
     direction: "y",
-    loop: true,
+    loop: false,
     time: 300,
     easing: "linear",
     keyNavigation: true,
     touchSwipeIntegration: false,
-    queued: false
+    queued: false,
+    jump: false
   };
 
   /*

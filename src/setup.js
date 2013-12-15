@@ -13,6 +13,10 @@ if (self.options.direction === "x" || chocolate) {
   });
 }
 
+if(chocolate){
+  generateFloorMap();
+}
+
 node.data("current-floor", floorActive);
 
 if (self.options.keyNavigation) {
@@ -50,3 +54,4 @@ if (window.DeviceOrientationEvent) {
     resize();
   });
 }
+

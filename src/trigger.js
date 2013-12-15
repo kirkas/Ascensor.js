@@ -28,14 +28,12 @@ node.on("scrollToStage", function(event, floor) {
   }
 });
 
-
 node.on("next", function(event, floor) {
   self.next();
 });
 
-
 node.on("prev", function(event, floor) {
-  prev();
+  self.prev();
 });
 
 node.on("refresh", function() {

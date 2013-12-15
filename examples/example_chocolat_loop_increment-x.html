@@ -74,7 +74,7 @@
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
 		<script>
-			var ascensor = $('#ascensorBuilding').ascensor({direction: [[0,0],[0,1],[0,2],[1,2],[3,0],[5,0],[6,0],[2,5]], queued:"x"});
+			var ascensor = $('#ascensorBuilding').ascensor({loop: "increment-x", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]});
 			var floorAdded = false;
 			$(".add-floor").click(function(){
 				if(!floorAdded){

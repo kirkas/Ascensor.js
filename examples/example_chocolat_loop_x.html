@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>ascensor - example - no loop</title>
+		<title>ascensor - example - Chocolat</title>
 		<style>
 		*{
 			margin: 0;
@@ -74,7 +74,7 @@
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
 		<script>
-			var ascensor = $('#ascensorBuilding').ascensor({loop:false});
+			var ascensor = $('#ascensorBuilding').ascensor({loop: "loop-x", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]});
 			var floorAdded = false;
 			$(".add-floor").click(function(){
 				if(!floorAdded){

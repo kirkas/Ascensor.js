@@ -9,7 +9,6 @@ Download the [production version][min] or the [development version][max].
 [min]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.min.js
 
 In your web page:
-
 ```html
 <div id="ascensor">
   <div>Content 1</div>
@@ -58,95 +57,115 @@ ascensor.trigger("scrollToDirection" ,"right");
 
 // Ascensor also trigger a scrollStart & ScrollEnd event
 ascensor.on("scrollStart", function(event, floor){
-  console.log(floor.from) 		// Return the origin floor
-  console.log(floor.to) 			// Return the targeted floor
+  console.log(floor.from)  // Return the origin floor
+  console.log(floor.to)    // Return the targeted floor
 });
 
 ascensor.on("scrollEnd", function(event, floor){
-  console.log(floor.from) 		// Return the origin floor
-  console.log(floor.to) 			// Return the targeted floor
+  console.log(floor.from)  // Return the origin floor
+  console.log(floor.to)    // Return the targeted floor
 });
 ```
-
-###CSS navigation class
-**Update**
-I've added the trigger system & removed the css navigation class system
 
 ### Options
 
 
-**ascensorFloorName**
-- Type: ```array ``` of ```string```
-- Default: ```null```
-- descriptions: Choose and name for each floor, this name will be added in the url as #name
-- example: ```ascensorFloorName: ['content1','content2','content3']```
+**ascensorFloorName**<br/>
+Type: `array ` of `string`<br/>
+Default: `null`<br/>
+descriptions: Choose and name for each floor, this name will be added in the url as #name<br/>
+example: `ascensorFloorName: ['content1','content2','content3']`<br/>
 
-**childType**
-- Type: ```string```
-- Default: ```div```
-- descriptions: Specify the child tag if no div ('section' or 'article')
-- example: ```childType:'article'```
 
-**windowsOn**
-- Type: ```integer```
-- Default: ```0```
-- descriptions: Choose the floor to start on
-- example: ```windowsOn: 3```
+**childType**<br/>
+Type: `string`<br/>
+Default: `div`<br/>
+descriptions: Specify the child tag if no div ('section' or 'article')<br/>
+example: `childType:'article'`<br/>
 
-**direction**
-- Type: ```string``` or ```object```
-- Default: ```'y'```
-- descriptions: specify the direction ``'x'``, ``'y'`` or and array of x/y position for each floor ``[[2,1],[2,2],[3,2]]``
-- example: ```direction: [[2,1],[2,2],[3,2]]```
 
-**time**
-- Type: ```integer```
-- Default: ```300```
-- descriptions: Specify speed of transition
-- example: ```time: 500```
+**windowsOn**<br/>
+Type: `integer`<br/>
+Default: `0`<br/>
+descriptions: Choose the floor to start on<br/>
+example: `windowsOn: 3`<br/>
 
-**easing**
-- Type: ```string```
-- Default: ```linear```
-- descriptions: Specify easing option (don't forget to add the easing plugin)
-- example: ```easing: 'easeInElastic'```
 
-**keyNavigation**
-- Type: ```boolean```
-- Default: ```true```
-- descriptions: choose if you want direction key support
-- example: ```keyNavigation: false```
+**direction**<br/>
+Type: `string` or `object`<br/>
+Default: `'y'`<br/>
+descriptions: specify the direction ``'x'``, ``'y'`` or and array of x/y position for each floor ``[[2,1],[2,2],[3,2]]``<br/>
+example: `direction: [[2,1],[2,2],[3,2]]`<br/>
 
-**queued**
-- Type: ```boolean``` or ```string```
-- Default: ```false```
-- descriptions: can be false, 'x' or 'y' (queued axis)
-- example: ```queued: 'x'```
 
-**loop**
-- Type: ```boolean```
-- Default: ```true```
-- descriptions: specify if you want an loop
-- example: ```loop: false```
+**time**<br/>
+Type: `integer`<br/>
+Default: `300`<br/>
+descriptions: Specify speed of transition<br/>
+example: `time: 500`<br/>
 
-**touchSwipeIntegration**
-- Type: ```boolean```
-- Default: ```false```
-- descriptions: Specify if you want jquery swipe implentation
-- example: ```touchSwipeIntegration: true```
+
+**easing**<br/>
+Type: `string`<br/>
+Default: `linear`<br/>
+descriptions: Specify easing option (don't forget to add the easing plugin)<br/>
+example: `easing: 'easeInElastic'`<br/>
+
+
+**keyNavigation**<br/>
+Type: `boolean`<br/>
+Default: `true`<br/>
+descriptions: choose if you want direction key support<br/>
+example: `keyNavigation: false`<br/>
+
+
+**queued**<br/>
+Type: `boolean` or `string`<br/>
+Default: `false`<br/>
+descriptions: can be false, 'x' or 'y' (queued axis)<br/>
+example: `queued: 'x'`<br/>
+
+**jump**<br/>
+Type: `boolean`<br/>
+Default: `false`<br/>
+descriptions: Specify is you want ascensor to jump between floor, even if a gap is present between them<br/>
+example: `jump: true`<br/>
+
+**loop**<br/>
+Type: `boolean`<br/>
+Default: `true`<br/>
+descriptions: Specify if you want ascensor to loop once reach the end of an axis, There is six differents behavior for ascensor.<br/>
+`true`: will reach the further floor on same axis once reach the end, on all axis<br/>
+`"loop-x"`: will reach the further floor on same axis once reach the end, only on X axis<br/>
+`"loop-y"`: will reach the further floor on same axis once reach the end, only on Y axis<br/>
+`"increment"`: will reach next same-axis floor level when reach end end, on all axis<br/>
+`"increment-x"`: will reach opposite floor on y axis, but jump to next level on X axis<br/>
+`"increment-y"`: will reach opposite floor on y axis, but jump to next level on Y axis<br/>
+example: `loop: increment-x`<br/>
+
+
+**touchSwipeIntegration**<br/>
+Type: `boolean`<br/>
+Default: `false`<br/>
+descriptions: Specify if you want jquery swipe implentation<br/>
+example: `touchSwipeIntegration: true`<br/>
 
 
 ####Examples
+
 https://github.com/kirkas/Ascensor.js/tree/master/examples
+
 
 ####Website using ascensor
 
-- [waterevive](http://www.waterevive.com)
-- [shanaemairs](http://shanaemairs.com)
-- [reverseburo](http://reverseburo.com)
-- [robclowes](http://www.robclowes.com)
-- [iadindustry](http://iadindustry.se)
-- [newworldwhisky](http://newworldwhisky.com.au)
+[waterevive](http://www.waterevive.com)<br/>
+[shanaemairs](http://shanaemairs.com)<br/>
+[reverseburo](http://reverseburo.com)<br/>
+[robclowes](http://www.robclowes.com)<br/>
+[iadindustry](http://iadindustry.se)<br/>
+[newworldwhisky](http://newworldwhisky.com.au)<br/>
+[lucasexbrayat](http://www.lucasexbrayat.com/#/accueil)<br/>
+[scan.dk](http://scan.dk/dk/)<br/>
 
 ####Contribution
 

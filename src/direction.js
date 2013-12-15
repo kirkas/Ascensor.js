@@ -1,44 +1,56 @@
 function handleDirection(direction) {
   if (self.options.direction == "y") {
-    if (direction == ("left" || "right")) {
-      return;
-    } else if (direction == "down") {
+    if (direction == ("left" || "right")) return;
+    if (direction == "down") {
       self.next();
     } else if (direction == "up") {
-      prev();
+      self.prev();
     }
-
   } else if (self.options.direction == "x") {
     if (direction == ("up" || "down")) return;
     if (direction == "left") {
-      prev();
+      self.prev();
     } else if (direction == "right") {
       self.next();
     }
+  } else if (chocolate) {
+    var targetId;
 
-} else if (chocolate) {
-    if (direction == "down") {
-      handleChocolateDirection(1, 0);
-    } else if (direction == "up") {
-      handleChocolateDirection(-1, 0);
-    } else if (direction == "left") {
-      handleChocolateDirection(0, - 1);
-    } else if (direction == "right") {
-      handleChocolateDirection(0, 1);
+    if (floorMap[floorActive][direction] !== false) {
+      targetId = floorMap[floorActive][direction];
+    } else if (self.options.jump === true && floorMap[floorActive].closest[direction] !== false) {
+      targetId = floorMap[floorActive].closest[direction];
+
+    } else if (self.options.loop === true && floorMap[floorActive].furthest[direction] !== false) {
+      targetId = floorMap[floorActive].furthest[direction];
+    } else if (self.options.loop === "increment" && floorMap[floorActive].increment[direction] !== false) {
+      targetId = floorMap[floorActive].increment[direction];
+    } else if (self.options.loop === "increment-x" && (direction == "right" || direction == "left") && floorMap[floorActive].increment[direction] !== false) {
+      targetId = floorMap[floorActive].increment[direction];
+    } else if (self.options.loop === "increment-y" && (direction == "down" || direction == "up") && floorMap[floorActive].increment[direction] !== false) {
+      targetId = floorMap[floorActive].increment[direction];
+    } else if (self.options.loop == "loop-x" && (direction == "right" || direction == "left") && floorMap[floorActive].furthest[direction] !== false) {
+      targetId = floorMap[floorActive].furthest[direction];
+    } else if (self.options.loop == "loop-y" && (direction == "down" || direction == "up") && floorMap[floorActive].furthest[direction] !== false) {
+      targetId = floorMap[floorActive].furthest[direction];
+    }
+
+    if (typeof targetId === "number") {
+      scrollToStage(targetId, self.options.time);
     }
   }
 }
 
-function prev() {
+this.prev = function() {
   var prevFloor = floorActive - 1;
   if (prevFloor < 0) {
     if (!self.options.loop) return;
     prevFloor = floorCounter;
   }
   scrollToStage(prevFloor, self.options.time);
-}
+};
 
-this.next = function(){
+this.next = function() {
   var nextFloor = floorActive + 1;
   if (nextFloor > floorCounter) {
     if (!self.options.loop) return;
@@ -46,12 +58,3 @@ this.next = function(){
   }
   scrollToStage(nextFloor, self.options.time);
 };
-
-function handleChocolateDirection(addCoordY, addCoordX) {
-  var floorReference = [self.options.direction[floorActive][0] + addCoordY, self.options.direction[floorActive][1] + addCoordX];
-  $.each(self.options.direction, function(index) {
-    if (floorReference.toString() == self.options.direction[index].toString()) {
-      scrollToStage(index, self.options.time);
-    }
-  });
-}

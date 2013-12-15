@@ -20,6 +20,7 @@ module.exports = function(grunt) {
 				src: [
 					'<%= projectOptions.src %>/open.js',
 					'<%= projectOptions.src %>/resize.js',
+					'<%= projectOptions.src %>/map.js',
 					'<%= projectOptions.src %>/direction.js',
 					'<%= projectOptions.src %>/hash.js',
 					'<%= projectOptions.src %>/scrollTo.js',
@@ -101,7 +102,7 @@ module.exports = function(grunt) {
 		
 		template: {
 			simple: {
-				src: 'deploy/github/example_layout.ejs',
+				src: 'examples/example_layout.ejs',
 				dest: 'examples/example_simple.html',
 				variables: {
 					title: 'Simple',
@@ -109,17 +110,8 @@ module.exports = function(grunt) {
 				}
 			},
 			
-			noloop: {
-				src: 'deploy/github/example_layout.ejs',
-				dest: 'examples/no_loop.html',
-				variables: {
-					title: 'no loop',
-					params:'{loop:false}'
-				}
-			},
-			
 			horizontal: {
-				src: 'deploy/github/example_layout.ejs',
+				src: 'examples/example_layout.ejs',
 				dest: 'examples/example_horizontal.html',
 				variables: {
 					title: 'Horizontal',
@@ -128,7 +120,7 @@ module.exports = function(grunt) {
 			},
 			
 			chocolat: {
-				src: 'deploy/github/example_layout.ejs',
+				src: 'examples/example_layout.ejs',
 				dest: 'examples/example_chocolat.html',
 				variables: {
 					title: 'Chocolat',
@@ -137,7 +129,7 @@ module.exports = function(grunt) {
 			},
 			
 			urlcontrole: {
-				src: 'deploy/github/example_layout.ejs',
+				src: 'examples/example_layout.ejs',
 				dest: 'examples/example_url.html',
 				variables: {
 					title: 'Chocolat',
@@ -146,29 +138,83 @@ module.exports = function(grunt) {
 			},
 			
 			queued: {
-				src: 'deploy/github/example_layout.ejs',
+				src: 'examples/example_layout.ejs',
 				dest: 'examples/example_chocolat_queued.html',
 				variables: {
 					title: 'Chocolat',
-					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[1,3],[1,4],[2,4],[2,5]], queued:"x"}'
+					params:'{direction: [[0,0],[0,1],[0,2],[1,2],[3,0],[5,0],[6,0],[2,5]], queued:"x"}'
 				}
 			},
 			
-			README:{
-				src: 'deploy/github/readme.ejs',
-				dest: 'README.md',
+			jump: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_jump.html',
 				variables: {
-					params : require('./deploy/content.json'),
-					description: "<%= pkg.description %>"
+					title: 'Chocolat',
+					params:'{jump: true, direction: [[0,0],[0,2],[0,4],[2,4],[4,4],[6,7],[1,9],[1,5]]}'
 				}
 			},
 			
-			homepage:{
-				src: 'deploy/homepage/src/index.ejs',
-				dest: 'deploy/homepage/dist/index.html',
+			jump_loop: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_jump_loop.html',
 				variables: {
-					params : require('./deploy/content.json'),
-					description: "<%= pkg.description %>"
+					title: 'Chocolat',
+					params:'{jump: true, loop:true, direction: [[0,0],[0,2],[0,4],[2,4],[4,4],[6,7],[1,9],[1,5]]}'
+				}
+			},
+			
+			loop: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_loop.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{loop: true, direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
+				}
+			},
+			
+			loop_x: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_loop_x.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{loop: "loop-x", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
+				}
+			},
+			
+			loop_y: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_loop_y.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{loop: "loop-y", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
+				}
+			},
+			
+			increment: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_loop_increment.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{loop: "increment", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
+				}
+			},
+			
+			increment_y: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_loop_increment-y.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{loop: "increment-y", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
+				}
+			},
+			
+			increment_x: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_loop_increment-x.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{loop: "increment-x", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
 				}
 			}
 		},
@@ -284,8 +330,8 @@ module.exports = function(grunt) {
 		'jshint:ascensor',
 		'uglify:ascensor',
 		'uglify:ascensormin',
-		'jasmine',
-		'template:README'
+		//'jasmine',
+		//'template:README'
 	]);
 	
 	grunt.registerTask('home:deploy', ['home:build','ftp-deploy']);

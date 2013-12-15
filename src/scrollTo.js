@@ -72,9 +72,11 @@ function scrollToStage(floor, time) {
   }
 
   node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback);
+  
   if(self.options.ascensorFloorName) {
     window.location.hash = "/" + self.options.ascensorFloorName[floor];
   }
+  
   floorActive = floor;
   node.data("current-floor", floorActive);
 }
