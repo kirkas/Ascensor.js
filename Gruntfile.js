@@ -10,12 +10,6 @@ module.exports = function(grunt) {
 		},
 		
 		concat: {
-			homepage: {
-				src: [
-				'<%= projectOptions.deploy %>/homepage/src/plugins.js',
-				'<%= projectOptions.dist %>/jquery.ascensor.min.js'],
-				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
-			},
 			plugin: {
 				src: [
 					'<%= projectOptions.src %>/open.js',
@@ -60,12 +54,6 @@ module.exports = function(grunt) {
 				src: '<%= projectOptions.src %>/jquery.ascensor.js',
 				dest: '<%= projectOptions.dist %>/jquery.ascensor.min.js'
 			},
-			
-			homepage: {
-				src: '<%= projectOptions.deploy %>/homepage/dist/plugins.js',
-				dest: '<%= projectOptions.deploy %>/homepage/dist/plugins.js'
-			}
-			
 		},
 		
 		jshint: {
@@ -82,22 +70,13 @@ module.exports = function(grunt) {
 			dist:{
 				src: ["dist/"]
 			},
-			homepage:{
-				src: ["./deploy/homepage/dist/"]
-			}
 		},
 		
 		watch: {
-			homepage: {
-				files: ['deploy/homepage/src/**/*.**'],
-				tasks: ['home:build']
-			},
-			
 			plugin:{
 				files: ['src/**/*.js', '!src/jquery.ascensor.js'],
 				tasks: ['plugin:build']
-			}
-			
+			}			
 		},
 		
 		template: {
@@ -227,18 +206,6 @@ module.exports = function(grunt) {
 			}
 		},
 		
-		'ftp-deploy': {
-			build: {
-				auth: {
-					host: 'ftp.kirkas.ch',
-					port: 21,
-					authKey: 'key1'
-				},
-				src: './deploy/homepage/dist',
-				dest: './ascensor'
-			}
-		},
-		
 		jasmine: {
 			options: {
 				'--web-security' : false,
@@ -316,13 +283,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-templater');
-	grunt.loadNpmTasks('grunt-ftp-deploy');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	
 	grunt.registerTask('default', ['jshint']);
-	
-	
-	
-	grunt.registerTask('home:build', ['plugin:build','clean:homepage','sass:homepage','concat:homepage','uglify:homepage','template:homepage']);
 	
 	grunt.registerTask('plugin:build', [
 		'clean:dist',
@@ -330,11 +293,7 @@ module.exports = function(grunt) {
 		'jshint:ascensor',
 		'uglify:ascensor',
 		'uglify:ascensormin',
-		//'jasmine',
-		//'template:README'
+		'jasmine',
 	]);
 	
-	grunt.registerTask('home:deploy', ['home:build','ftp-deploy']);
-	
-
 };
