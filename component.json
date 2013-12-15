@@ -1,6 +1,6 @@
 {
 	"name": "Ascensor.js",
-	"version": "1.6.5",
+	"version": "1.7",
 	"dependencies": {
 		"jquery": "latest",
 		"jasmine": "latest",
