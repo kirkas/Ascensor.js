@@ -43,7 +43,9 @@ if (self.options.touchSwipeIntegration) {
 
 $(window).on('hashchange',function(){
   var hashFloor = getFloorFromHash();
-  scrollToStage(hashFloor, self.options.time);
+  if(hashFloor && !node.is(':animated')){
+    scrollToStage(hashFloor, self.options.time);
+  }
 }),
 
 

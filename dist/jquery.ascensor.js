@@ -136,7 +136,7 @@ author: Léo Galley <contact@kirkas.ch>
             if (window.location.hash) {
                 hash = window.location.hash.split("/").pop();
                 var floor = !1;
-                return $(self.options.ascensorFloorName).each(function(index) {
+                return $.each(self.options.ascensorFloorName, function(index) {
                     hash === self.options.ascensorFloorName[index] && (floor = index);
                 }), floor;
             }
@@ -285,7 +285,7 @@ author: Léo Galley <contact@kirkas.ch>
             threshold: 70
         }), $(window).on("hashchange", function() {
             var hashFloor = getFloorFromHash();
-            scrollToStage(hashFloor, self.options.time);
+            hashFloor && !node.is(":animated") && scrollToStage(hashFloor, self.options.time);
         }), $window.resize(function() {
             resize();
         }).load(function() {
