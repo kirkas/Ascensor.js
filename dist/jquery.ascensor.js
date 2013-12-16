@@ -267,7 +267,8 @@ author: Léo Galley <contact@kirkas.ch>
                 floorCounter += 1;
             }), childrenLenght = node.children().length, node.trigger("refresh"), resize());
         }), node.css({
-            position: "absolute"
+            position: "absolute",
+            overflow: "hidden"
         }), nodeChildren.each(function() {
             floorCounter += 1;
         }), ("x" === self.options.direction || chocolate) && nodeChildren.css({

@@ -1,5 +1,6 @@
 node.css({
-  "position" : "absolute"
+  "position" : "absolute",
+  "overflow": "hidden"
 });
 
 nodeChildren.each(function(index) {
