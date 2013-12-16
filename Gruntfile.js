@@ -70,13 +70,20 @@ module.exports = function(grunt) {
 			dist:{
 				src: ["dist/"]
 			},
+			after:{
+				src: ["src/jquery.ascensor.js"]
+			},
 		},
 		
 		watch: {
 			plugin:{
 				files: ['src/**/*.js', '!src/jquery.ascensor.js'],
-				tasks: ['plugin:build']
-			}			
+				tasks: ['build']
+			},	
+			examples:{
+				files: ['examples/example_layout.ejs', 'Gruntfile.js'],
+				tasks: ['template']
+			},		
 		},
 		
 		template: {
@@ -287,12 +294,13 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('default', ['jshint']);
 	
-	grunt.registerTask('plugin:build', [
+	grunt.registerTask('build', [
 		'clean:dist',
 		'concat:plugin',
 		'jshint:ascensor',
 		'uglify:ascensor',
 		'uglify:ascensormin',
+		'clean:after',
 		'jasmine',
 	]);
 	

@@ -283,6 +283,9 @@ author: Léo Galley <contact@kirkas.ch>
                 node.trigger("scrollToDirection", direction);
             },
             threshold: 70
+        }), $(window).on("hashchange", function() {
+            var hashFloor = getFloorFromHash();
+            scrollToStage(hashFloor, self.options.time);
         }), $window.resize(function() {
             resize();
         }).load(function() {

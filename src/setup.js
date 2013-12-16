@@ -41,6 +41,11 @@ if (self.options.touchSwipeIntegration) {
   });
 }
 
+$(window).on('hashchange',function(){
+  var hashFloor = getFloorFromHash();
+  scrollToStage(hashFloor, self.options.time);
+}),
+
 
 
 $window.resize(function() {
