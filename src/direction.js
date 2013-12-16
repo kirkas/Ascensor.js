@@ -16,39 +16,59 @@ function handleDirection(direction) {
   } else if (chocolate) {
     var targetId;
 
+    /* If existing, use direct depending floor */
     if (floorMap[floorActive][direction] !== false) {
       targetId = floorMap[floorActive][direction];
-    } else if (self.options.jump === true && floorMap[floorActive].closest[direction] !== false) {
-      targetId = floorMap[floorActive].closest[direction];
+    }
 
-    } else if (self.options.loop === true && floorMap[floorActive].furthest[direction] !== false) {
+    /* Jump is set to true, use the closest floor in that same direction */
+    else if (self.options.jump === true && floorMap[floorActive].closest[direction] !== false) {
+      targetId = floorMap[floorActive].closest[direction];
+    }
+
+    /* If loop is set to true, use the furthest floor */
+    else if (self.options.loop === true) {
       targetId = floorMap[floorActive].furthest[direction];
-    } else if (self.options.loop === "increment") {
-      targetId = floorMap[floorActive].increment[direction];
-      if(floorMap[floorActive].increment[direction] !== false) {
-        targetId = floorMap[floorActive].increment[direction];
-      } if(self.options.direction.length == (floorActive + 1) ) {
-        targetId = 0;
-      }
-    } else if (self.options.loop === "increment-x" && (direction == "right" || direction == "left")) {
-      if(floorMap[floorActive].increment[direction] !== false) {
-        targetId = floorMap[floorActive].increment[direction];
-      } if(self.options.direction.length == (floorActive + 1) ) {
-        targetId = 0;
-      }
-    } else if (self.options.loop === "increment-y" && (direction == "down" || direction == "up")) {
-      targetId = floorMap[floorActive].increment[direction];
-      if(floorMap[floorActive].increment[direction] !== false) {
-        targetId = floorMap[floorActive].increment[direction];
-      } if(self.options.direction.length == (floorActive + 1) ) {
-        targetId = 0;
-      }
+      
+    /* If loop is specify on axis */
     } else if (self.options.loop == "loop-x" && (direction == "right" || direction == "left") && floorMap[floorActive].furthest[direction] !== false) {
       targetId = floorMap[floorActive].furthest[direction];
     } else if (self.options.loop == "loop-y" && (direction == "down" || direction == "up") && floorMap[floorActive].furthest[direction] !== false) {
       targetId = floorMap[floorActive].furthest[direction];
     }
 
+    /* if loop is set to a increment */
+    else if (typeof self.options.loop === "string") {
+      var correctYDirection = ((direction == "down" || direction == "up") && self.options.loop == "increment-y");
+      var correctXDirection = ((direction == "right" || direction == "left") && self.options.loop == "increment-x");
+      
+      /* if a increment is possible */
+      if (floorMap[floorActive].increment[direction] !== false) {
+        if (correctYDirection || correctXDirection || self.options.loop == "increment") {
+          targetId = floorMap[floorActive].increment[direction];
+        }
+        
+      /* If you are on the last/first floor, jump to the opposite floor */
+      } else {
+        if (direction == "right" || direction == "left" ) {
+          if (self.options.loop == "increment-y") return;
+          if (floorActive == floorMap.furthest_x) {
+            targetId = floorMap.closest_x;
+          } else if (floorActive == floorMap.closest_x) {
+            targetId = floorMap.furthest_x;
+          }
+        } else if (direction == "down" || direction == "up" ) {
+          if (self.options.loop == "increment-x") return;
+          if (floorActive == floorMap.furthest_y) {
+            targetId = floorMap.closest_y;
+          } else if (floorActive == floorMap.closest_y) {
+            targetId = floorMap.furthest_y;
+          }
+        }
+      }
+    }
+
+    
     if (typeof targetId === "number") {
       scrollToStage(targetId, self.options.time);
     }

@@ -1,6 +1,7 @@
 function scrollToStage(floor, time, firstrun) {
   firstrun = firstrun ||  false;
   scrollStart(floorActive, floor);
+  
   var animationParams = {
     time: time || self.options.time,
     easing: self.options.easing,
@@ -8,8 +9,6 @@ function scrollToStage(floor, time, firstrun) {
       scrollEnd(floorActive, floor);
     }
   };
-
-
 
   if (self.options.direction === "y") {
     animationParams.property = {

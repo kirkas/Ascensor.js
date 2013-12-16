@@ -53,5 +53,6 @@ node.on("refresh", function() {
     childrenLenght = node.children().length;
     node.trigger("refresh");
     resize();
+    generateFloorMap();
   }
 });

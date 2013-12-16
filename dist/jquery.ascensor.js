@@ -46,60 +46,71 @@ author: Léo Galley <contact@kirkas.ch>
                 var goal = floor[axis], closest = !1;
                 return $.each(floorCollection, function() {
                     (("right" == direction || "down" == direction) && this[axis] > floor[axis] || ("left" == direction || "up" == direction) && this[axis] < floor[axis]) && (!closest || Math.abs(this[axis] - goal) < Math.abs(closest[axis] - goal)) && (closest = this);
-                }), closest && -1 !== self.options.direction.indexOf(closest) ? self.options.direction.indexOf(closest) : !1;
+                }), closest && -1 !== directionArray.indexOf(closest) ? directionArray.indexOf(closest) : !1;
             }
             function getfurthestFloor(floor, floorCollection, axis) {
                 var goal = floor[axis], furthest = !1;
                 return $.each(floorCollection, function() {
                     (!furthest || Math.abs(this[axis] - goal) > Math.abs(furthest[axis] - goal)) && (furthest = this);
-                }), furthest && -1 !== self.options.direction.indexOf(furthest) ? self.options.direction.indexOf(furthest) : !1;
+                }), furthest && -1 !== directionArray.indexOf(furthest) ? directionArray.indexOf(furthest) : !1;
             }
             function getIncrementedFloor(floorCollection, axis) {
                 var goal = 0, floor = !1;
                 return $.each(floorCollection, function() {
                     (!floor || Math.abs(this[axis] - goal) > Math.abs(floor[axis] - goal)) && (floor = this);
-                }), floor && -1 !== self.options.direction.indexOf(floor) ? self.options.direction.indexOf(floor) : !1;
+                }), floor && -1 !== directionArray.indexOf(floor) ? directionArray.indexOf(floor) : !1;
             }
             function getDecrementedFloor(floorCollection, axis) {
                 var goal = 0, floor = !1;
                 return $.each(floorCollection, function() {
                     (!floor || Math.abs(this[axis] - goal) > Math.abs(floor[axis] - goal)) && (floor = this);
-                }), floor && -1 !== self.options.direction.indexOf(floor) ? self.options.direction.indexOf(floor) : !1;
+                }), floor && -1 !== directionArray.indexOf(floor) ? directionArray.indexOf(floor) : !1;
             }
             function getFloor(x, y, floorOne, floorTwo) {
-                return floorOne[0] + x == floorTwo[0] && floorOne[1] + y == floorTwo[1] ? self.options.direction.indexOf(floorTwo) : !1;
+                return floorOne[0] + x == floorTwo[0] && floorOne[1] + y == floorTwo[1] ? directionArray.indexOf(floorTwo) : !1;
             }
-            // var lastYAxis = 
-            // 
-            // var goal = 0;
-            // var lastFloor = false;
-            // $.each(self.options.direction, function() {
-            //   
-            //   var total = (this[1] + this[0]);
-            //   console.log(total);
-            //   if (lastFloor === false || total > (lastFloor[1] + lastFloor[0])) {
-            //     lastFloor = this;
-            //   }
-            // });
-            // 
-            // console.log(self.options.direction.indexOf(lastFloor));
-            $.each(self.options.direction, function(index, floorItem) {
-                var axisXfloor = jQuery.grep(self.options.direction, function(directionArray) {
+            function getFurtherFloorOnAxis(floorArray, axis) {
+                var furtherFloor = !1;
+                return jQuery.each(floorArray, function(index, directionArray) {
+                    (furtherFloor === !1 || furtherFloor[axis] < directionArray[axis]) && (furtherFloor = directionArray);
+                }), furtherFloor;
+            }
+            function getClosestFloorOnAxis(floorArray, axis) {
+                var furtherFloor = !1;
+                return jQuery.each(floorArray, function(index, directionArray) {
+                    (furtherFloor === !1 || furtherFloor[axis] > directionArray[axis]) && (furtherFloor = directionArray);
+                }), furtherFloor;
+            }
+            function getSameAxisFloor(floorItem, axis) {
+                return jQuery.grep(directionArray, function(directionArray) {
+                    var isOnSameAxis = directionArray[axis] == floorItem[axis];
+                    return isOnSameAxis;
+                });
+            }
+            /* Use only array if chilren is present on stage */
+            var directionArray = jQuery.grep(self.options.direction, function(directionArray, index) {
+                return node.children().length > index;
+            }), approximateFurtherX = getFurtherFloorOnAxis(directionArray, 1), sameAxisXFurthest = getSameAxisFloor(approximateFurtherX, 1), furtherY = getFurtherFloorOnAxis(sameAxisXFurthest, 0), approximateFurtherY = getFurtherFloorOnAxis(directionArray, 0), sameAxisYFurthest = getSameAxisFloor(approximateFurtherY, 0), furtherX = getFurtherFloorOnAxis(sameAxisYFurthest, 1);
+            floorMap.furthest_x = directionArray.indexOf(furtherX), floorMap.furthest_y = directionArray.indexOf(furtherY);
+            var approximateClosestX = getClosestFloorOnAxis(directionArray, 1), sameAxisXClosest = getSameAxisFloor(approximateClosestX, 1), closestY = getClosestFloorOnAxis(sameAxisXClosest, 0), approximateClosestY = getClosestFloorOnAxis(directionArray, 0), sameAxisYClosest = getSameAxisFloor(approximateClosestY, 0), closestX = getClosestFloorOnAxis(sameAxisYClosest, 1);
+            floorMap.closest_x = directionArray.indexOf(closestX), floorMap.closest_y = directionArray.indexOf(closestY), 
+            $.each(directionArray, function(index, floorItem) {
+                var axisXfloor = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[0] == floorItem[0], isCurrentFloor = floorItem == directionArray;
                     return isOnSameAxis && !isCurrentFloor;
-                }), axisYfloor = jQuery.grep(self.options.direction, function(directionArray) {
+                }), axisYfloor = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[1] == floorItem[1], isCurrentFloor = floorItem == directionArray;
                     return isOnSameAxis && !isCurrentFloor;
-                }), directNextXAxis = jQuery.grep(self.options.direction, function(directionArray) {
+                }), directNextXAxis = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[0] == floorItem[0] + 1;
                     return isOnSameAxis;
-                }), directPreviousXAxis = jQuery.grep(self.options.direction, function(directionArray) {
+                }), directPreviousXAxis = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[0] == floorItem[0] - 1;
                     return isOnSameAxis;
-                }), directNextYAxis = jQuery.grep(self.options.direction, function(directionArray) {
+                }), directNextYAxis = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[1] == floorItem[1] + 1;
                     return isOnSameAxis;
-                }), directPreviousYAxis = jQuery.grep(self.options.direction, function(directionArray) {
+                }), directPreviousYAxis = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[1] == floorItem[1] - 1;
                     return isOnSameAxis;
                 });
@@ -126,13 +137,13 @@ author: Léo Galley <contact@kirkas.ch>
                         right: getfurthestFloor(floorItem, axisXfloor, 1, "right"),
                         left: getfurthestFloor(floorItem, axisXfloor, 1, "left")
                     }
-                }, $.each(self.options.direction, function(indexSecond, floorItemSecond) {
+                }, $.each(directionArray, function(indexSecond, floorItemSecond) {
                     floorMap[index].down === !1 && (floorMap[index].down = getFloor(1, 0, floorItem, floorItemSecond)), 
                     floorMap[index].up === !1 && (floorMap[index].up = getFloor(-1, 0, floorItem, floorItemSecond)), 
                     floorMap[index].right === !1 && (floorMap[index].right = getFloor(0, 1, floorItem, floorItemSecond)), 
                     floorMap[index].left === !1 && (floorMap[index].left = getFloor(0, -1, floorItem, floorItemSecond));
                 });
-            });
+            }), console.log(floorMap);
         }
         function handleDirection(direction) {
             if ("y" == self.options.direction) {
@@ -143,12 +154,21 @@ author: Léo Galley <contact@kirkas.ch>
                 "left" == direction ? self.prev() : "right" == direction && self.next();
             } else if (chocolate) {
                 var targetId;
-                floorMap[floorActive][direction] !== !1 ? targetId = floorMap[floorActive][direction] : self.options.jump === !0 && floorMap[floorActive].closest[direction] !== !1 ? targetId = floorMap[floorActive].closest[direction] : self.options.loop === !0 && floorMap[floorActive].furthest[direction] !== !1 ? targetId = floorMap[floorActive].furthest[direction] : "increment" === self.options.loop ? (targetId = floorMap[floorActive].increment[direction], 
-                floorMap[floorActive].increment[direction] !== !1 && (targetId = floorMap[floorActive].increment[direction]), 
-                self.options.direction.length == floorActive + 1 && (targetId = 0)) : "increment-x" !== self.options.loop || "right" != direction && "left" != direction ? "increment-y" !== self.options.loop || "down" != direction && "up" != direction ? "loop-x" != self.options.loop || "right" != direction && "left" != direction || floorMap[floorActive].furthest[direction] === !1 ? "loop-y" != self.options.loop || "down" != direction && "up" != direction || floorMap[floorActive].furthest[direction] === !1 || (targetId = floorMap[floorActive].furthest[direction]) : targetId = floorMap[floorActive].furthest[direction] : (targetId = floorMap[floorActive].increment[direction], 
-                floorMap[floorActive].increment[direction] !== !1 && (targetId = floorMap[floorActive].increment[direction]), 
-                self.options.direction.length == floorActive + 1 && (targetId = 0)) : (floorMap[floorActive].increment[direction] !== !1 && (targetId = floorMap[floorActive].increment[direction]), 
-                self.options.direction.length == floorActive + 1 && (targetId = 0)), "number" == typeof targetId && scrollToStage(targetId, self.options.time);
+                /* If existing, use direct depending floor */
+                if (floorMap[floorActive][direction] !== !1) targetId = floorMap[floorActive][direction]; else if (self.options.jump === !0 && floorMap[floorActive].closest[direction] !== !1) targetId = floorMap[floorActive].closest[direction]; else if (self.options.loop === !0) targetId = floorMap[floorActive].furthest[direction]; else if ("loop-x" != self.options.loop || "right" != direction && "left" != direction || floorMap[floorActive].furthest[direction] === !1) if ("loop-y" != self.options.loop || "down" != direction && "up" != direction || floorMap[floorActive].furthest[direction] === !1) {
+                    if ("string" == typeof self.options.loop) {
+                        var correctYDirection = ("down" == direction || "up" == direction) && "increment-y" == self.options.loop, correctXDirection = ("right" == direction || "left" == direction) && "increment-x" == self.options.loop;
+                        /* if a increment is possible */
+                        if (floorMap[floorActive].increment[direction] !== !1) (correctYDirection || correctXDirection || "increment" == self.options.loop) && (targetId = floorMap[floorActive].increment[direction]); else if ("right" == direction || "left" == direction) {
+                            if ("increment-y" == self.options.loop) return;
+                            floorActive == floorMap.furthest_x ? targetId = floorMap.closest_x : floorActive == floorMap.closest_x && (targetId = floorMap.furthest_x);
+                        } else if ("down" == direction || "up" == direction) {
+                            if ("increment-x" == self.options.loop) return;
+                            floorActive == floorMap.furthest_y ? targetId = floorMap.closest_y : floorActive == floorMap.closest_y && (targetId = floorMap.furthest_y);
+                        }
+                    }
+                } else targetId = floorMap[floorActive].furthest[direction]; else targetId = floorMap[floorActive].furthest[direction];
+                "number" == typeof targetId && scrollToStage(targetId, self.options.time);
             }
         }
         function getFloorFromHash() {
@@ -285,7 +305,8 @@ author: Léo Galley <contact@kirkas.ch>
                 overflow: "auto"
             }), floorCounter = -1, nodeChildren.each(function() {
                 floorCounter += 1;
-            }), childrenLenght = node.children().length, node.trigger("refresh"), resize());
+            }), childrenLenght = node.children().length, node.trigger("refresh"), resize(), 
+            generateFloorMap());
         }), node.css({
             position: "absolute",
             overflow: "hidden"

@@ -132,23 +132,7 @@ module.exports = function(grunt) {
 				}
 			},
 			
-			jump: {
-				src: 'examples/example_layout.ejs',
-				dest: 'examples/example_chocolat_jump.html',
-				variables: {
-					title: 'Chocolat',
-					params:'{jump: true, direction: [[0,0],[0,2],[0,4],[2,4],[4,4],[6,7],[1,9],[1,5]]}'
-				}
-			},
 			
-			jump_loop: {
-				src: 'examples/example_layout.ejs',
-				dest: 'examples/example_chocolat_jump_loop.html',
-				variables: {
-					title: 'Chocolat',
-					params:'{jump: true, loop:true, direction: [[0,0],[0,2],[0,4],[2,4],[4,4],[6,7],[1,9],[1,5]]}'
-				}
-			},
 			
 			loop: {
 				src: 'examples/example_layout.ejs',
@@ -201,6 +185,15 @@ module.exports = function(grunt) {
 				variables: {
 					title: 'Chocolat',
 					params:'{loop: "increment-x", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]}'
+				}
+			},
+			
+			jump: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_chocolat_jump.html',
+				variables: {
+					title: 'Chocolat',
+					params:'{jump: true, direction: [[0,0],[0,2],[0,4],[2,4],[4,4],[6,7],[1,9],[1,5]]}'
 				}
 			}
 		},
@@ -301,7 +294,7 @@ module.exports = function(grunt) {
 		'uglify:ascensor',
 		'uglify:ascensormin',
 		'clean:after',
-		'jasmine',
+		//'jasmine',
 	]);
 	
 };

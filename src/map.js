@@ -1,6 +1,13 @@
 var floorMap = [];
+
 function generateFloorMap() {
+
+  /* Use only array if chilren is present on stage */
+  var directionArray = jQuery.grep(self.options.direction, function(directionArray, index) {
+    return (node.children().length > index);
+  });
   
+
   function getClosestFloor(floor, floorCollection, axis, direction) {
     var goal = floor[axis];
     var closest = false;
@@ -11,8 +18,8 @@ function generateFloorMap() {
         }
       }
     });
-    if(closest && self.options.direction.indexOf(closest) !== -1) {
-      return self.options.direction.indexOf(closest);
+    if (closest && directionArray.indexOf(closest) !== -1) {
+      return directionArray.indexOf(closest);
     } else {
       return false;
     }
@@ -23,100 +30,134 @@ function generateFloorMap() {
     var furthest = false;
     $.each(floorCollection, function() {
       if (!furthest || Math.abs(this[axis] - goal) > Math.abs(furthest[axis] - goal)) {
-         furthest = this;
+        furthest = this;
       }
     });
-    if(furthest && self.options.direction.indexOf(furthest) !== -1) {
-      return self.options.direction.indexOf(furthest);
+    if (furthest && directionArray.indexOf(furthest) !== -1) {
+      return directionArray.indexOf(furthest);
     } else {
       return false;
     }
   }
-  
+
   function getIncrementedFloor(floorCollection, axis) {
     var goal = 0;
     var floor = false;
     $.each(floorCollection, function() {
       if (!floor || Math.abs(this[axis] - goal) > Math.abs(floor[axis] - goal)) {
-         floor = this;
+        floor = this;
       }
     });
-    if(floor && self.options.direction.indexOf(floor) !== -1) {
-      return self.options.direction.indexOf(floor);
+    if (floor && directionArray.indexOf(floor) !== -1) {
+      return directionArray.indexOf(floor);
     } else {
       return false;
     }
   }
-  
+
   function getDecrementedFloor(floorCollection, axis) {
     var goal = 0;
     var floor = false;
     $.each(floorCollection, function() {
       if (!floor || Math.abs(this[axis] - goal) > Math.abs(floor[axis] - goal)) {
-         floor = this;
+        floor = this;
       }
     });
-    if(floor && self.options.direction.indexOf(floor) !== -1) {
-      return self.options.direction.indexOf(floor);
+    if (floor && directionArray.indexOf(floor) !== -1) {
+      return directionArray.indexOf(floor);
     } else {
       return false;
     }
   }
 
   function getFloor(x, y, floorOne, floorTwo) {
-    if(floorOne[0] + x == floorTwo[0] && floorOne[1] + y == floorTwo[1]) {
-      return self.options.direction.indexOf(floorTwo);
+    if (floorOne[0] + x == floorTwo[0] && floorOne[1] + y == floorTwo[1]) {
+      return directionArray.indexOf(floorTwo);
     } else {
       return false;
     }
   }
-  
-  
-  // var lastYAxis = 
-  // 
-  // var goal = 0;
-  // var lastFloor = false;
-  // $.each(self.options.direction, function() {
-  //   
-  //   var total = (this[1] + this[0]);
-  //   console.log(total);
-  //   if (lastFloor === false || total > (lastFloor[1] + lastFloor[0])) {
-  //     lastFloor = this;
-  //   }
-  // });
-  // 
-  // console.log(self.options.direction.indexOf(lastFloor));
 
 
-  $.each(self.options.direction, function(index, floorItem) {
-    var axisXfloor = jQuery.grep(self.options.direction, function(directionArray) {
+  function getFurtherFloorOnAxis(floorArray, axis) {
+    var furtherFloor = false;
+    jQuery.each(floorArray, function(index, directionArray){
+      if(furtherFloor === false || furtherFloor[axis] < directionArray[axis]){
+        furtherFloor = directionArray;
+      }
+    });
+    return furtherFloor;
+  }
+  
+  function getClosestFloorOnAxis(floorArray, axis) {
+    var furtherFloor=false;
+    jQuery.each(floorArray, function(index, directionArray){
+      if(furtherFloor === false || furtherFloor[axis] > directionArray[axis]){
+        furtherFloor = directionArray;
+      }
+    });
+    return furtherFloor;
+  }
+  
+  function getSameAxisFloor(floorItem, axis) {
+    return jQuery.grep(directionArray, function(directionArray) {
+      var isOnSameAxis = directionArray[axis] == floorItem[axis];
+      return isOnSameAxis;
+    });
+  }
+  
+  var approximateFurtherX = getFurtherFloorOnAxis(directionArray, 1);
+  var sameAxisXFurthest = getSameAxisFloor(approximateFurtherX, 1);
+  var furtherY = getFurtherFloorOnAxis(sameAxisXFurthest, 0);
+  
+  var approximateFurtherY = getFurtherFloorOnAxis(directionArray, 0);
+  var sameAxisYFurthest = getSameAxisFloor(approximateFurtherY, 0);
+  var furtherX = getFurtherFloorOnAxis(sameAxisYFurthest, 1);
+  
+  floorMap.furthest_x = directionArray.indexOf(furtherX);
+  floorMap.furthest_y = directionArray.indexOf(furtherY);
+  
+  var approximateClosestX = getClosestFloorOnAxis(directionArray, 1);
+  var sameAxisXClosest = getSameAxisFloor(approximateClosestX, 1);
+  var closestY = getClosestFloorOnAxis(sameAxisXClosest, 0);
+
+  var approximateClosestY = getClosestFloorOnAxis(directionArray, 0);
+  var sameAxisYClosest = getSameAxisFloor(approximateClosestY, 0);
+  var closestX = getClosestFloorOnAxis(sameAxisYClosest, 1);
+  
+  floorMap.closest_x = directionArray.indexOf(closestX);
+  floorMap.closest_y = directionArray.indexOf(closestY);
+  
+
+  $.each(directionArray, function(index, floorItem) {
+    var axisXfloor = jQuery.grep(directionArray, function(directionArray) {
       var isOnSameAxis = directionArray[0] == floorItem[0];
       var isCurrentFloor = floorItem == directionArray;
       return (isOnSameAxis && !isCurrentFloor);
     });
 
-    var axisYfloor = jQuery.grep(self.options.direction, function(directionArray) {
+    var axisYfloor = jQuery.grep(directionArray, function(directionArray) {
       var isOnSameAxis = directionArray[1] == floorItem[1];
       var isCurrentFloor = floorItem == directionArray;
       return (isOnSameAxis && !isCurrentFloor);
     });
-    
-    var directNextXAxis = jQuery.grep(self.options.direction, function(directionArray) {
-      var isOnSameAxis = directionArray[0] == floorItem[0]+1;
+
+    var directNextXAxis = jQuery.grep(directionArray, function(directionArray) {
+      var isOnSameAxis = directionArray[0] == floorItem[0] + 1;
       return isOnSameAxis;
     });
-    
-    var directPreviousXAxis = jQuery.grep(self.options.direction, function(directionArray) {
+
+    var directPreviousXAxis = jQuery.grep(directionArray, function(directionArray) {
       var isOnSameAxis = directionArray[0] == floorItem[0] - 1;
       return isOnSameAxis;
     });
-    
-    var directNextYAxis = jQuery.grep(self.options.direction, function(directionArray) {
-      var isOnSameAxis = directionArray[1] == floorItem[1]+1;
+
+    var directNextYAxis = jQuery.grep(directionArray, function(directionArray) {
+      var isOnSameAxis = directionArray[1] == floorItem[1] + 1;
       return isOnSameAxis;
     });
-    
-    var directPreviousYAxis = jQuery.grep(self.options.direction, function(directionArray) {
+
+    var directPreviousYAxis = jQuery.grep(directionArray, function(directionArray) {
       var isOnSameAxis = directionArray[1] == floorItem[1] - 1;
       return isOnSameAxis;
     });
@@ -146,11 +187,13 @@ function generateFloorMap() {
       }
     };
 
-    $.each(self.options.direction, function(indexSecond, floorItemSecond) {
+    $.each(directionArray, function(indexSecond, floorItemSecond) {
       if (floorMap[index].down === false) floorMap[index].down = getFloor(1, 0, floorItem, floorItemSecond);
       if (floorMap[index].up === false) floorMap[index].up = getFloor(-1, 0, floorItem, floorItemSecond);
       if (floorMap[index].right === false) floorMap[index].right = getFloor(0, 1, floorItem, floorItemSecond);
-      if (floorMap[index].left === false) floorMap[index].left = getFloor(0, -1, floorItem, floorItemSecond);
+      if (floorMap[index].left === false) floorMap[index].left = getFloor(0, - 1, floorItem, floorItemSecond);
     });
   });
+
+  console.log(floorMap);
 }
