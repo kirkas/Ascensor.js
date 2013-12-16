@@ -200,7 +200,8 @@ author: Léo Galley <contact@kirkas.ch>
             node.trigger("scrollEnd", floor);
         }
         function checkKey(e) {
-            if (!$("input, textarea, button").is(":focus")) switch (e.which) {
+            var key = e.which;
+            if (!$("input, textarea, button").is(":focus")) switch (key) {
               case 40:
               case 83:
                 if ("x" == self.options.direction) return;
