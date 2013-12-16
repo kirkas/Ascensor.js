@@ -69,6 +69,20 @@ author: Léo Galley <contact@kirkas.ch>
             function getFloor(x, y, floorOne, floorTwo) {
                 return floorOne[0] + x == floorTwo[0] && floorOne[1] + y == floorTwo[1] ? self.options.direction.indexOf(floorTwo) : !1;
             }
+            // var lastYAxis = 
+            // 
+            // var goal = 0;
+            // var lastFloor = false;
+            // $.each(self.options.direction, function() {
+            //   
+            //   var total = (this[1] + this[0]);
+            //   console.log(total);
+            //   if (lastFloor === false || total > (lastFloor[1] + lastFloor[0])) {
+            //     lastFloor = this;
+            //   }
+            // });
+            // 
+            // console.log(self.options.direction.indexOf(lastFloor));
             $.each(self.options.direction, function(index, floorItem) {
                 var axisXfloor = jQuery.grep(self.options.direction, function(directionArray) {
                     var isOnSameAxis = directionArray[0] == floorItem[0], isCurrentFloor = floorItem == directionArray;
@@ -129,8 +143,12 @@ author: Léo Galley <contact@kirkas.ch>
                 "left" == direction ? self.prev() : "right" == direction && self.next();
             } else if (chocolate) {
                 var targetId;
-                floorMap[floorActive][direction] !== !1 ? targetId = floorMap[floorActive][direction] : self.options.jump === !0 && floorMap[floorActive].closest[direction] !== !1 ? targetId = floorMap[floorActive].closest[direction] : self.options.loop === !0 && floorMap[floorActive].furthest[direction] !== !1 ? targetId = floorMap[floorActive].furthest[direction] : "increment" === self.options.loop && floorMap[floorActive].increment[direction] !== !1 ? targetId = floorMap[floorActive].increment[direction] : "increment-x" !== self.options.loop || "right" != direction && "left" != direction || floorMap[floorActive].increment[direction] === !1 ? "increment-y" !== self.options.loop || "down" != direction && "up" != direction || floorMap[floorActive].increment[direction] === !1 ? "loop-x" != self.options.loop || "right" != direction && "left" != direction || floorMap[floorActive].furthest[direction] === !1 ? "loop-y" != self.options.loop || "down" != direction && "up" != direction || floorMap[floorActive].furthest[direction] === !1 || (targetId = floorMap[floorActive].furthest[direction]) : targetId = floorMap[floorActive].furthest[direction] : targetId = floorMap[floorActive].increment[direction] : targetId = floorMap[floorActive].increment[direction], 
-                "number" == typeof targetId && scrollToStage(targetId, self.options.time);
+                floorMap[floorActive][direction] !== !1 ? targetId = floorMap[floorActive][direction] : self.options.jump === !0 && floorMap[floorActive].closest[direction] !== !1 ? targetId = floorMap[floorActive].closest[direction] : self.options.loop === !0 && floorMap[floorActive].furthest[direction] !== !1 ? targetId = floorMap[floorActive].furthest[direction] : "increment" === self.options.loop ? (targetId = floorMap[floorActive].increment[direction], 
+                floorMap[floorActive].increment[direction] !== !1 && (targetId = floorMap[floorActive].increment[direction]), 
+                self.options.direction.length == floorActive + 1 && (targetId = 0)) : "increment-x" !== self.options.loop || "right" != direction && "left" != direction ? "increment-y" !== self.options.loop || "down" != direction && "up" != direction ? "loop-x" != self.options.loop || "right" != direction && "left" != direction || floorMap[floorActive].furthest[direction] === !1 ? "loop-y" != self.options.loop || "down" != direction && "up" != direction || floorMap[floorActive].furthest[direction] === !1 || (targetId = floorMap[floorActive].furthest[direction]) : targetId = floorMap[floorActive].furthest[direction] : (targetId = floorMap[floorActive].increment[direction], 
+                floorMap[floorActive].increment[direction] !== !1 && (targetId = floorMap[floorActive].increment[direction]), 
+                self.options.direction.length == floorActive + 1 && (targetId = 0)) : (floorMap[floorActive].increment[direction] !== !1 && (targetId = floorMap[floorActive].increment[direction]), 
+                self.options.direction.length == floorActive + 1 && (targetId = 0)), "number" == typeof targetId && scrollToStage(targetId, self.options.time);
             }
         }
         function getFloorFromHash() {

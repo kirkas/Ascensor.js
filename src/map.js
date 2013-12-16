@@ -70,6 +70,23 @@ function generateFloorMap() {
       return false;
     }
   }
+  
+  
+  // var lastYAxis = 
+  // 
+  // var goal = 0;
+  // var lastFloor = false;
+  // $.each(self.options.direction, function() {
+  //   
+  //   var total = (this[1] + this[0]);
+  //   console.log(total);
+  //   if (lastFloor === false || total > (lastFloor[1] + lastFloor[0])) {
+  //     lastFloor = this;
+  //   }
+  // });
+  // 
+  // console.log(self.options.direction.indexOf(lastFloor));
+
 
   $.each(self.options.direction, function(index, floorItem) {
     var axisXfloor = jQuery.grep(self.options.direction, function(directionArray) {

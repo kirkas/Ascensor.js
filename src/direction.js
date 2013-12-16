@@ -23,12 +23,26 @@ function handleDirection(direction) {
 
     } else if (self.options.loop === true && floorMap[floorActive].furthest[direction] !== false) {
       targetId = floorMap[floorActive].furthest[direction];
-    } else if (self.options.loop === "increment" && floorMap[floorActive].increment[direction] !== false) {
+    } else if (self.options.loop === "increment") {
       targetId = floorMap[floorActive].increment[direction];
-    } else if (self.options.loop === "increment-x" && (direction == "right" || direction == "left") && floorMap[floorActive].increment[direction] !== false) {
+      if(floorMap[floorActive].increment[direction] !== false) {
+        targetId = floorMap[floorActive].increment[direction];
+      } if(self.options.direction.length == (floorActive + 1) ) {
+        targetId = 0;
+      }
+    } else if (self.options.loop === "increment-x" && (direction == "right" || direction == "left")) {
+      if(floorMap[floorActive].increment[direction] !== false) {
+        targetId = floorMap[floorActive].increment[direction];
+      } if(self.options.direction.length == (floorActive + 1) ) {
+        targetId = 0;
+      }
+    } else if (self.options.loop === "increment-y" && (direction == "down" || direction == "up")) {
       targetId = floorMap[floorActive].increment[direction];
-    } else if (self.options.loop === "increment-y" && (direction == "down" || direction == "up") && floorMap[floorActive].increment[direction] !== false) {
-      targetId = floorMap[floorActive].increment[direction];
+      if(floorMap[floorActive].increment[direction] !== false) {
+        targetId = floorMap[floorActive].increment[direction];
+      } if(self.options.direction.length == (floorActive + 1) ) {
+        targetId = 0;
+      }
     } else if (self.options.loop == "loop-x" && (direction == "right" || direction == "left") && floorMap[floorActive].furthest[direction] !== false) {
       targetId = floorMap[floorActive].furthest[direction];
     } else if (self.options.loop == "loop-y" && (direction == "down" || direction == "up") && floorMap[floorActive].furthest[direction] !== false) {
