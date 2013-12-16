@@ -90,6 +90,11 @@ Default: `0`<br/>
 descriptions: Choose the floor to start on<br/>
 example: `windowsOn: 3`<br/>
 
+**ready**<br/>
+Type: `function`<br/>
+Default: `false`<br/>
+descriptions: function to execute when ascensor is ready<br/>
+example: `ready: function(){ alert("ready") }`<br/>
 
 **direction**<br/>
 Type: `string` or `object`<br/>

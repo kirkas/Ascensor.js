@@ -23,8 +23,6 @@ function resize() {
         "top": (self.options.direction[index][0]) * WH
       });
     });
-    
-    scrollToStage(floorActive, 1);
     node.stop().scrollLeft((self.options.direction[floorActive][1]) * WW).scrollTop((self.options.direction[floorActive][0]) * WH);
   }
 }

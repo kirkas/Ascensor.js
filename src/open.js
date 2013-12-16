@@ -25,7 +25,8 @@
     keyNavigation: true,
     touchSwipeIntegration: false,
     queued: false,
-    jump: false
+    jump: false,
+    ready: false
   };
 
   /*

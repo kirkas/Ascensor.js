@@ -25,7 +25,8 @@ author: Léo Galley <contact@kirkas.ch>
         keyNavigation: !0,
         touchSwipeIntegration: !1,
         queued: !1,
-        jump: !1
+        jump: !1,
+        ready: !1
     };
     Plugin.prototype.init = function() {
         function resize() {
@@ -38,7 +39,7 @@ author: Léo Galley <contact@kirkas.ch>
                     left: self.options.direction[index][1] * WW,
                     top: self.options.direction[index][0] * WH
                 });
-            }), scrollToStage(floorActive, 1), node.stop().scrollLeft(self.options.direction[floorActive][1] * WW).scrollTop(self.options.direction[floorActive][0] * WH));
+            }), node.stop().scrollLeft(self.options.direction[floorActive][1] * WW).scrollTop(self.options.direction[floorActive][0] * WH));
         }
         function generateFloorMap() {
             function getClosestFloor(floor, floorCollection, axis, direction) {
@@ -141,8 +142,8 @@ author: Léo Galley <contact@kirkas.ch>
                 }), floor;
             }
         }
-        function scrollToStage(floor, time) {
-            scrollStart(floorActive, floor);
+        function scrollToStage(floor, time, firstrun) {
+            firstrun = firstrun || !1, scrollStart(floorActive, floor);
             var animationParams = {
                 time: time || self.options.time,
                 easing: self.options.easing,
@@ -182,7 +183,7 @@ author: Léo Galley <contact@kirkas.ch>
                 }));
             }
             node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback), 
-            self.options.ascensorFloorName && (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
+            firstrun && "function" == typeof self.options.ready && self.options.ready(), self.options.ascensorFloorName && (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
             floorActive = floor, node.data("current-floor", floorActive);
         }
         function scrollStart(from, to) {
@@ -280,7 +281,7 @@ author: Léo Galley <contact@kirkas.ch>
             var hashFloor = getFloorFromHash();
             hashFloor && (floorActive = hashFloor);
         }
-        scrollToStage(floorActive, 1), self.options.touchSwipeIntegration && node.swipe({
+        self.options.touchSwipeIntegration && node.swipe({
             swipe: function(event, direction) {
                 node.trigger("scrollToDirection", direction);
             },
@@ -294,7 +295,7 @@ author: Léo Galley <contact@kirkas.ch>
             resize();
         }).resize(), window.DeviceOrientationEvent && $window.bind("orientationchange", function() {
             resize();
-        });
+        }), scrollToStage(floorActive, 1, !0);
     }, $.fn[pluginName] = function(options) {
         return this.each(function() {
             $.data(this, "plugin_" + pluginName) || $.data(this, "plugin_" + pluginName, new Plugin(this, options));

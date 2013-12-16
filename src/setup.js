@@ -31,7 +31,7 @@ if (self.options.ascensorFloorName && window.location.hash) {
   }
 }
 
-scrollToStage(floorActive, 1);
+
 
 if (self.options.touchSwipeIntegration) {
   node.swipe({
@@ -63,3 +63,4 @@ if (window.DeviceOrientationEvent) {
   });
 }
 
+scrollToStage(floorActive, 1, true);
