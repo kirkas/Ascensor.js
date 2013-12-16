@@ -78,7 +78,6 @@ function generateFloorMap() {
     }
   }
 
-
   function getFurtherFloorOnAxis(floorArray, axis) {
     var furtherFloor = false;
     jQuery.each(floorArray, function(index, directionArray){
@@ -194,6 +193,4 @@ function generateFloorMap() {
       if (floorMap[index].left === false) floorMap[index].left = getFloor(0, - 1, floorItem, floorItemSecond);
     });
   });
-
-  console.log(floorMap);
 }

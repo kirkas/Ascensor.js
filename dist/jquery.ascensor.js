@@ -143,7 +143,7 @@ author: Léo Galley <contact@kirkas.ch>
                     floorMap[index].right === !1 && (floorMap[index].right = getFloor(0, 1, floorItem, floorItemSecond)), 
                     floorMap[index].left === !1 && (floorMap[index].left = getFloor(0, -1, floorItem, floorItemSecond));
                 });
-            }), console.log(floorMap);
+            });
         }
         function handleDirection(direction) {
             if ("y" == self.options.direction) {
