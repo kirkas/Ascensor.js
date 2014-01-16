@@ -1,8 +1,10 @@
-# Ascensor.js ![Codeship Status](https://www.codeship.io/projects/e300fae0-8729-0130-0e4a-22000a9f3a59/status)
+# Ascensor.js
 
 [![Total views](https://sourcegraph.com/api/repos/github.com/kirkas/Ascensor.js/counters/views.png)](https://sourcegraph.com/github.com/kirkas/Ascensor.js)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
+
 
 ### Getting Started
 Download the [production version][min] or the [development version][max].
