@@ -1,8 +1,5 @@
-# Ascensor.js
+# Ascensor.js [![Build Status](https://travis-ci.org/kirkas/Ascensor.js.png?branch=master)](https://travis-ci.org/kirkas/Ascensor.js) [![authors](https://sourcegraph.com/api/repos/github.com/kirkas/Ascensor.js/badges/authors.png)](https://sourcegraph.com/github.com/kirkas/Ascensor.js) [![Total views](https://sourcegraph.com/api/repos/github.com/kirkas/Ascensor.js/counters/views.png)](https://sourcegraph.com/github.com/kirkas/Ascensor.js) [![devDependency Status](https://david-dm.org/kirkas/Ascensor.js/dev-status.png)](https://david-dm.org/kirkas/Ascensor.js#info=devDependencies) [![Gittip](http://img.shields.io/gittip/logankoester.png)](https://www.gittip.com/kirkas/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-[![Build Status](https://travis-ci.org/kirkas/Ascensor.js.png?branch=master)](https://travis-ci.org/kirkas/Ascensor.js)
-[![Total views](https://sourcegraph.com/api/repos/github.com/kirkas/Ascensor.js/counters/views.png)](https://sourcegraph.com/github.com/kirkas/Ascensor.js)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
 
