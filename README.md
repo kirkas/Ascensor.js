@@ -1,5 +1,6 @@
 # Ascensor.js
 
+[![Build Status](https://travis-ci.org/kirkas/Ascensor.js.png?branch=master)](https://travis-ci.org/kirkas/Ascensor.js)
 [![Total views](https://sourcegraph.com/api/repos/github.com/kirkas/Ascensor.js/counters/views.png)](https://sourcegraph.com/github.com/kirkas/Ascensor.js)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
