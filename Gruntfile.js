@@ -219,7 +219,7 @@ module.exports = function(grunt) {
 			options: {
 				'--web-security' : false,
 				'--local-to-remote-url-access' : true,
-				'--ignore-ssl-errors' : true
+				'--ignore-ssl-errors' : true,
 			},
 			ascensor: {
 				src: 'dist/jquery.ascensor.js',
@@ -227,7 +227,10 @@ module.exports = function(grunt) {
 					vendor:[
 						'http://code.jquery.com/jquery-2.0.0.min.js', 
 						'components/jasmine-jquery/lib/jasmine-jquery.js',
-						'test/spec/config.js'
+					],
+					helpers: [
+						'test/spec/config.js',
+						"test/spec/specHelper.js"
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -239,7 +242,10 @@ module.exports = function(grunt) {
 					vendor:[
 						'http://code.jquery.com/jquery-2.0.0.min.js', 
 						'components/jasmine-jquery/lib/jasmine-jquery.js',
-						'test/spec/config.js'
+					],
+					helpers: [
+						'test/spec/config.js',
+						"test/spec/specHelper.js"
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -251,7 +257,10 @@ module.exports = function(grunt) {
 					vendor:[
 						'http://code.jquery.com/jquery-1.9.0.min.js', 
 						'components/jasmine-jquery/lib/jasmine-jquery.js',
-						'test/spec/config.js'
+					],
+					helpers: [
+						'test/spec/config.js',
+						"test/spec/specHelper.js"
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -263,7 +272,10 @@ module.exports = function(grunt) {
 					vendor:[
 						'http://code.jquery.com/jquery-1.8.0.min.js', 
 						'components/jasmine-jquery/lib/jasmine-jquery.js',
-						'test/spec/config.js'
+					],
+					helpers: [
+						'test/spec/config.js',
+						"test/spec/specHelper.js"
 					],
 					specs: 'test/spec/*Spec.js'
 				}
@@ -275,7 +287,10 @@ module.exports = function(grunt) {
 					vendor:[
 						'http://code.jquery.com/jquery-1.7.0.min.js', 
 						'components/jasmine-jquery/lib/jasmine-jquery.js',
-						'test/spec/config.js'
+					],
+					helpers: [
+						'test/spec/config.js',
+						"test/spec/specHelper.js"
 					],
 					specs: 'test/spec/*Spec.js'
 				}

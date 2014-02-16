@@ -12,7 +12,13 @@
 <script src="../components/jasmine-jquery/lib/jasmine-jquery.js"></script>
 <script src="../dist/jquery.ascensor.js"></script>
 
-<script src="spec/optionsSpec.js"></script>
+<script src="spec/specHelper.js"></script>
+
+<script src="spec/heightSpec.js"></script>
+<script src="spec/widthSpec.js"></script>
+<script src="spec/loopSpec.js"></script>
+<script src="spec/keySpec.js"></script>
+<script src="spec/directionSpec.js"></script>
 <script src="spec/triggersSpec.js"></script>
 
 
@@ -39,6 +45,8 @@
 			}
 			execJasmine();
 		};
+
+
 
 		function execJasmine() {
 			jasmineEnv.execute();
