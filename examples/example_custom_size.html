@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>ascensor - example - Custom size</title>
+		<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body{
+			font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+		}
+		
+		.floor-1{background: #F9B233;}
+		.floor-2{background: #71B5E5;}
+		.floor-3{background: #B3CE4A;}
+		.floor-4{background: #EB5D45;}
+		.floor-5{background: #4AAEB6;}
+		.floor-6{background: #E7DFBF;}
+		.floor-7{background: #CA9E67;}
+		.floor-8{background: #4fade3;}
+		
+		nav{
+			position: absolute;
+			bottom: 20px;
+			right: 20px;
+		}
+		
+		li.selected{
+			color: #0f0;
+		}
+		
+		</style>
+	</head>
+	<body>
+		<div id="ascensorBuilding">
+			<div class="floor-1">Content 1</div>
+			<div class="floor-2">Content 2</div>
+			<div class="floor-3">Content 3</div>
+			<div class="floor-4">Content 4</div>
+			<div class="floor-5">Content 5</div>
+			<div class="floor-6">Content 6</div>
+			<div class="floor-7">Content 7</div>
+		</div>
+		<nav>
+			<ul class="links-to-floor">
+				<li><a>Floor 1</a></li>
+				<li><a>Floor 2</a></li>
+				<li><a>Floor 3</a></li>
+				<li><a>Floor 4</a></li>
+				<li><a>Floor 5</a></li>
+				<li><a>Floor 6</a></li>
+				<li><a>Floor 7</a></li>
+				<li><a class="add-floor">+ add floor 8</a></li>
+			</ul>
+			<ul class="prev-next-links">
+				<li class="prev" ><a>prev</a></li>
+				<li class="next" ><a>next</a></li>
+			</ul>
+			
+			<ul class="direction-links">
+				<li class="up" ><a>up</a></li>
+				<li class="down" ><a>down</a></li>
+				<li class="left" ><a>left</a></li>
+				<li class="right" ><a>right</a></li>
+			</ul>
+			
+		</nav>
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="../dist/jquery.ascensor.js"></script>
+		<script>
+			var ascensor = $('#ascensorBuilding').ascensor({height: "80%", width: "400px"});
+			var floorAdded = false;
+			$(".add-floor").click(function(){
+				if(!floorAdded){
+				$('#ascensorBuilding').append('<div class="floor-8">This floor has been dynamically appended!</div>');
+				ascensor.trigger("refresh");
+				$(this).text("Floor Added!");
+				floorAdded = true;
+				}
+			});
+				
+			$(".links-to-floor li").click(function(event, index) {
+				ascensor.trigger("scrollToStage", $(this).index());
+			});
+			
+			$(".links-to-floor li:eq("+ ascensor.data("current-floor") +")").addClass("selected");
+
+			ascensor.on("scrollStart", function(event, floor){
+				$(".links-to-floor li").removeClass("selected");
+				$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
+			});
+	
+			$(".prev").click(function() {
+				ascensor.trigger("prev");
+			});
+				
+			$(".next").click(function() {
+				ascensor.trigger("next");
+			});
+				
+			$(".up").click(function() {
+				ascensor.trigger("scrollToDirection" ,"up");
+			});
+				
+			$(".down").click(function() {
+				ascensor.trigger("scrollToDirection" ,"down");
+			});
+				
+			$(".left").click(function() {
+				ascensor.trigger("scrollToDirection" ,"left");
+			});
+				
+			$(".right").click(function() {
+				ascensor.trigger("scrollToDirection" ,"right");
+			});		
+		</script>
+
+	</body>
+</html>

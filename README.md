@@ -85,12 +85,23 @@ Default: `div`<br/>
 descriptions: Specify the child tag if no div ('section' or 'article')<br/>
 example: `childType:'article'`<br/>
 
+**width**<br/>
+Type: `integer` or `string`<br/>
+Default: `"100%"`<br/>
+descriptions: the width of your floor (% or pixel)<br/>
+example: `width: "80%"`<br/>
 
-**windowsOn**<br/>
-Type: `integer`<br/>
-Default: `0`<br/>
-descriptions: Choose the floor to start on<br/>
-example: `windowsOn: 3`<br/>
+**height**<br/>
+Type: `integer` or `string`<br/>
+Default: `"100%"`<br/>
+descriptions: the height of your floor (% or pixel)<br/>
+example: `height: "300px"`<br/>
+
+**context**<br/>
+Type: `selector`<br/>
+Default: `$(window)`<br/>
+descriptions: Choose the context for ascensor (use to calculate floor height and width)<br/>
+example: `context: "$('#otherContainer'')"`<br/>
 
 **ready**<br/>
 Type: `function`<br/>

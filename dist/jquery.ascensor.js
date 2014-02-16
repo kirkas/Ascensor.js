@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.7.0 (2013-12-15)
+version: 1.7.0 (2014-02-16)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -20,6 +20,9 @@ author: Léo Galley <contact@kirkas.ch>
         windowsOn: 0,
         direction: "y",
         loop: !1,
+        width: "100%",
+        height: "100%",
+        context: $(window),
         time: 300,
         easing: "linear",
         keyNavigation: !0,
@@ -29,9 +32,12 @@ author: Léo Galley <contact@kirkas.ch>
         ready: !1
     };
     Plugin.prototype.init = function() {
+        function getProperValue(value, parentValue) {
+            return "string" != typeof value ? value : -1 !== value.indexOf("%") ? parentValue / 100 * parseInt(value, 10) : -1 !== value.indexOf("px") ? parseInt(value, 10) : undefined;
+        }
         function resize() {
-            WW = $window.width(), WH = $window.height(), nodeChildren.width(WW).height(WH), 
-            node.width(WW).height(WH), "y" === self.options.direction && node.stop().scrollTop(floorActive * WH), 
+            WW = getProperValue(self.options.width, self.options.context.width()), WH = getProperValue(self.options.height, self.options.context.height()), 
+            nodeChildren.width(WW).height(WH), node.width(WW).height(WH), "y" === self.options.direction && node.stop().scrollTop(floorActive * WH), 
             "x" === self.options.direction && (node.stop().scrollLeft(floorActive * WW), nodeChildren.each(function(index) {
                 $(this).css("left", index * WW);
             })), chocolate && (nodeChildren.each(function(index) {

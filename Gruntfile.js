@@ -195,6 +195,15 @@ module.exports = function(grunt) {
 					title: 'Chocolat',
 					params:'{jump: true, direction: [[0,0],[0,2],[0,4],[2,4],[4,4],[6,7],[1,9],[1,5]]}'
 				}
+			},
+
+			custom_size: {
+				src: 'examples/example_layout.ejs',
+				dest: 'examples/example_custom_size.html',
+				variables: {
+					title: 'Custom size',
+					params:'{height: "80%", width: "400px"}'
+				}
 			}
 		},
 		

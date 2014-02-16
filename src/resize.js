@@ -1,7 +1,17 @@
+function getProperValue (value, parentValue) {
+  if(typeof (value) == "string") {
+    if(value.indexOf("%") !== -1) return parentValue / 100 * parseInt(value, 10);
+    if(value.indexOf("px") !== -1) return parseInt(value, 10);
+  } else {
+    return value;
+  }
+}
+
 function resize() {
-  WW = $window.width();
-  WH = $window.height();
-  
+
+  WW = getProperValue(self.options.width, self.options.context.width());
+  WH = getProperValue(self.options.height, self.options.context.height());
+
   nodeChildren.width(WW).height(WH);
   node.width(WW).height(WH);
 
