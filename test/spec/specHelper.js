@@ -7,8 +7,9 @@ var scrollStartSpy;
 var fixture;
 beforeEach(function() {
   loadFixtures("ascensor.html");
+  loadFixtures("ascensorWrapper.html");
   $fixture = $("#ascensorBuilding");
-  fixture = $('<div id="ascensorBuilding"><div></div><div></div><div></div></div>');
+  $fixtureWrapper = $("#ascensorWrapper");
 });
 
 afterEach(function() {
@@ -16,6 +17,10 @@ afterEach(function() {
   $fixture = null;
   fixture = null;
 });
+
+function getWrappedOfAscensor(parameter) {
+  return $fixtureWrapper.find("#ascensorBuilding").ascensor(parameter);
+}
 
 function getInstanceOfAscensor(parameter) {
   return $fixture.ascensor(parameter);

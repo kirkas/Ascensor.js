@@ -11,7 +11,8 @@
       time                        => Specify speed of transition
       easing                      => Specify if direction is x,y or chocolate
       keyNavigation               => Choose if you want direction key support
-      touchSwipeIntegration       => Choose if you want swipe event support (requires http://labs.rampinteractive.co.uk/touchSwipe/)
+  touchSwipeIntegration = > Choose
+  if you want swipe event support(requires http: //labs.rampinteractive.co.uk/touchSwipe/)
       queued                      => Choose if you want direction scroll queued
   */
   var defaults = {

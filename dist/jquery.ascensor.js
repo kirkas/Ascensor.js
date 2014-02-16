@@ -6,7 +6,7 @@ repository: https://github.com/kirkas/Ascensor.js
 license: BSD
 author: Léo Galley <contact@kirkas.ch>
 */
-(function($, window, document) {
+!function($, window, document) {
     /*
     Create plugin instance
   */
@@ -33,7 +33,7 @@ author: Léo Galley <contact@kirkas.ch>
     };
     Plugin.prototype.init = function() {
         function getProperValue(value, parentValue) {
-            return "string" != typeof value ? value : -1 !== value.indexOf("%") ? parentValue / 100 * parseInt(value, 10) : -1 !== value.indexOf("px") ? parseInt(value, 10) : undefined;
+            return "string" != typeof value ? value : -1 !== value.indexOf("%") ? parentValue / 100 * parseInt(value, 10) : -1 !== value.indexOf("px") ? parseInt(value, 10) : void 0;
         }
         function resize() {
             WW = getProperValue(self.options.width, self.options.context.width()), WH = getProperValue(self.options.height, self.options.context.height()), 
@@ -346,4 +346,4 @@ author: Léo Galley <contact@kirkas.ch>
             $.data(this, "plugin_" + pluginName) || $.data(this, "plugin_" + pluginName, new Plugin(this, options));
         });
     };
-})(jQuery, window, document);
+}(jQuery, window, document);

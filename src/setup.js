@@ -1,5 +1,5 @@
 node.css({
-  "position" : "absolute",
+  "position": "absolute",
   "overflow": "hidden"
 });
 
@@ -14,7 +14,7 @@ if (self.options.direction === "x" || chocolate) {
   });
 }
 
-if(chocolate){
+if (chocolate) {
   generateFloorMap();
 }
 
@@ -26,7 +26,7 @@ if (self.options.keyNavigation) {
 
 if (self.options.ascensorFloorName && window.location.hash) {
   var hashFloor = getFloorFromHash();
-  if(hashFloor){
+  if (hashFloor) {
     floorActive = hashFloor;
   }
 }
@@ -42,20 +42,19 @@ if (self.options.touchSwipeIntegration) {
   });
 }
 
-$(window).on('hashchange',function(){
+$(window).on('hashchange', function() {
   var hashFloor = getFloorFromHash();
-  if(hashFloor && !node.is(':animated')){
+  if (hashFloor && !node.is(':animated')) {
     scrollToStage(hashFloor, self.options.time);
   }
-}),
-
-
+});
 
 $window.resize(function() {
   resize();
-}).load(function(){
+}).load(function() {
   resize();
 }).resize();
+
 
 if (window.DeviceOrientationEvent) {
   $window.bind('orientationchange', function() {
