@@ -212,7 +212,7 @@ author: Léo Galley <contact@kirkas.ch>
             if (window.location.hash) {
                 hash = window.location.hash.split("#").pop();
                 var floor = !1;
-                return $.each(self.options.ascensorFloorName, function(index) {
+                return self.options.ascensorFloorName && $.each(self.options.ascensorFloorName, function(index) {
                     hash === self.options.ascensorFloorName[index] && (floor = index);
                 }), floor;
             }
@@ -343,7 +343,7 @@ author: Léo Galley <contact@kirkas.ch>
             self.prev();
         }), node.on("refresh", function() {
             (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) && (nodeChildren = node.children(self.options.childType), 
-            ("x" === self.options.direction || chocolate) && nodeChildren.css({
+            nodeChildren.css({
                 position: "absolute",
                 overflow: "auto",
                 top: "0",

@@ -39,16 +39,16 @@ node.on("prev", function(event, floor) {
 node.on("refresh", function() {
   if (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) {
     nodeChildren = node.children(self.options.childType);
-    if (self.options.direction === "x" || chocolate) {
-      nodeChildren.css({
-        "position": "absolute",
-        "overflow": "auto",
-        "top": "0",
-        "left": "0",
-        "width": "100%",
-        "height": "100%"
-      });
-    }
+
+    nodeChildren.css({
+      "position": "absolute",
+      "overflow": "auto",
+      "top": "0",
+      "left": "0",
+      "width": "100%",
+      "height": "100%"
+    });
+
     floorCounter = -1;
     nodeChildren.each(function(index) {
       floorCounter += 1;
