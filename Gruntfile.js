@@ -279,7 +279,7 @@ module.exports = function(grunt) {
     'uglify:ascensor',
     'uglify:ascensormin',
     'clean:after',
-    //'jasmine',
+    'jasmine'
   ]);
 
 };
