@@ -1,7 +1,7 @@
 function scrollToStage(floor, time, firstrun) {
   firstrun = firstrun ||  false;
   scrollStart(floorActive, floor);
-  
+
   var animationParams = {
     time: time || self.options.time,
     easing: self.options.easing,
@@ -38,15 +38,15 @@ function scrollToStage(floor, time, firstrun) {
           };
           animationParams.callback = function() {
             node.stop().animate({
-              scrollTop: (self.options.direction[floor][0]) * WH
-            },
-            time,
-            self.options.easing,
+                scrollTop: (self.options.direction[floor][0]) * WH
+              },
+              time,
+              self.options.easing,
 
-            function() {
-              scrollEnd(floorActive, floor);
+              function() {
+                scrollEnd(floorActive, floor);
 
-            });
+              });
           };
         }
       } else if (self.options.queued === "y") {
@@ -60,14 +60,14 @@ function scrollToStage(floor, time, firstrun) {
           };
           animationParams.callback = function() {
             node.stop().animate({
-              scrollLeft: (self.options.direction[floor][1]) * WW
-            },
-            time,
-            self.options.easing,
+                scrollLeft: (self.options.direction[floor][1]) * WW
+              },
+              time,
+              self.options.easing,
 
-            function() {
-              scrollEnd(floorActive, floor);
-            });
+              function() {
+                scrollEnd(floorActive, floor);
+              });
           };
         }
       }
@@ -75,13 +75,13 @@ function scrollToStage(floor, time, firstrun) {
   }
 
   node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback);
-  
+
   if (firstrun && typeof(self.options.ready) == "function") {
     self.options.ready();
   }
-  
+
   if (self.options.ascensorFloorName) {
-    window.location.hash = "/" + self.options.ascensorFloorName[floor];
+    window.location.replace(('' + window.location).split('#')[0] + '#' + self.options.ascensorFloorName[floor]);
   }
 
   floorActive = floor;

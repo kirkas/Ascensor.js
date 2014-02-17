@@ -179,7 +179,7 @@ author: Léo Galley <contact@kirkas.ch>
         }
         function getFloorFromHash() {
             if (window.location.hash) {
-                hash = window.location.hash.split("/").pop();
+                hash = window.location.hash.split("#").pop();
                 var floor = !1;
                 return $.each(self.options.ascensorFloorName, function(index) {
                     hash === self.options.ascensorFloorName[index] && (floor = index);
@@ -227,7 +227,7 @@ author: Léo Galley <contact@kirkas.ch>
                 }));
             }
             node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback), 
-            firstrun && "function" == typeof self.options.ready && self.options.ready(), self.options.ascensorFloorName && (window.location.hash = "/" + self.options.ascensorFloorName[floor]), 
+            firstrun && "function" == typeof self.options.ready && self.options.ready(), self.options.ascensorFloorName && window.location.replace(("" + window.location).split("#")[0] + "#" + self.options.ascensorFloorName[floor]), 
             floorActive = floor, node.data("current-floor", floorActive);
         }
         function scrollStart(from, to) {
