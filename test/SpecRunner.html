@@ -9,51 +9,24 @@
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="../components/jasmine/lib/jasmine-core/jasmine.js"></script>
 <script src="../components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+<script src="../components/jasmine/lib/jasmine-core/boot.js"></script>
+
 <script src="../components/jasmine-jquery/lib/jasmine-jquery.js"></script>
 <script src="../dist/jquery.ascensor.js"></script>
 
-<script src="spec/specHelper.js"></script>
-
-<script src="spec/heightSpec.js"></script>
-<script src="spec/widthSpec.js"></script>
-<script src="spec/loopSpec.js"></script>
-<script src="spec/keySpec.js"></script>
-<script src="spec/contextSpec.js"></script>
-<script src="spec/directionSpec.js"></script>
-<script src="spec/triggersSpec.js"></script>
-
-
-<script type="text/javascript">
-	(function() {
-		var jasmineEnv = jasmine.getEnv();
-		jasmineEnv.updateInterval = 1000;
-
-		var htmlReporter = new jasmine.HtmlReporter();
-
-		jasmineEnv.addReporter(htmlReporter);
-
-		jasmineEnv.specFilter = function(spec) {
-			return htmlReporter.specFilter(spec);
-		};
-
-		var documentFrame = true;
-
-		var currentWindowOnload = window.onload;
-
-		window.onload = function() {
-			if (currentWindowOnload) {
-				currentWindowOnload();
-			}
-			execJasmine();
-		};
-
-
-
-		function execJasmine() {
-			jasmineEnv.execute();
-		}
-
-	})();
+<script >
+	jasmine.getFixtures().fixturesPath = '../test/fixtures/';
 </script>
+<script src="helpers/specHelper.js"></script>
+
+<script src="specs/heightSpec.js"></script>
+<script src="specs/widthSpec.js"></script>
+<script src="specs/loopSpec.js"></script>
+<script src="specs/keySpec.js"></script>
+<script src="specs/contextSpec.js"></script>
+<script src="specs/directionSpec.js"></script>
+<script src="specs/triggersSpec.js"></script>
+
+
 </body>
 </html>

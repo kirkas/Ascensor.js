@@ -5,15 +5,17 @@ var WH = $(window).height();
 var scrollEndSpy;
 var scrollStartSpy;
 var fixture;
+
 beforeEach(function() {
   loadFixtures("ascensor.html");
   loadFixtures("ascensorWrapper.html");
   $fixture = $("#ascensorBuilding");
   $fixtureWrapper = $("#ascensorWrapper");
+  jasmine.clock().install();
 });
 
 afterEach(function() {
-
+  jasmine.clock().uninstall();
   $fixture = null;
   fixture = null;
 });

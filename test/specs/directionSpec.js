@@ -26,8 +26,6 @@ describe("direction", function() {
   describe("chocolate", function() {
     it("size is correct", function() {
       var ascensor = getInstanceOfAscensor();
-      console.log(ascensor.height());
-      console.log(WH);
       expect(ascensor).toHaveCss({
         height: WH + "px"
       });
