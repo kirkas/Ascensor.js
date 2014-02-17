@@ -1,9 +1,18 @@
 function getCss(index, property) {
-  var parentCss = NW;
-  if (property == "top") parentCss = NH;
-  var css = {
-    property: (index * parentCss)
-  };
+  var parentCss;
+  var css;
+  if (property == "top") {
+    parentCss = NH;
+    css = {
+      "top": (index * parentCss)
+    };
+  } else {
+    parentCss = NW;
+    css = {
+      "left": (index * parentCss)
+    };
+  }
+
   if (self.supportTransform) {
     var transformAxis = "translateX";
     if (property == "top") transformAxis = "translateY";
@@ -11,6 +20,7 @@ function getCss(index, property) {
       "transform": transformAxis + '(' + index * 100 + '%)'
     };
   }
+
   return css;
 }
 

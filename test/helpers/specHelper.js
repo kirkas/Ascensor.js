@@ -8,22 +8,15 @@ var fixture;
 
 beforeEach(function() {
   loadFixtures("ascensor.html");
-  loadFixtures("ascensorWrapper.html");
   $fixture = $("#ascensorBuilding");
-  $fixtureWrapper = $("#ascensorWrapper");
   jasmine.clock().install();
 });
 
 afterEach(function() {
   jasmine.clock().uninstall();
   $fixture = null;
-  $fixtureWrapper = null;
-  fixture = null;
 });
 
-function getWrappedOfAscensor(parameter) {
-  return $fixtureWrapper.find("#ascensorBuilding").ascensor(parameter);
-}
 
 function getInstanceOfAscensor(parameter) {
   return $fixture.ascensor(parameter);
@@ -36,12 +29,16 @@ function keyEventGenerator(key) {
   $(document).trigger(e);
 }
 
-// $(document).ready(function() {
-//   WW = $(window).width();
-//   WH = $(window).height();
-// });
+function matrixToArray(str) {
+  return str.match(/(-?[0-9\.]+)/g);
+};
 
-// $(window).resize(function() {
-//   WW = $(window).width();
-//   WH = $(window).height();
-// }).resize();
+function getTransform(el) {
+  var results = $(el).css('-webkit-transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
+
+  if (!results) return [0, 0, 0];
+  if (results[1] == '3d') return results.slice(2, 5);
+
+  results.push(0);
+  return results.slice(5, 8);
+}

@@ -47,12 +47,12 @@ author: Léo Galley <contact@kirkas.ch>
             return document.body.removeChild(el), support3D !== undefined && support3D.length > 0 && "none" !== support3D;
         }
         function getCss(index, property) {
-            var parentCss = NW;
-            "top" == property && (parentCss = NH);
-            var css = {
-                property: index * parentCss
-            };
-            if (self.supportTransform) {
+            var parentCss, css;
+            if ("top" == property ? (parentCss = NH, css = {
+                top: index * parentCss
+            }) : (parentCss = NW, css = {
+                left: index * parentCss
+            }), self.supportTransform) {
                 var transformAxis = "translateX";
                 "top" == property && (transformAxis = "translateY"), css = {
                     transform: transformAxis + "(" + 100 * index + "%)"
