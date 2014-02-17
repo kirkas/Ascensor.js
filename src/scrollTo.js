@@ -12,33 +12,33 @@ function scrollToStage(floor, time, firstrun) {
 
   if (self.options.direction === "y") {
     animationParams.property = {
-      scrollTop: (floor) * WH
+      scrollTop: (floor) * node.height()
     };
   } else if (self.options.direction === "x") {
     animationParams.property = {
-      scrollLeft: (floor) * WW
+      scrollLeft: (floor) * node.width()
     };
   } else if (chocolate) {
     animationParams.property = {
-      scrollLeft: (self.options.direction[floor][1]) * WW,
-      scrollTop: (self.options.direction[floor][0]) * WH
+      scrollLeft: (self.options.direction[floor][1]) * node.width(),
+      scrollTop: (self.options.direction[floor][0]) * node.height()
     };
 
     if (self.options.queued) {
-      var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * WW;
-      var sameYposition = node.scrollTop() === self.options.direction[floor][0] * WH;
+      var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * node.width();
+      var sameYposition = node.scrollTop() === self.options.direction[floor][0] * node.height();
       if (self.options.queued === "x") {
         if (sameXposition) {
           animationParams.property = {
-            scrollTop: (self.options.direction[floor][0]) * WH
+            scrollTop: (self.options.direction[floor][0]) * node.height()
           };
         } else {
           animationParams.property = {
-            scrollLeft: (self.options.direction[floor][1]) * WW
+            scrollLeft: (self.options.direction[floor][1]) * node.width()
           };
           animationParams.callback = function() {
             node.stop().animate({
-                scrollTop: (self.options.direction[floor][0]) * WH
+                scrollTop: (self.options.direction[floor][0]) * node.height()
               },
               time,
               self.options.easing,
@@ -52,15 +52,15 @@ function scrollToStage(floor, time, firstrun) {
       } else if (self.options.queued === "y") {
         if (sameYposition) {
           animationParams.property = {
-            scrollLeft: (self.options.direction[floor][1]) * WW
+            scrollLeft: (self.options.direction[floor][1]) * node.width()
           };
         } else {
           animationParams.property = {
-            scrollTop: (self.options.direction[floor][0]) * WH
+            scrollTop: (self.options.direction[floor][0]) * node.height()
           };
           animationParams.callback = function() {
             node.stop().animate({
-                scrollLeft: (self.options.direction[floor][1]) * WW
+                scrollLeft: (self.options.direction[floor][1]) * node.width()
               },
               time,
               self.options.easing,

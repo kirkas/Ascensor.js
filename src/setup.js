@@ -1,18 +1,29 @@
-node.css({
-  "position": "absolute",
-  "overflow": "hidden"
-});
-
 nodeChildren.each(function(index) {
   floorCounter += 1;
 });
 
-if (self.options.direction === "x" || chocolate) {
-  nodeChildren.css({
-    "position": "absolute",
-    "overflow": "auto"
-  });
-}
+
+node.css({
+  "position": "absolute",
+  "overflow": "hidden",
+  "top": "0",
+  "left": "0",
+  "width": self.options.width,
+  "height": self.options.height
+});
+
+nodeChildren.css({
+  "position": "absolute",
+  "overflow": "auto",
+  "top": "0",
+  "left": "0",
+  "width": "100%",
+  "height": "100%"
+});
+
+
+NH = node.width();
+NW = node.height();
 
 if (chocolate) {
   generateFloorMap();

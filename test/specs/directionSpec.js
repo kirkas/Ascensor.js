@@ -1,46 +1,49 @@
 describe("direction", function() {
 
-  describe("y", function() {
-    it("css", function() {
-      var ascensor = getInstanceOfAscensor();
-
-      ascensor.children("div").each(function(index, floor) {
-
+  var FloorSetup = function(ascensor) {
+    expect(ascensor).toHaveCss({
+      "position": "absolute",
+      "top": "0px",
+      "left": "0px",
+      "overflow": "hidden",
+      "height": WH + "px",
+      "width": WW + "px"
+    });
+    ascensor.children("div").each(function(index, floor) {
+      expect(floor).toHaveCss({
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "height": WH + "px",
+        "width": WW + "px"
       });
+    });
+  }
+
+  describe("y", function() {
+    it("css is correctly applyed", function() {
+      var ascensor = getInstanceOfAscensor();
+      FloorSetup(ascensor);
     });
   });
 
   describe("x", function() {
-    it("position is correct", function() {
+    it("css is correctly applyed", function() {
       var ascensor = getInstanceOfAscensor({
         direction: "x"
       });
-      ascensor.children("div").each(function(index, floor) {
-        expect(floor).toHaveCss({
-          position: "absolute"
-        });
-      });
+      FloorSetup(ascensor);
     });
   });
 
   describe("chocolate", function() {
-    it("size is correct", function() {
-      var ascensor = getInstanceOfAscensor();
-      expect(ascensor).toHaveCss({
-        height: WH + "px"
+    it("css is correctly applyed", function() {
+      var ascensor = getInstanceOfAscensor({
+        direction: "chocolate"
       });
-      expect(ascensor).toHaveCss({
-        width: WW + "px"
-      });
-      ascensor.children("div").each(function(index, floor) {
-        expect(floor).toHaveCss({
-          height: WH + "px"
-        });
-        expect(floor).toHaveCss({
-          width: WW + "px"
-        });
-      });
+      FloorSetup(ascensor);
     });
+
     it("position is correct", function() {
       var R1 = 1 + Math.floor(Math.random() * 30);
       var R2 = 1 + Math.floor(Math.random() * 30);
@@ -56,19 +59,8 @@ describe("direction", function() {
         ]
       }
       var ascensor = getInstanceOfAscensor(parameter);
-      ascensor = $fixture.ascensor(parameter);
-      ascensor.children("div").each(function(index, elements) {
-        expect(elements).toHaveCss({
-          position: "absolute"
-        });
-        expect(elements).toHaveCss({
-          left: parameter.direction[index][1] * WW + "px"
-        });
-        expect(elements).toHaveCss({
-          top: parameter.direction[index][0] * WH + "px"
-        });
-      });
+      FloorSetup(ascensor);
     });
-  });
 
+  });
 });

@@ -1,38 +1,50 @@
-function getProperValue (value, parentValue) {
-  if(typeof (value) == "string") {
-    if(value.indexOf("%") !== -1) return parentValue / 100 * parseInt(value, 10);
-    if(value.indexOf("px") !== -1) return parseInt(value, 10);
-  } else {
-    return value;
+function getCss(index, property) {
+  var parentCss = NW;
+  if (property == "top") parentCss = NH;
+  var css = {
+    property: (index * parentCss)
+  };
+  if (self.supportTransform) {
+    var transformAxis = "translateX";
+    if (property == "top") transformAxis = "translateY";
+    css = {
+      "transform": transformAxis + '(' + index * 100 + '%)'
+    };
   }
+  return css;
 }
 
 function resize() {
 
-  WW = getProperValue(self.options.width, self.options.context.width());
-  WH = getProperValue(self.options.height, self.options.context.height());
-
-  nodeChildren.width(WW).height(WH);
-  node.width(WW).height(WH);
+  NH = node.width();
+  NW = node.height();
 
   if (self.options.direction === "y") {
-    node.stop().scrollTop((floorActive) * WH);
+    node.stop().scrollTop((floorActive) * NH);
+    nodeChildren.each(function(index) {
+      $(this).css(getCss(index, "top"));
+    });
   }
 
   if (self.options.direction === "x") {
-    node.stop().scrollLeft((floorActive) * WW);
+    node.stop().scrollLeft((floorActive) * NW);
     nodeChildren.each(function(index) {
-      $(this).css("left", index * WW);
+      $(this).css(getCss(index, "left"));
     });
   }
 
   if (chocolate) {
+    node.stop().scrollLeft((self.options.direction[floorActive][1]) * NW).scrollTop((self.options.direction[floorActive][0]) * NH);
     nodeChildren.each(function(index) {
-      $(this).css({
-        "left": (self.options.direction[index][1]) * WW,
-        "top": (self.options.direction[index][0]) * WH
-      });
+      var css = {
+        "left": (self.options.direction[index][1]) * NW,
+        "top": (self.options.direction[index][0]) * NH
+      };
+
+      if (self.supportTransform) css = {
+        "transform": 'translateX(' + (self.options.direction[index][1]) * 100 + '%) translateY(' + (self.options.direction[index][0]) * 100 + '%)'
+      };
+      $(this).css(css);
     });
-    node.stop().scrollLeft((self.options.direction[floorActive][1]) * WW).scrollTop((self.options.direction[floorActive][0]) * WH);
   }
 }

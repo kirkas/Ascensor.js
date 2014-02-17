@@ -6,7 +6,7 @@ repository: https://github.com/kirkas/Ascensor.js
 license: BSD
 author: Léo Galley <contact@kirkas.ch>
 */
-!function($, window, document) {
+!function($, window, document, undefined) {
     /*
     Create plugin instance
   */
@@ -22,7 +22,6 @@ author: Léo Galley <contact@kirkas.ch>
         loop: !1,
         width: "100%",
         height: "100%",
-        context: $(window),
         time: 300,
         easing: "linear",
         keyNavigation: !0,
@@ -32,20 +31,52 @@ author: Léo Galley <contact@kirkas.ch>
         ready: !1
     };
     Plugin.prototype.init = function() {
-        function getProperValue(value, parentValue) {
-            return "string" != typeof value ? value : -1 !== value.indexOf("%") ? parentValue / 100 * parseInt(value, 10) : -1 !== value.indexOf("px") ? parseInt(value, 10) : void 0;
+        // From https://gist.github.com/lorenzopolidori/3794226
+        function has3d() {
+            var support3D, el = document.createElement("p"), transforms = {
+                webkitTransform: "-webkit-transform",
+                OTransform: "-o-transform",
+                msTransform: "-ms-transform",
+                MozTransform: "-moz-transform",
+                transform: "transform"
+            };
+            // Add it to the body to get the computed style
+            document.body.insertBefore(el, null);
+            for (var t in transforms) el.style[t] !== undefined && (el.style[t] = "translate3d(1px,1px,1px)", 
+            support3D = window.getComputedStyle(el).getPropertyValue(transforms[t]));
+            return document.body.removeChild(el), support3D !== undefined && support3D.length > 0 && "none" !== support3D;
+        }
+        function getCss(index, property) {
+            var parentCss = NW;
+            "top" == property && (parentCss = NH);
+            var css = {
+                property: index * parentCss
+            };
+            if (self.supportTransform) {
+                var transformAxis = "translateX";
+                "top" == property && (transformAxis = "translateY"), css = {
+                    transform: transformAxis + "(" + 100 * index + "%)"
+                };
+            }
+            return css;
         }
         function resize() {
-            WW = getProperValue(self.options.width, self.options.context.width()), WH = getProperValue(self.options.height, self.options.context.height()), 
-            nodeChildren.width(WW).height(WH), node.width(WW).height(WH), "y" === self.options.direction && node.stop().scrollTop(floorActive * WH), 
-            "x" === self.options.direction && (node.stop().scrollLeft(floorActive * WW), nodeChildren.each(function(index) {
-                $(this).css("left", index * WW);
-            })), chocolate && (nodeChildren.each(function(index) {
-                $(this).css({
-                    left: self.options.direction[index][1] * WW,
-                    top: self.options.direction[index][0] * WH
-                });
-            }), node.stop().scrollLeft(self.options.direction[floorActive][1] * WW).scrollTop(self.options.direction[floorActive][0] * WH));
+            NH = node.width(), NW = node.height(), "y" === self.options.direction && (node.stop().scrollTop(floorActive * NH), 
+            nodeChildren.each(function(index) {
+                $(this).css(getCss(index, "top"));
+            })), "x" === self.options.direction && (node.stop().scrollLeft(floorActive * NW), 
+            nodeChildren.each(function(index) {
+                $(this).css(getCss(index, "left"));
+            })), chocolate && (node.stop().scrollLeft(self.options.direction[floorActive][1] * NW).scrollTop(self.options.direction[floorActive][0] * NH), 
+            nodeChildren.each(function(index) {
+                var css = {
+                    left: self.options.direction[index][1] * NW,
+                    top: self.options.direction[index][0] * NH
+                };
+                self.supportTransform && (css = {
+                    transform: "translateX(" + 100 * self.options.direction[index][1] + "%) translateY(" + 100 * self.options.direction[index][0] + "%)"
+                }), $(this).css(css);
+            }));
         }
         function generateFloorMap() {
             function getClosestFloor(floor, floorCollection, axis, direction) {
@@ -196,31 +227,31 @@ author: Léo Galley <contact@kirkas.ch>
                 }
             };
             if ("y" === self.options.direction) animationParams.property = {
-                scrollTop: floor * WH
+                scrollTop: floor * node.height()
             }; else if ("x" === self.options.direction) animationParams.property = {
-                scrollLeft: floor * WW
+                scrollLeft: floor * node.width()
             }; else if (chocolate && (animationParams.property = {
-                scrollLeft: self.options.direction[floor][1] * WW,
-                scrollTop: self.options.direction[floor][0] * WH
+                scrollLeft: self.options.direction[floor][1] * node.width(),
+                scrollTop: self.options.direction[floor][0] * node.height()
             }, self.options.queued)) {
-                var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * WW, sameYposition = node.scrollTop() === self.options.direction[floor][0] * WH;
+                var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * node.width(), sameYposition = node.scrollTop() === self.options.direction[floor][0] * node.height();
                 "x" === self.options.queued ? sameXposition ? animationParams.property = {
-                    scrollTop: self.options.direction[floor][0] * WH
+                    scrollTop: self.options.direction[floor][0] * node.height()
                 } : (animationParams.property = {
-                    scrollLeft: self.options.direction[floor][1] * WW
+                    scrollLeft: self.options.direction[floor][1] * node.width()
                 }, animationParams.callback = function() {
                     node.stop().animate({
-                        scrollTop: self.options.direction[floor][0] * WH
+                        scrollTop: self.options.direction[floor][0] * node.height()
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });
                 }) : "y" === self.options.queued && (sameYposition ? animationParams.property = {
-                    scrollLeft: self.options.direction[floor][1] * WW
+                    scrollLeft: self.options.direction[floor][1] * node.width()
                 } : (animationParams.property = {
-                    scrollTop: self.options.direction[floor][0] * WH
+                    scrollTop: self.options.direction[floor][0] * node.height()
                 }, animationParams.callback = function() {
                     node.stop().animate({
-                        scrollLeft: self.options.direction[floor][1] * WW
+                        scrollLeft: self.options.direction[floor][1] * node.width()
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });
@@ -272,10 +303,12 @@ author: Léo Galley <contact@kirkas.ch>
             }
         }
         var //height/width settings
-        WW, WH, //hash 
+        NH, NW, //hash 
         hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
-        $(document)), $window = $(window), chocolate = "object" == typeof self.options.direction, floorMap = [];
+        $(document)), $window = $(window), chocolate = "object" == typeof self.options.direction;
+        self.supportTransform = has3d();
+        var floorMap = [];
         if (this.prev = function() {
             var prevFloor = floorActive - 1;
             if (0 > prevFloor) {
@@ -308,21 +341,33 @@ author: Léo Galley <contact@kirkas.ch>
             (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) && (nodeChildren = node.children(self.options.childType), 
             ("x" === self.options.direction || chocolate) && nodeChildren.css({
                 position: "absolute",
-                overflow: "auto"
+                overflow: "auto",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%"
             }), floorCounter = -1, nodeChildren.each(function() {
                 floorCounter += 1;
             }), childrenLenght = node.children().length, node.trigger("refresh"), resize(), 
             generateFloorMap());
-        }), node.css({
-            position: "absolute",
-            overflow: "hidden"
         }), nodeChildren.each(function() {
             floorCounter += 1;
-        }), ("x" === self.options.direction || chocolate) && nodeChildren.css({
+        }), node.css({
             position: "absolute",
-            overflow: "auto"
-        }), chocolate && generateFloorMap(), node.data("current-floor", floorActive), self.options.keyNavigation && $document.keydown(checkKey), 
-        self.options.ascensorFloorName && window.location.hash) {
+            overflow: "hidden",
+            top: "0",
+            left: "0",
+            width: self.options.width,
+            height: self.options.height
+        }), nodeChildren.css({
+            position: "absolute",
+            overflow: "auto",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%"
+        }), NH = node.width(), NW = node.height(), chocolate && generateFloorMap(), node.data("current-floor", floorActive), 
+        self.options.keyNavigation && $document.keydown(checkKey), self.options.ascensorFloorName && window.location.hash) {
             var hashFloor = getFloorFromHash();
             hashFloor && (floorActive = hashFloor);
         }

@@ -97,12 +97,6 @@ Default: `"100%"`<br/>
 descriptions: the height of your floor (% or pixel)<br/>
 example: `height: "300px"`<br/>
 
-**context**<br/>
-Type: `selector`<br/>
-Default: `$(window)`<br/>
-descriptions: Choose the context for ascensor (use to calculate floor height and width)<br/>
-example: `context: "$('#otherContainer'')"`<br/>
-
 **ready**<br/>
 Type: `function`<br/>
 Default: `false`<br/>

@@ -5,11 +5,16 @@ describe("height", function() {
       var ascensor = getInstanceOfAscensor({
         height: "60%"
       });
-      var ascensorHeight = Math.round(parseInt(ascensor.height()));
-      var excpectedHeight = Math.round(WH / 100 * 60);
-      expect(ascensorHeight).toBe(excpectedHeight);
+      expect(ascensor.height()).toBe(WH / 100 * 60);
     });
-
+    it("children size is correct", function() {
+      var ascensor = getInstanceOfAscensor({
+        height: "70%"
+      });
+      ascensor.children("div").each(function(index, floor) {
+        expect($(floor).height()).toBe(WH / 100 * 70);
+      });
+    });
   });
 
   describe("return correct size using pixel", function() {
@@ -17,18 +22,14 @@ describe("height", function() {
       var ascensor = getInstanceOfAscensor({
         height: "200px"
       });
-      expect(ascensor).toHaveCss({
-        height: "200px"
-      });
+      expect(ascensor.height()).toBe(200);
     });
     it("children size is correct", function() {
       var ascensor = getInstanceOfAscensor({
         height: "2400px"
       });
       ascensor.children("div").each(function(index, floor) {
-        expect(floor).toHaveCss({
-          height: "2400px"
-        });
+        expect($(floor).height()).toBe(2400);
       });
     });
   });
@@ -38,9 +39,7 @@ describe("height", function() {
       var ascensor = getInstanceOfAscensor({
         height: 100
       });
-      expect(ascensor).toHaveCss({
-        height: "100px"
-      });
+      expect(ascensor.height()).toBe(100);
     });
 
     it("children size is correct", function() {
@@ -48,9 +47,7 @@ describe("height", function() {
         height: 100
       });
       ascensor.children("div").each(function(index, floor) {
-        expect(floor).toHaveCss({
-          height: "100px"
-        });
+        expect($(floor).height()).toBe(100);
       });
     });
   });

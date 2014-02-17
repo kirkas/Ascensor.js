@@ -1,6 +1,6 @@
 function scrollStart(from, to) {
   var floor = {
-    from: from, 
+    from: from,
     to: to
   };
   node.trigger("scrollStart", floor);
@@ -8,7 +8,7 @@ function scrollStart(from, to) {
 
 function scrollEnd(from, to) {
   var floor = {
-    from: from, 
+    from: from,
     to: to
   };
   node.trigger("scrollEnd", floor);
@@ -22,7 +22,7 @@ node.on("scrollToStage", function(event, floor) {
   if (typeof floor == 'string') {
     var floorId = $.inArray(floor, self.options.ascensorFloorName);
     if (floorId !== -1) scrollToStage(floorId, self.options.time);
-  } else if(typeof floor == 'number') {
+  } else if (typeof floor == 'number') {
     if (floor > floorCounter) return;
     scrollToStage(floor, self.options.time);
   }
@@ -37,19 +37,23 @@ node.on("prev", function(event, floor) {
 });
 
 node.on("refresh", function() {
-  if(node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) {
+  if (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) {
     nodeChildren = node.children(self.options.childType);
     if (self.options.direction === "x" || chocolate) {
       nodeChildren.css({
         "position": "absolute",
-        "overflow": "auto"
+        "overflow": "auto",
+        "top": "0",
+        "left": "0",
+        "width": "100%",
+        "height": "100%"
       });
     }
     floorCounter = -1;
     nodeChildren.each(function(index) {
       floorCounter += 1;
     });
-  
+
     childrenLenght = node.children().length;
     node.trigger("refresh");
     resize();

@@ -1,7 +1,7 @@
-;(function ( $, window, document, undefined ) {  
-  var pluginName = 'ascensor';
-  
-  /*
+(function($, window, document, undefined) {
+    var pluginName = 'ascensor';
+
+    /*
     Parameters => 
       ascensorFloorName           => Choose name for each floor, default to false
       childType                   => Specify the child type if not a 'div' element
@@ -15,56 +15,53 @@
   if you want swipe event support(requires http: //labs.rampinteractive.co.uk/touchSwipe/)
       queued                      => Choose if you want direction scroll queued
   */
-  var defaults = {
-    ascensorFloorName: null,
-    childType: "div",
-    windowsOn: 0,
-    direction: "y",
-    loop: false,
-    width: "100%",
-    height: "100%",
-    context: $(window),
-    time: 300,
-    easing: "linear",
-    keyNavigation: true,
-    touchSwipeIntegration: false,
-    queued: false,
-    jump: false,
-    ready: false
-  };
+    var defaults = {
+      ascensorFloorName: null,
+      childType: "div",
+      windowsOn: 0,
+      direction: "y",
+      loop: false,
+      width: "100%",
+      height: "100%",
+      time: 300,
+      easing: "linear",
+      keyNavigation: true,
+      touchSwipeIntegration: false,
+      queued: false,
+      jump: false,
+      ready: false
+    };
 
-  /*
+    /*
     Create plugin instance
   */
-  function Plugin(element, options) {
-    this.element = element;
-    this.options = $.extend({}, defaults, options);
-    this._defaults = defaults;
-    this._name = pluginName;
-    this.init();
-  }
-  
-  Plugin.prototype.init = function() {
-    var 
-      self = this,
-      node = $(this.element),
-      nodeChildren = node.children(self.options.childType),
-      
-      //floor counter settings
-      floorActive = self.options.windowsOn,
-      floorCounter = -1,
-      
-      //height/width settings
-      WW,
-      WH,
-      
-      //plugins settings
-      direction = self.options.direction,
-      $document = $(document),
-      $window = $(window),
-      
-      //hash 
-      hash,
-      chocolate = (typeof(self.options.direction) == "object");
+    function Plugin(element, options) {
+      this.element = element;
+      this.options = $.extend({}, defaults, options);
+      this._defaults = defaults;
+      this._name = pluginName;
+      this.init();
+    }
 
-      
+    Plugin.prototype.init = function() {
+      var
+      self = this,
+        node = $(this.element),
+        nodeChildren = node.children(self.options.childType),
+
+        //floor counter settings
+        floorActive = self.options.windowsOn,
+        floorCounter = -1,
+
+        //height/width settings
+        NH,
+        NW,
+
+        //plugins settings
+        direction = self.options.direction,
+        $document = $(document),
+        $window = $(window),
+
+        //hash 
+        hash,
+        chocolate = (typeof(self.options.direction) == "object");

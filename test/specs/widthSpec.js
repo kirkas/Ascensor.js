@@ -5,18 +5,14 @@ describe("width", function() {
       var ascensor = getInstanceOfAscensor({
         width: "60%"
       });
-      var ascensorWidth = Math.round(parseInt(ascensor.width()));
-      var excpectedWidth = Math.round(WW / 100 * 60);
-      expect(ascensorWidth).toBe(excpectedWidth);
+      expect(ascensor.width()).toBe(WW / 100 * 60);
     });
     it("children size is correct", function() {
       var ascensor = getInstanceOfAscensor({
-        width: "20%"
+        width: "70%"
       });
       ascensor.children("div").each(function(index, floor) {
-        var floorWidth = Math.round(parseInt($(floor).width()));
-        var excpectedWidth = Math.round(WW / 100 * 20);
-        expect(floorWidth).toBe(excpectedWidth);
+        expect($(floor).width()).toBe(WW / 100 * 70);
       });
     });
   });
@@ -26,18 +22,14 @@ describe("width", function() {
       var ascensor = getInstanceOfAscensor({
         width: "200px"
       });
-      expect(ascensor).toHaveCss({
-        width: "200px"
-      });
+      expect(ascensor.width()).toBe(200);
     });
     it("children size is correct", function() {
       var ascensor = getInstanceOfAscensor({
         width: "2400px"
       });
       ascensor.children("div").each(function(index, floor) {
-        expect(floor).toHaveCss({
-          width: "2400px"
-        });
+        expect($(floor).width()).toBe(2400);
       });
     });
   });
@@ -47,9 +39,7 @@ describe("width", function() {
       var ascensor = getInstanceOfAscensor({
         width: 100
       });
-      expect(ascensor).toHaveCss({
-        width: "100px"
-      });
+      expect(ascensor.width()).toBe(100);
     });
 
     it("children size is correct", function() {
@@ -57,9 +47,7 @@ describe("width", function() {
         width: 100
       });
       ascensor.children("div").each(function(index, floor) {
-        expect(floor).toHaveCss({
-          width: "100px"
-        });
+        expect($(floor).width()).toBe(100);
       });
     });
   });
