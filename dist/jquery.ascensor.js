@@ -307,7 +307,11 @@ author: Léo Galley <contact@kirkas.ch>
         hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
         floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
         $(document)), $window = $(window), chocolate = "object" == typeof self.options.direction;
-        self.supportTransform = has3d();
+        Array.prototype.indexOf || (Array.prototype.indexOf = function(elt) {
+            var len = this.length >>> 0, from = Number(arguments[1]) || 0;
+            for (from = 0 > from ? Math.ceil(from) : Math.floor(from), 0 > from && (from += len); len > from; from++) if (from in this && this[from] === elt) return from;
+            return -1;
+        }), self.supportTransform = has3d();
         var floorMap = [];
         if (this.prev = function() {
             var prevFloor = floorActive - 1;

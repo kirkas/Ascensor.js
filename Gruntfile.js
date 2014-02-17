@@ -16,6 +16,7 @@ module.exports = function(grunt) {
       plugin: {
         src: [
           '<%= projectOptions.src %>/open.js',
+          '<%= projectOptions.src %>/ie8.js',
           '<%= projectOptions.src %>/detectTransform.js',
           '<%= projectOptions.src %>/resize.js',
           '<%= projectOptions.src %>/map.js',
