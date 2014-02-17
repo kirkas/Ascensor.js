@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.7.0 (2014-02-16)
+version: 1.8.0 (2014-02-16)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -61,7 +61,7 @@ author: Léo Galley <contact@kirkas.ch>
             return css;
         }
         function resize() {
-            NH = node.width(), NW = node.height(), "y" === self.options.direction && (node.stop().scrollTop(floorActive * NH), 
+            NW = node.width(), NH = node.height(), "y" === self.options.direction && (node.stop().scrollTop(floorActive * NH), 
             nodeChildren.each(function(index) {
                 $(this).css(getCss(index, "top"));
             })), "x" === self.options.direction && (node.stop().scrollLeft(floorActive * NW), 
@@ -227,31 +227,31 @@ author: Léo Galley <contact@kirkas.ch>
                 }
             };
             if ("y" === self.options.direction) animationParams.property = {
-                scrollTop: floor * node.height()
+                scrollTop: floor * NH
             }; else if ("x" === self.options.direction) animationParams.property = {
-                scrollLeft: floor * node.width()
+                scrollLeft: floor * NW
             }; else if (chocolate && (animationParams.property = {
-                scrollLeft: self.options.direction[floor][1] * node.width(),
-                scrollTop: self.options.direction[floor][0] * node.height()
+                scrollLeft: self.options.direction[floor][1] * NW,
+                scrollTop: self.options.direction[floor][0] * NH
             }, self.options.queued)) {
-                var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * node.width(), sameYposition = node.scrollTop() === self.options.direction[floor][0] * node.height();
+                var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * NW, sameYposition = node.scrollTop() === self.options.direction[floor][0] * NH;
                 "x" === self.options.queued ? sameXposition ? animationParams.property = {
-                    scrollTop: self.options.direction[floor][0] * node.height()
+                    scrollTop: self.options.direction[floor][0] * NH
                 } : (animationParams.property = {
-                    scrollLeft: self.options.direction[floor][1] * node.width()
+                    scrollLeft: self.options.direction[floor][1] * NW
                 }, animationParams.callback = function() {
                     node.stop().animate({
-                        scrollTop: self.options.direction[floor][0] * node.height()
+                        scrollTop: self.options.direction[floor][0] * NH
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });
                 }) : "y" === self.options.queued && (sameYposition ? animationParams.property = {
-                    scrollLeft: self.options.direction[floor][1] * node.width()
+                    scrollLeft: self.options.direction[floor][1] * NW
                 } : (animationParams.property = {
-                    scrollTop: self.options.direction[floor][0] * node.height()
+                    scrollTop: self.options.direction[floor][0] * NH
                 }, animationParams.callback = function() {
                     node.stop().animate({
-                        scrollLeft: self.options.direction[floor][1] * node.width()
+                        scrollLeft: self.options.direction[floor][1] * NW
                     }, time, self.options.easing, function() {
                         scrollEnd(floorActive, floor);
                     });

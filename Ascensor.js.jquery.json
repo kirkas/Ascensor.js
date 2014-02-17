@@ -2,7 +2,7 @@
   "name": "Ascensor.js",
   "title": "Ascensor.js",
   "description": "Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system.",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "homepage": "http://kirkas.ch/ascensor/",
   "author": {
     "name": "léo galley",
@@ -14,12 +14,10 @@
     "url": "git@github.com:kirkas/Ascensor.js.git"
   },
   "bugs": "https://github.com/kirkas/Ascensor.js/issues",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://kirkas.ch/ascensor//blob/master/LICENSE-MIT"
-    }
-  ],
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://kirkas.ch/ascensor//blob/master/LICENSE-MIT"
+  }],
   "dependencies": {
     "jquery": "*"
   },

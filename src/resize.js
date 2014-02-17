@@ -15,9 +15,8 @@ function getCss(index, property) {
 }
 
 function resize() {
-
-  NH = node.width();
-  NW = node.height();
+  NW = node.width();
+  NH = node.height();
 
   if (self.options.direction === "y") {
     node.stop().scrollTop((floorActive) * NH);
