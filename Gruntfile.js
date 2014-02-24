@@ -8,19 +8,16 @@ module.exports = function(grunt) {
       pkg: grunt.file.readJSON('package.json'),
       ref: {
         src: "src",
-        dist: "dist",
-        deploy: "deploy"
+        dist: "dist"
       }
     }
   });
 
   grunt.registerTask('build', [
     'clean:dist',
-    'concat:plugin',
     'jshint:ascensor',
     'uglify:ascensor',
     'uglify:ascensormin',
-    'clean:after',
     'jasmine'
   ]);
 

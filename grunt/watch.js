@@ -1,11 +1,11 @@
 module.exports = function(grunt) {
   return {
     plugin: {
-      files: ['<%= ref.src %>**/*.js', '!<%= ref.src %>jquery.ascensor.js'],
-      tasks: ['concat:plugin', 'uglify:ascensor']
+      files: ['<%= ref.src %>/jquery.ascensor.js'],
+      tasks: ['jshint:ascensor', 'uglify:ascensor']
     },
-    examples: {
-      files: ['Gruntfile.js'],
+    gruntfile: {
+      files: ['Gruntfile.js', 'grunt/**/*.js'],
       tasks: ['jshint:gruntfile']
     },
     examples: {

@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   return {
     gruntfile: {
-      src: 'Gruntfile.js'
+      src: ['Gruntfile.js', 'grunt/**/*.js']
     },
 
     ascensor: {

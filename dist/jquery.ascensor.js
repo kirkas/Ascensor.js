@@ -1,18 +1,36 @@
 /*
 Ascensor.js 
-version: 1.8.0 (2014-02-23)
+version: 1.8.1 (2014-02-24)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
 author: Léo Galley <contact@kirkas.ch>
 */
 !function($, window, document, undefined) {
-    /*
-    Create plugin instance
-  */
+    /* Plugin instance */
     function Plugin(element, options) {
         this.element = element, this.options = $.extend({}, defaults, options), this._defaults = defaults, 
         this._name = pluginName, this.init();
+    }
+    // From https://gist.github.com/lorenzopolidori/3794226
+    function has3d() {
+        var support3D, el = document.createElement("p"), transforms = {
+            webkitTransform: "-webkit-transform",
+            OTransform: "-o-transform",
+            msTransform: "-ms-transform",
+            MozTransform: "-moz-transform",
+            transform: "transform"
+        };
+        // Add it to the body to get the computed style
+        document.body.insertBefore(el, null);
+        for (var t in transforms) el.style[t] !== undefined && (el.style[t] = "translate3d(1px,1px,1px)", 
+        support3D = window.getComputedStyle(el).getPropertyValue(transforms[t]));
+        return document.body.removeChild(el), support3D !== undefined && support3D.length > 0 && "none" !== support3D;
+    }
+    /* Array helper */
+    function existInArray(array, item) {
+        var index = array.indexOf(item);
+        return -1 !== index ? !0 : !1;
     }
     var pluginName = "ascensor", defaults = {
         ascensorFloorName: null,
@@ -29,55 +47,255 @@ author: Léo Galley <contact@kirkas.ch>
         jump: !1,
         ready: !1
     };
-    Plugin.prototype.init = function() {
-        // From https://gist.github.com/lorenzopolidori/3794226
-        function has3d() {
-            var support3D, el = document.createElement("p"), transforms = {
-                webkitTransform: "-webkit-transform",
-                OTransform: "-o-transform",
-                msTransform: "-ms-transform",
-                MozTransform: "-moz-transform",
-                transform: "transform"
-            };
-            // Add it to the body to get the computed style
-            document.body.insertBefore(el, null);
-            for (var t in transforms) el.style[t] !== undefined && (el.style[t] = "translate3d(1px,1px,1px)", 
-            support3D = window.getComputedStyle(el).getPropertyValue(transforms[t]));
-            return document.body.removeChild(el), support3D !== undefined && support3D.length > 0 && "none" !== support3D;
-        }
-        function getCss(index, property) {
-            var parentCss, css;
-            if ("top" == property ? (parentCss = NH, css = {
-                top: index * parentCss
-            }) : (parentCss = NW, css = {
-                left: index * parentCss
-            }), self.supportTransform) {
-                var transformAxis = "translateX";
-                "top" == property && (transformAxis = "translateY"), css = {
-                    transform: transformAxis + "(" + 100 * index + "%)"
-                };
+    /* Add 'indexOf' helper in case missing (IE8) */
+    Array.prototype.indexOf || (Array.prototype.indexOf = function(elt) {
+        var len = this.length >>> 0, from = Number(arguments[1]) || 0;
+        for (from = 0 > from ? Math.ceil(from) : Math.floor(from), 0 > from && (from += len); len > from; from++) if (from in this && this[from] === elt) return from;
+        return -1;
+    }), /* Plugin start */
+    Plugin.prototype = {
+        /* Initialization of plugin */
+        init: function() {
+            var self = this;
+            /* Constant helper*/
+            this.AXIS_X = 1, this.AXIS_Y = 0, /* Setup global variable - selector */
+            this.node = $(this.element), this.nodeChildren = this.node.children(this.options.childType), 
+            this.floorActive = this._getFloorFromHash() ? this._getFloorFromHash() : this.options.windowsOn, 
+            this.NH = this.node.height(), this.NW = this.node.width(), /* Setup global variable - helper */
+            this.directionIsArray = "object" == typeof this.options.direction, this.supportTransform = has3d(), 
+            /* Start the magic */
+            this.setup(function() {
+                "function" == typeof self.options.ready && self.options.ready();
+            });
+        },
+        /* Magic */
+        setup: function(callback) {
+            var self = this;
+            this.directionIsArray && this._generateFloorMap(), /* Setup floor size & position */
+            this.node.css({
+                position: "absolute",
+                overflow: "hidden",
+                top: "0",
+                left: "0",
+                width: this.options.width,
+                height: this.options.height
+            }), this.nodeChildren.css({
+                position: "absolute",
+                overflow: "auto",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%"
+            }), /* place element correctly */
+            this.nodeChildren.each(function(index) {
+                $(this).css(self.supportTransform ? {
+                    transform: function() {
+                        return "y" === self.options.direction ? "translateY(" + 100 * index + "%)" : "x" === self.options.direction ? "translateX(" + 100 * index + "%)" : self.directionIsArray ? "translateY(" + 100 * self.options.direction[index][self.AXIS_Y] + "%) translateX(" + 100 * self.options.direction[index][self.AXIS_X] + "%)" : void 0;
+                    }
+                } : {
+                    top: function() {
+                        return "y" === self.options.direction ? 100 * index + "%" : self.directionIsArray ? 100 * self.options.direction[index][self.AXIS_Y] + "%" : void 0;
+                    },
+                    left: function() {
+                        return "x" === self.options.direction ? 100 * index + "%" : self.directionIsArray ? 100 * self.options.direction[index][self.AXIS_X] + "%" : void 0;
+                    }
+                });
+            }), /* Setup User listener */
+            this.node.on("scrollToDirection", function(event, direction) {
+                self._handleDirection(direction);
+            }), this.node.on("scrollToStage", function(event, floor) {
+                if ("string" == typeof floor) {
+                    var floorId = $.inArray(floor, self.options.ascensorFloorName);
+                    -1 !== floorId && this.scrollToFloor(floorId);
+                } else if ("number" == typeof floor) {
+                    if (floor > self.nodeChildren.length) return;
+                    self.scrollToFloor(floor);
+                }
+            }), this.node.on("next", function() {
+                self.next();
+            }), this.node.on("prev", function() {
+                self.prev();
+            }), this.node.on("refresh", function() {
+                self.setup();
+            }), /* setup resize & key listener */
+            $(window).bind("resize", function() {
+                self.scrollToFloor(self.floorActive, !1);
+            }), $(window).bind("hashchange", function(event) {
+                self._hashchangeHandler(event);
+            }), window.DeviceOrientationEvent && $(window).bind("orientationchange", function() {
+                self.scrollToFloor(self.floorActive);
+            }), this.options.keyNavigation && $(document).bind("keyup keypress", function(event) {
+                self._keypressHandler(event);
+            }), this.scrollToFloor(self.floorActive), "function" == typeof callback && callback();
+        },
+        /*
+      Helper : Return floor index 
+      from hash.
+    */
+        _getFloorFromHash: function() {
+            if (window.location.hash) {
+                var hash = window.location.hash.split("#").pop();
+                if (this.options.ascensorFloorName && existInArray(this.options.ascensorFloorName, hash)) return this.options.ascensorFloorName.indexOf(hash);
             }
-            return css;
-        }
-        function resize() {
-            NW = node.width(), NH = node.height(), "y" === self.options.direction && (node.stop().scrollTop(floorActive * NH), 
-            nodeChildren.each(function(index) {
-                $(this).css(getCss(index, "top"));
-            })), "x" === self.options.direction && (node.stop().scrollLeft(floorActive * NW), 
-            nodeChildren.each(function(index) {
-                $(this).css(getCss(index, "left"));
-            })), chocolate && (node.stop().scrollLeft(self.options.direction[floorActive][1] * NW).scrollTop(self.options.direction[floorActive][0] * NH), 
-            nodeChildren.each(function(index) {
-                var css = {
-                    left: self.options.direction[index][1] * NW,
-                    top: self.options.direction[index][0] * NH
-                };
-                self.supportTransform && (css = {
-                    transform: "translateX(" + 100 * self.options.direction[index][1] + "%) translateY(" + 100 * self.options.direction[index][0] + "%)"
-                }), $(this).css(css);
-            }));
-        }
-        function generateFloorMap() {
+            return !1;
+        },
+        /*
+      Hanlder: Handle window hashcange event
+    */
+        _hashchangeHandler: function() {
+            this._getFloorFromHash() && !this.node.is(":animated") && this.scrollToFloor(self._getFloorFromHash());
+        },
+        /*
+      Event helper, let ascensor
+      create own event, with floor
+      information
+    */
+        _emitEvent: function(eventName, from, to) {
+            this.node.trigger(eventName, floor = {
+                from: from,
+                to: to
+            });
+        },
+        /*
+      Keypress Handler
+    */
+        _keypressHandler: function(e) {
+            var self = this, key = e.keyCode || e.which;
+            if (!$("input, textarea, button").is(":focus")) switch (key) {
+              case 40:
+              case 83:
+                self._handleDirection("down");
+                break;
+
+              case 38:
+              case 87:
+                self._handleDirection("up");
+                break;
+
+              case 37:
+              case 65:
+                self._handleDirection("left");
+                break;
+
+              case 39:
+              case 68:
+                self._handleDirection("right");
+            }
+        },
+        /*
+      Resize handler.
+      Update scrollTop & scrollLeft position
+    */
+        scrollToFloor: function(floor) {
+            var self = this, animate = animate || (floor == this.floorActive ? !1 : !0);
+            this.NW !== this.node.width() && (this.NW = this.node.width()), this.NH !== this.node.height() && (this.NH = this.node.height());
+            /* Make sure position is correct */
+            var animationObject = this._getAnimationSettings(floor);
+            animate ? (this._emitEvent("scrollStart", self.floorActive, floor), this.node.stop().animate(animationObject.property, self.options.time, self.options.easing, animationObject.callback)) : this.node.stop().scrollTop(animationObject.property.scrollTop).scrollLeft(animationObject.property.scrollLeft), 
+            floor !== this.floorActive && (self.options.ascensorFloorName && window.location.replace(("" + window.location).split("#")[0] + "#" + self.options.ascensorFloorName[floor]), 
+            self.floorActive = floor, this.node.data("current-floor", self.floorActive));
+        },
+        /* Prev function */
+        prev: function() {
+            var targetFloor = this.floorActive - 1;
+            if (0 > targetFloor) {
+                if (!this.options.loop) return;
+                targetFloor = this.nodeChildren.length;
+            }
+            this.scrollToFloor(targetFloor);
+        },
+        /* Prev function */
+        next: function() {
+            var targetFloor = this.floorActive + 1;
+            if (targetFloor > this.nodeChildren.length) {
+                if (!this.options.loop) return;
+                targetFloor = 0;
+            }
+            this.scrollToFloor(targetFloor);
+        },
+        /*
+      Helper to generate animation settings
+    */
+        _getAnimationSettings: function(floor) {
+            var self = this, animationSettings = {
+                property: {},
+                callback: function() {
+                    self._emitEvent("scrollEnd", self.floorActive, floor);
+                }
+            }, secondAnimationSettings = {
+                property: {},
+                callback: function() {
+                    self._emitEvent("scrollEnd", self.floorActive, floor);
+                }
+            };
+            /* 
+        If direction is vertical
+          set scrollTop property & return animationSettings
+      */
+            if ("y" === self.options.direction) return animationSettings.property.scrollTop = floor * self.NH, 
+            animationSettings;
+            if ("x" === self.options.direction) return animationSettings.property.scrollLeft = floor * self.NW, 
+            animationSettings;
+            if (self.directionIsArray) {
+                /*  Save value */
+                var scrollTopValue = self.options.direction[floor][self.AXIS_Y] * self.NH, scrollLeftValue = self.options.direction[floor][self.AXIS_X] * self.NW;
+                /*  If the queued option is set */
+                if (self.options.queued) {
+                    /*  Check floor position, to avoid animation if already on same floor */
+                    {
+                        var sameXposition = this.node.scrollLeft() === scrollLeftValue;
+                        this.node.scrollTop() === scrollTopValue;
+                    }
+                    /*  
+            If queued direction is horizontal & on the same floor
+              Set scrollTop property & return animationSettings
+          */
+                    /*  
+            If queued direction is horizontal & on the same floor
+              Set scrollTop property & return animationSettings
+          */
+                    return "x" === self.options.queued && sameXposition ? (animationSettings.property.scrollTop = scrollTopValue, 
+                    animationSettings) : (animationSettings.property.scrollLeft = scrollLeftValue, secondAnimationSettings.property.scrollTop = scrollTopValue, 
+                    animationSettings.callback = function() {
+                        self.node.stop().animate(secondAnimationSettings.property, self.options.time, self.options.easing, secondAnimationSettings.callback);
+                    }, animationSettings);
+                }
+                return animationSettings.property.scrollTop = scrollTopValue, animationSettings.property.scrollLeft = scrollLeftValue, 
+                animationSettings;
+            }
+            return animationSettings;
+        },
+        _handleDirection: function(direction) {
+            function isFalse(value) {
+                return value === !1;
+            }
+            var self = this;
+            /* If direction is x or y and there is direction are opppsite, return here */
+            if (!("y" == self.options.direction && "left" == direction || "x" == self.options.direction && "up" == direction)) {
+                /* If direction is x or x, and direction match, use prev/next */
+                if ("y" == self.options.direction && "down" == direction || "x" == self.options.direction && "right" == direction) return self.next();
+                if ("y" == self.options.direction && "up" == direction || "x" == self.options.direction && "left" == direction) return self.prev();
+                if (self.directionIsArray) {
+                    var targetId;
+                    /* If existing, use direct depending floor */
+                    if (isFalse(self.floorMap[self.floorActive][direction])) if (self.options.jump === !0 && self.floorMap[self.floorActive].closest[direction] !== !1) targetId = self.floorMap[self.floorActive].closest[direction]; else if (self.options.loop === !0) targetId = self.floorMap[self.floorActive].furthest[direction]; else if ("loop-x" != self.options.loop || "right" != direction && "left" != direction || self.floorMap[self.floorActive].furthest[direction] === !1) if ("loop-y" != self.options.loop || "down" != direction && "up" != direction || self.floorMap[self.floorActive].furthest[direction] === !1) {
+                        if ("string" == typeof self.options.loop) {
+                            var correctYDirection = ("down" == direction || "up" == direction) && "increment-y" == self.options.loop, correctXDirection = ("right" == direction || "left" == direction) && "increment-x" == self.options.loop;
+                            /* if a increment is possible */
+                            if (self.floorMap[self.floorActive].increment[direction] !== !1) (correctYDirection || correctXDirection || "increment" == self.options.loop) && (targetId = self.floorMap[self.floorActive].increment[direction]); else if ("right" == direction || "left" == direction) {
+                                if ("increment-y" == self.options.loop) return;
+                                self.floorActive == self.floorMap.furthest_x ? targetId = self.floorMap.closest_x : self.floorActive == self.floorMap.closest_x && (targetId = self.floorMap.furthest_x);
+                            } else if ("down" == direction || "up" == direction) {
+                                if ("increment-x" == self.options.loop) return;
+                                self.floorActive == self.floorMap.furthest_y ? targetId = self.floorMap.closest_y : self.floorActive == self.floorMap.closest_y && (targetId = self.floorMap.furthest_y);
+                            }
+                        }
+                    } else targetId = self.floorMap[self.floorActive].furthest[direction]; else targetId = self.floorMap[self.floorActive].furthest[direction]; else targetId = self.floorMap[self.floorActive][direction];
+                    "number" == typeof targetId && self.scrollToFloor(targetId);
+                }
+            }
+        },
+        _generateFloorMap: function() {
             function getClosestFloor(floor, floorCollection, axis, direction) {
                 var goal = floor[axis], closest = !1;
                 return $.each(floorCollection, function() {
@@ -123,13 +341,15 @@ author: Léo Galley <contact@kirkas.ch>
                     return isOnSameAxis;
                 });
             }
+            var self = this;
+            this.floorMap = [];
             /* Use only array if chilren is present on stage */
             var directionArray = jQuery.grep(self.options.direction, function(directionArray, index) {
-                return node.children().length > index;
+                return self.node.children().length > index;
             }), approximateFurtherX = getFurtherFloorOnAxis(directionArray, 1), sameAxisXFurthest = getSameAxisFloor(approximateFurtherX, 1), furtherY = getFurtherFloorOnAxis(sameAxisXFurthest, 0), approximateFurtherY = getFurtherFloorOnAxis(directionArray, 0), sameAxisYFurthest = getSameAxisFloor(approximateFurtherY, 0), furtherX = getFurtherFloorOnAxis(sameAxisYFurthest, 1);
-            floorMap.furthest_x = directionArray.indexOf(furtherX), floorMap.furthest_y = directionArray.indexOf(furtherY);
+            this.floorMap.furthest_x = directionArray.indexOf(furtherX), this.floorMap.furthest_y = directionArray.indexOf(furtherY);
             var approximateClosestX = getClosestFloorOnAxis(directionArray, 1), sameAxisXClosest = getSameAxisFloor(approximateClosestX, 1), closestY = getClosestFloorOnAxis(sameAxisXClosest, 0), approximateClosestY = getClosestFloorOnAxis(directionArray, 0), sameAxisYClosest = getSameAxisFloor(approximateClosestY, 0), closestX = getClosestFloorOnAxis(sameAxisYClosest, 1);
-            floorMap.closest_x = directionArray.indexOf(closestX), floorMap.closest_y = directionArray.indexOf(closestY), 
+            this.floorMap.closest_x = directionArray.indexOf(closestX), this.floorMap.closest_y = directionArray.indexOf(closestY), 
             $.each(directionArray, function(index, floorItem) {
                 var axisXfloor = jQuery.grep(directionArray, function(directionArray) {
                     var isOnSameAxis = directionArray[0] == floorItem[0], isCurrentFloor = floorItem == directionArray;
@@ -150,7 +370,7 @@ author: Léo Galley <contact@kirkas.ch>
                     var isOnSameAxis = directionArray[1] == floorItem[1] - 1;
                     return isOnSameAxis;
                 });
-                floorMap[index] = {
+                self.floorMap[index] = {
                     down: !1,
                     up: !1,
                     right: !1,
@@ -174,219 +394,16 @@ author: Léo Galley <contact@kirkas.ch>
                         left: getfurthestFloor(floorItem, axisXfloor, 1, "left")
                     }
                 }, $.each(directionArray, function(indexSecond, floorItemSecond) {
-                    floorMap[index].down === !1 && (floorMap[index].down = getFloor(1, 0, floorItem, floorItemSecond)), 
-                    floorMap[index].up === !1 && (floorMap[index].up = getFloor(-1, 0, floorItem, floorItemSecond)), 
-                    floorMap[index].right === !1 && (floorMap[index].right = getFloor(0, 1, floorItem, floorItemSecond)), 
-                    floorMap[index].left === !1 && (floorMap[index].left = getFloor(0, -1, floorItem, floorItemSecond));
+                    self.floorMap[index].down === !1 && (self.floorMap[index].down = getFloor(1, 0, floorItem, floorItemSecond)), 
+                    self.floorMap[index].up === !1 && (self.floorMap[index].up = getFloor(-1, 0, floorItem, floorItemSecond)), 
+                    self.floorMap[index].right === !1 && (self.floorMap[index].right = getFloor(0, 1, floorItem, floorItemSecond)), 
+                    self.floorMap[index].left === !1 && (self.floorMap[index].left = getFloor(0, -1, floorItem, floorItemSecond));
                 });
             });
         }
-        function handleDirection(direction) {
-            if ("y" == self.options.direction) {
-                if ("left" == direction) return;
-                "down" == direction ? self.next() : "up" == direction && self.prev();
-            } else if ("x" == self.options.direction) {
-                if ("up" == direction) return;
-                "left" == direction ? self.prev() : "right" == direction && self.next();
-            } else if (chocolate) {
-                var targetId;
-                /* If existing, use direct depending floor */
-                if (floorMap[floorActive][direction] !== !1) targetId = floorMap[floorActive][direction]; else if (self.options.jump === !0 && floorMap[floorActive].closest[direction] !== !1) targetId = floorMap[floorActive].closest[direction]; else if (self.options.loop === !0) targetId = floorMap[floorActive].furthest[direction]; else if ("loop-x" != self.options.loop || "right" != direction && "left" != direction || floorMap[floorActive].furthest[direction] === !1) if ("loop-y" != self.options.loop || "down" != direction && "up" != direction || floorMap[floorActive].furthest[direction] === !1) {
-                    if ("string" == typeof self.options.loop) {
-                        var correctYDirection = ("down" == direction || "up" == direction) && "increment-y" == self.options.loop, correctXDirection = ("right" == direction || "left" == direction) && "increment-x" == self.options.loop;
-                        /* if a increment is possible */
-                        if (floorMap[floorActive].increment[direction] !== !1) (correctYDirection || correctXDirection || "increment" == self.options.loop) && (targetId = floorMap[floorActive].increment[direction]); else if ("right" == direction || "left" == direction) {
-                            if ("increment-y" == self.options.loop) return;
-                            floorActive == floorMap.furthest_x ? targetId = floorMap.closest_x : floorActive == floorMap.closest_x && (targetId = floorMap.furthest_x);
-                        } else if ("down" == direction || "up" == direction) {
-                            if ("increment-x" == self.options.loop) return;
-                            floorActive == floorMap.furthest_y ? targetId = floorMap.closest_y : floorActive == floorMap.closest_y && (targetId = floorMap.furthest_y);
-                        }
-                    }
-                } else targetId = floorMap[floorActive].furthest[direction]; else targetId = floorMap[floorActive].furthest[direction];
-                "number" == typeof targetId && scrollToStage(targetId, self.options.time);
-            }
-        }
-        function getFloorFromHash() {
-            if (window.location.hash) {
-                hash = window.location.hash.split("#").pop();
-                var floor = !1;
-                return self.options.ascensorFloorName && $.each(self.options.ascensorFloorName, function(index) {
-                    hash === self.options.ascensorFloorName[index] && (floor = index);
-                }), floor;
-            }
-        }
-        function scrollToStage(floor, time, firstrun) {
-            firstrun = firstrun || !1, scrollStart(floorActive, floor);
-            var animationParams = {
-                time: time || self.options.time,
-                easing: self.options.easing,
-                callback: function() {
-                    scrollEnd(floorActive, floor);
-                }
-            };
-            if ("y" === self.options.direction) animationParams.property = {
-                scrollTop: floor * NH
-            }; else if ("x" === self.options.direction) animationParams.property = {
-                scrollLeft: floor * NW
-            }; else if (chocolate && (animationParams.property = {
-                scrollLeft: self.options.direction[floor][1] * NW,
-                scrollTop: self.options.direction[floor][0] * NH
-            }, self.options.queued)) {
-                var sameXposition = node.scrollLeft() === self.options.direction[floor][1] * NW, sameYposition = node.scrollTop() === self.options.direction[floor][0] * NH;
-                "x" === self.options.queued ? sameXposition ? animationParams.property = {
-                    scrollTop: self.options.direction[floor][0] * NH
-                } : (animationParams.property = {
-                    scrollLeft: self.options.direction[floor][1] * NW
-                }, animationParams.callback = function() {
-                    node.stop().animate({
-                        scrollTop: self.options.direction[floor][0] * NH
-                    }, time, self.options.easing, function() {
-                        scrollEnd(floorActive, floor);
-                    });
-                }) : "y" === self.options.queued && (sameYposition ? animationParams.property = {
-                    scrollLeft: self.options.direction[floor][1] * NW
-                } : (animationParams.property = {
-                    scrollTop: self.options.direction[floor][0] * NH
-                }, animationParams.callback = function() {
-                    node.stop().animate({
-                        scrollLeft: self.options.direction[floor][1] * NW
-                    }, time, self.options.easing, function() {
-                        scrollEnd(floorActive, floor);
-                    });
-                }));
-            }
-            node.stop().animate(animationParams.property, time, self.options.easing, animationParams.callback), 
-            firstrun && "function" == typeof self.options.ready && self.options.ready(), self.options.ascensorFloorName && window.location.replace(("" + window.location).split("#")[0] + "#" + self.options.ascensorFloorName[floor]), 
-            floorActive = floor, node.data("current-floor", floorActive);
-        }
-        function scrollStart(from, to) {
-            var floor = {
-                from: from,
-                to: to
-            };
-            node.trigger("scrollStart", floor);
-        }
-        function scrollEnd(from, to) {
-            var floor = {
-                from: from,
-                to: to
-            };
-            node.trigger("scrollEnd", floor);
-        }
-        function checkKey(e) {
-            var key = e.which;
-            if (!$("input, textarea, button").is(":focus")) switch (key) {
-              case 40:
-              case 83:
-                if ("x" == self.options.direction) return;
-                node.trigger("scrollToDirection", "down");
-                break;
-
-              case 38:
-              case 87:
-                if ("x" == self.options.direction) return;
-                node.trigger("scrollToDirection", "up");
-                break;
-
-              case 37:
-              case 65:
-                if ("y" == self.options.direction) return;
-                node.trigger("scrollToDirection", "left");
-                break;
-
-              case 39:
-              case 68:
-                if ("y" == self.options.direction) return;
-                node.trigger("scrollToDirection", "right");
-            }
-        }
-        var //height/width settings
-        NH, NW, //hash 
-        hash, self = this, node = $(this.element), nodeChildren = node.children(self.options.childType), //floor counter settings
-        floorActive = self.options.windowsOn, floorCounter = -1, $document = (self.options.direction, 
-        $(document)), $window = $(window), chocolate = "object" == typeof self.options.direction;
-        Array.prototype.indexOf || (Array.prototype.indexOf = function(elt) {
-            var len = this.length >>> 0, from = Number(arguments[1]) || 0;
-            for (from = 0 > from ? Math.ceil(from) : Math.floor(from), 0 > from && (from += len); len > from; from++) if (from in this && this[from] === elt) return from;
-            return -1;
-        }), self.supportTransform = has3d();
-        var floorMap = [];
-        if (this.prev = function() {
-            var prevFloor = floorActive - 1;
-            if (0 > prevFloor) {
-                if (!self.options.loop) return;
-                prevFloor = floorCounter;
-            }
-            scrollToStage(prevFloor, self.options.time);
-        }, this.next = function() {
-            var nextFloor = floorActive + 1;
-            if (nextFloor > floorCounter) {
-                if (!self.options.loop) return;
-                nextFloor = 0;
-            }
-            scrollToStage(nextFloor, self.options.time);
-        }, node.on("scrollToDirection", function(event, direction) {
-            handleDirection(direction);
-        }), node.on("scrollToStage", function(event, floor) {
-            if ("string" == typeof floor) {
-                var floorId = $.inArray(floor, self.options.ascensorFloorName);
-                -1 !== floorId && scrollToStage(floorId, self.options.time);
-            } else if ("number" == typeof floor) {
-                if (floor > floorCounter) return;
-                scrollToStage(floor, self.options.time);
-            }
-        }), node.on("next", function() {
-            self.next();
-        }), node.on("prev", function() {
-            self.prev();
-        }), node.on("refresh", function() {
-            (node.children().length > nodeChildren.length || node.children().length < nodeChildren.length) && (nodeChildren = node.children(self.options.childType), 
-            nodeChildren.css({
-                position: "absolute",
-                overflow: "auto",
-                top: "0",
-                left: "0",
-                width: "100%",
-                height: "100%"
-            }), floorCounter = -1, nodeChildren.each(function() {
-                floorCounter += 1;
-            }), childrenLenght = node.children().length, node.trigger("refresh"), resize(), 
-            generateFloorMap());
-        }), nodeChildren.each(function() {
-            floorCounter += 1;
-        }), node.css({
-            position: "absolute",
-            overflow: "hidden",
-            top: "0",
-            left: "0",
-            width: self.options.width,
-            height: self.options.height
-        }), nodeChildren.css({
-            position: "absolute",
-            overflow: "auto",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "100%"
-        }), NH = node.width(), NW = node.height(), chocolate && generateFloorMap(), node.data("current-floor", floorActive), 
-        self.options.keyNavigation && $document.keydown(checkKey), self.options.ascensorFloorName && window.location.hash) {
-            var hashFloor = getFloorFromHash();
-            hashFloor && (floorActive = hashFloor);
-        }
-        $(window).on("hashchange", function() {
-            var hashFloor = getFloorFromHash();
-            hashFloor && !node.is(":animated") && scrollToStage(hashFloor, self.options.time);
-        }), $window.resize(function() {
-            resize();
-        }).load(function() {
-            resize();
-        }).resize(), window.DeviceOrientationEvent && $window.bind("orientationchange", function() {
-            resize();
-        }), scrollToStage(floorActive, 1, !0);
     }, $.fn[pluginName] = function(options) {
         return this.each(function() {
             $.data(this, "plugin_" + pluginName) || $.data(this, "plugin_" + pluginName, new Plugin(this, options));
-        });
+        }), this;
     };
 }(jQuery, window, document);
