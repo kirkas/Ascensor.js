@@ -32,7 +32,7 @@ In your web page:
 ### Update
 I've removed the `touchSwipeIntegration` option, because it's was broken and was base on another plugin (few people ask me about using this with Hammer.js using other touch library). if you you still include the [touchSwipe jquery plugin](http://labs.rampinteractive.co.uk/touchSwipe/demos/), Here how to fix swipe integration:
 
-```
+```js
 var ascensor = $('#ascensor').ascensor();
 ascensor.swipe({
   swipeLeft:function() { ascensor.trigger("scrollToDirection", "right") },
