@@ -42,17 +42,6 @@ if (self.options.ascensorFloorName && window.location.hash) {
   }
 }
 
-
-
-if (self.options.touchSwipeIntegration) {
-  node.swipe({
-    swipe: function(event, direction, distance, duration, fingerCount) {
-      node.trigger("scrollToDirection", direction);
-    },
-    threshold: 70
-  });
-}
-
 $(window).on('hashchange', function() {
   var hashFloor = getFloorFromHash();
   if (hashFloor && !node.is(':animated')) {

@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.0 (2014-02-16)
+version: 1.8.0 (2014-02-23)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -25,7 +25,6 @@ author: Léo Galley <contact@kirkas.ch>
         time: 300,
         easing: "linear",
         keyNavigation: !0,
-        touchSwipeIntegration: !1,
         queued: !1,
         jump: !1,
         ready: !1
@@ -375,12 +374,7 @@ author: Léo Galley <contact@kirkas.ch>
             var hashFloor = getFloorFromHash();
             hashFloor && (floorActive = hashFloor);
         }
-        self.options.touchSwipeIntegration && node.swipe({
-            swipe: function(event, direction) {
-                node.trigger("scrollToDirection", direction);
-            },
-            threshold: 70
-        }), $(window).on("hashchange", function() {
+        $(window).on("hashchange", function() {
             var hashFloor = getFloorFromHash();
             hashFloor && !node.is(":animated") && scrollToStage(hashFloor, self.options.time);
         }), $window.resize(function() {

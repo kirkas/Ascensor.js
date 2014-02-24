@@ -1,6 +1,6 @@
 {
   "name": "Ascensor.js",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "author": "Léo Galley <contact@kirkas.ch>",
   "description": "Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system",
   "main": "jquery.ascensor.js",
@@ -19,11 +19,21 @@
     "grunt": "~0.4.1",
     "grunt-templater": "0.0.4-1",
     "grunt-contrib-jst": "~0.5.0",
-    "jquery": "~2.1.0",
-    "grunt-contrib-sass": "~0.7.2",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-jasmine": "~0.6.1",
     "load-grunt-tasks": "~0.3.0",
-    "time-grunt": "0.2.9"
+    "time-grunt": "0.2.9",
+    "requirejs": "~2.1.11",
+    "karma": "~0.10.9",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-phantomjs-launcher": "~0.1.2",
+    "karma-ios-launcher": "0.0.3",
+    "karma-jasmine": "~0.2.0",
+    "karma-requirejs": "~0.2.1",
+    "grunt-karma": "~0.6.2",
+    "karma-browserstack-launcher": "0.0.8",
+    "load-grunt-config": "~0.7.1"
   }
 }

@@ -155,14 +155,6 @@ descriptions: Specify if you want ascensor to loop once reach the end of an axis
 `"increment-y"`: will reach opposite floor on y axis, but jump to next level on Y axis<br/>
 example: `loop: increment-x`<br/>
 
-
-**touchSwipeIntegration**<br/>
-Type: `boolean`<br/>
-Default: `false`<br/>
-descriptions: Specify if you want jquery swipe implentation<br/>
-example: `touchSwipeIntegration: true`<br/>
-
-
 ####Examples
 
 https://github.com/kirkas/Ascensor.js/tree/master/examples

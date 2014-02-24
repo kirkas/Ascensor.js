@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner</title>
+<% css.forEach(function(style){ %>
+  <link rel="stylesheet" type="text/css" href="<%= style %>">
+<% }) %>
+
+<script src="http://code.jquery.com/jquery-<%= options.jquery_version %>.min.js"></script>
+
+
+<% with (scripts) { %>
+
+  <% [].concat(polyfills, jasmine, boot, vendor).forEach(function(script){ %>
+  <script src="<%= script %>"></script>
+  <% }) %>
+
+	<script src="../components/jasmine-jquery/lib/jasmine-jquery.js"></script>
+	
+	<% [].concat(helpers, src, specs,reporters).forEach(function(script){ %>
+  <script src="<%= script %>"></script>
+  <% }) %>
+
+
+<% }; %>
+</head>
+<body>
+</body>
+</html>
