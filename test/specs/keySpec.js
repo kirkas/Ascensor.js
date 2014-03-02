@@ -1,181 +1,183 @@
-describe("keyNavigation", function() {
-  describe("true (default)", function() {
-    describe("down direction", function() {
-
-      it("down arrow, direction Y, return true", function() {
+describe('keyNavigation', function()  {
+  describe('true (default)', function() {
+    describe('down', function() {
+      it('trigger "scrollStart" event if direction is Y', function()  {
         var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(40);
-        expect(scrollStartSpy).toHaveBeenTriggered();
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // Arrow key down
+        keyEventGenerator(KEY.DOWN);
+        expect(spyEvent).toHaveBeenTriggered();
+        spyEvent.reset();
+
+        // S key
+        keyEventGenerator(KEY.S);
+        expect(spyEvent).toHaveBeenTriggered();
       });
-      it("down arrow, direction X, return false", function() {
+
+      it('don t trigger "scrollStart" event if direction is X', function()  {
         var ascensor = getInstanceOfAscensor({
           direction: "x"
         });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(40);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // arrow key down
+        keyEventGenerator(KEY.DOWN);
+
+        // Skey
+        keyEventGenerator(KEY.S);
+        expect(spyEvent).not.toHaveBeenTriggered();
       });
-      it("S key, direction Y, return true", function() {
+    });
+
+    describe('up', function() {
+
+      it('trigger "scrollStart" event with direction Y', function()  {
         var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(83);
-        expect(scrollStartSpy).toHaveBeenTriggered();
+
+        keyEventGenerator(KEY.DOWN);
+        keyEventGenerator(KEY.DOWN);
+
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // Arrow key uo
+        keyEventGenerator(KEY.UP);
+        expect(spyEvent).toHaveBeenTriggered();
+        spyEvent.reset();
+
+        // W key
+        keyEventGenerator(KEY.W);
+        expect(spyEvent).toHaveBeenTriggered();
       });
 
 
-      it("S key, direction X, return false", function() {
+      it('don t trigger "scrollStart" event with direction X', function()  {
         var ascensor = getInstanceOfAscensor({
           direction: "x"
         });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(83);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // arrow key up
+        keyEventGenerator(KEY.UP);
+
+        // W
+        keyEventGenerator(KEY.W);
+        expect(spyEvent).not.toHaveBeenTriggered();
       });
 
     });
 
-    describe("up direction", function() {
-      it("up arrow, direction Y, return true", function() {
-        var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(38);
-        expect(scrollStartSpy).toHaveBeenTriggered();
-      });
 
-      it("up arrow, direction X, return false", function() {
+
+    describe('right', function() {
+
+      it('trigger "scrollStart" event with direction X', function()  {
         var ascensor = getInstanceOfAscensor({
           direction: "x"
         });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(38);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
+
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // Arrow key right
+        keyEventGenerator(KEY.RIGHT);
+        expect(spyEvent).toHaveBeenTriggered();
+        spyEvent.reset();
+
+        // D key
+        keyEventGenerator(KEY.D);
+        expect(spyEvent).toHaveBeenTriggered();
       });
 
-      it("W key, direction Y, return true", function() {
+
+      it('don t trigger "scrollStart" event with direction Y', function()  {
         var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(87);
-        expect(scrollStartSpy).toHaveBeenTriggered();
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // arrow key right
+        keyEventGenerator(KEY.RIGHT);
+
+        // D
+        keyEventGenerator(KEY.D);
+        expect(spyEvent).not.toHaveBeenTriggered();
       });
 
-      it("W key, direction X, return false", function() {
-        var ascensor = getInstanceOfAscensor({
-          direction: "x"
-        });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(87);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
-      });
     });
 
 
-    describe("left direction", function() {
-      it("left arrow, direction X, return true", function() {
+
+    describe('left', function() {
+
+      it('trigger "scrollStart" event with direction X', function()  {
         var ascensor = getInstanceOfAscensor({
           direction: "x"
         });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(37);
-        expect(scrollStartSpy).toHaveBeenTriggered();
+        keyEventGenerator(KEY.RIGHT);
+        keyEventGenerator(KEY.RIGHT);
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // Arrow key right
+        keyEventGenerator(KEY.LEFT);
+        expect(spyEvent).toHaveBeenTriggered();
+        spyEvent.reset();
+
+        // D key
+        keyEventGenerator(KEY.A);
+        expect(spyEvent).toHaveBeenTriggered();
       });
 
-      it("left arrow, direction Y, return false", function() {
+
+      it('don t trigger "scrollStart" event with direction Y', function()  {
         var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(37);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
+        var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+
+        // arrow key right
+        keyEventGenerator(KEY.LEFT);
+
+        // D
+        keyEventGenerator(KEY.A);
+        expect(spyEvent).not.toHaveBeenTriggered();
       });
 
-      it("A key, direction X, return true", function() {
-        var ascensor = getInstanceOfAscensor({
-          direction: "x"
-        });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(65);
-        expect(scrollStartSpy).toHaveBeenTriggered();
-      });
-
-
-      it("A key, direction Y, return false", function() {
-        var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(65);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
-      });
     });
 
-    describe("right direction", function() {
-      it("right arrow, direction X, return true", function() {
-        var ascensor = getInstanceOfAscensor({
-          direction: "x"
-        });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(39);
-        expect(scrollStartSpy).toHaveBeenTriggered();
-      });
-
-      it("right arrow, direction Y, return false", function() {
-        var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(39);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
-      });
-
-      it("D key, direction X, return true", function() {
-        var ascensor = getInstanceOfAscensor({
-          direction: "x"
-        });
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(68);
-        expect(scrollStartSpy).toHaveBeenTriggered();
-      });
-
-
-      it("D key, direction Y, return false", function() {
-        var ascensor = getInstanceOfAscensor();
-        scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-        keyEventGenerator(68);
-        expect(scrollStartSpy).not.toHaveBeenTriggered();
-      });
-    });
 
   });
-  describe("false", function() {
-    it("all key on direction Y return false", function() {
+
+  describe('false', function() {
+    it('all key on direction Y don t trigger event ', function() {
       var ascensor = getInstanceOfAscensor({
         keyNavigation: false
       });
-      scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-      keyEventGenerator(40);
-      keyEventGenerator(83);
-      keyEventGenerator(38);
-      keyEventGenerator(87);
-      keyEventGenerator(37);
-      keyEventGenerator(65);
-      keyEventGenerator(39);
-      keyEventGenerator(68);
-      expect(scrollStartSpy).not.toHaveBeenTriggered();
+      var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+      keyEventGenerator(KEY.LEFT);
+      keyEventGenerator(KEY.RIGHT);
+      keyEventGenerator(KEY.UP);
+      keyEventGenerator(KEY.DOWN);
+      keyEventGenerator(KEY.A);
+      keyEventGenerator(KEY.S);
+      keyEventGenerator(KEY.W);
+      keyEventGenerator(KEY.D);
+      expect(spyEvent).not.toHaveBeenTriggered();
     });
 
-    it("all key on direction X return false", function() {
+    it('all key on direction X don t trigger event ', function() {
       var ascensor = getInstanceOfAscensor({
         keyNavigation: false,
-        direction: "x"
+        direction: 'x'
       });
-      scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-      keyEventGenerator(40);
-      keyEventGenerator(83);
-      keyEventGenerator(38);
-      keyEventGenerator(87);
-      keyEventGenerator(37);
-      keyEventGenerator(65);
-      keyEventGenerator(39);
-      keyEventGenerator(68);
-      expect(scrollStartSpy).not.toHaveBeenTriggered();
+      var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+      keyEventGenerator(KEY.LEFT);
+      keyEventGenerator(KEY.RIGHT);
+      keyEventGenerator(KEY.UP);
+      keyEventGenerator(KEY.DOWN);
+      keyEventGenerator(KEY.A);
+      keyEventGenerator(KEY.S);
+      keyEventGenerator(KEY.W);
+      keyEventGenerator(KEY.D);
+      expect(spyEvent).not.toHaveBeenTriggered();
     });
 
-    it("all key on direction Chocolate return false", function() {
+    it('all key on direction Chocolate don t trigger event ', function() {
       var R1 = 1 + Math.floor(Math.random() * 30);
       var R2 = 1 + Math.floor(Math.random() * 30);
       var R3 = 1 + Math.floor(Math.random() * 30);
@@ -183,7 +185,7 @@ describe("keyNavigation", function() {
       var R5 = 1 + Math.floor(Math.random() * 30);
       var R6 = 1 + Math.floor(Math.random() * 30);
       var parameter = {
-        direction: "chocolate",
+        direction: 'chocolate',
         direction: [
           [R1, R2],
           [R3, R4],
@@ -193,16 +195,16 @@ describe("keyNavigation", function() {
       }
       var ascensor = getInstanceOfAscensor(parameter);
 
-      scrollStartSpy = spyOnEvent(ascensor, "scrollToDirection");
-      keyEventGenerator(40);
-      keyEventGenerator(83);
-      keyEventGenerator(38);
-      keyEventGenerator(87);
-      keyEventGenerator(37);
-      keyEventGenerator(65);
-      keyEventGenerator(39);
-      keyEventGenerator(68);
-      expect(scrollStartSpy).not.toHaveBeenTriggered();
+      var spyEvent = spyOnEvent(ascensor, 'scrollStart');
+      keyEventGenerator(KEY.LEFT);
+      keyEventGenerator(KEY.RIGHT);
+      keyEventGenerator(KEY.UP);
+      keyEventGenerator(KEY.DOWN);
+      keyEventGenerator(KEY.A);
+      keyEventGenerator(KEY.S);
+      keyEventGenerator(KEY.W);
+      keyEventGenerator(KEY.D);
+      expect(spyEvent).not.toHaveBeenTriggered();
     });
   });
 });

@@ -1,4 +1,4 @@
-var defaultTime = 300;
+var defaultTime = 250;
 var $fixture;
 var WW = 400;
 var WH = 600;
@@ -6,15 +6,31 @@ var scrollEndSpy;
 var scrollStartSpy;
 var fixture;
 
+var KEY = {
+  DOWN: 40,
+  UP: 38,
+  LEFT: 37,
+  RIGHT: 39,
+  A: 65,
+  S: 83,
+  D: 68,
+  W: 87,
+};
+
+
 beforeEach(function() {
   loadFixtures("ascensor.html");
   $fixture = $("#ascensorBuilding");
   jasmine.clock().install();
+  $(window).off('hashchange');
+  window.location.hash = "";
 });
 
 afterEach(function() {
   jasmine.clock().uninstall();
   $fixture = null;
+  $(window).off('hashchange');
+  window.location.hash = "";
 });
 
 
@@ -23,7 +39,7 @@ function getInstanceOfAscensor(parameter) {
 }
 
 function keyEventGenerator(key) {
-  var e = jQuery.Event("keydown");
+  var e = jQuery.Event("keypress");
   e.which = key;
   e.keyCode = key;
   $(document).trigger(e);

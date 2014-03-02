@@ -16,7 +16,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'jshint:ascensor',
-    'uglify:ascensor',
+    'copy:ascensor',
     'uglify:ascensormin',
     'jasmine'
   ]);

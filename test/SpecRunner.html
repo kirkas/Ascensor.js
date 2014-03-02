@@ -1,33 +1,62 @@
+<!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title></title>
-	<link href="../components/jasmine/lib/jasmine-core/jasmine.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner</title>
+
+  <link rel="stylesheet" type="text/css" href="../.grunt/grunt-contrib-jasmine/jasmine.css">
+
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+
+
+
+  
+  <script src="../.grunt/grunt-contrib-jasmine/phantom-polyfill.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/jasmine.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/jasmine-html.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/boot.js"></script>
+  
+
+	<script src="../components/jasmine-jquery/lib/jasmine-jquery.js"></script>
+	
+	
+  <script src="helpers/detect3dHelper.js"></script>
+  
+  <script src="helpers/fixtureHelper.js"></script>
+  
+  <script src="helpers/specHelper.js"></script>
+  
+  <script src="../dist/jquery.ascensor.js"></script>
+  
+  <script src="specs/ascensorFloorNameSpec.js"></script>
+  
+  <script src="specs/directionSpec.js"></script>
+  
+  <script src="specs/heightSpec.js"></script>
+  
+  <script src="specs/keySpec.js"></script>
+  
+  <script src="specs/loopSpec.js"></script>
+  
+  <script src="specs/scrollToDirectionSpec.js"></script>
+  
+  <script src="specs/timeSpec.js"></script>
+  
+  <script src="specs/triggersSpec.js"></script>
+  
+  <script src="specs/widthSpec.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/reporter.js"></script>
+  
+
+
+
 </head>
 <body>
-
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="../components/jasmine/lib/jasmine-core/jasmine.js"></script>
-<script src="../components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
-<script src="../components/jasmine/lib/jasmine-core/boot.js"></script>
-
-<script src="../components/jasmine-jquery/lib/jasmine-jquery.js"></script>
-<script src="../dist/jquery.ascensor.js"></script>
-
-<script >
-	jasmine.getFixtures().fixturesPath = '../test/fixtures/';
-</script>
-<script src="helpers/specHelper.js"></script>
-<script src="helpers/detect3dHelper.js"></script>
-
-<script src="specs/heightSpec.js"></script>
-<script src="specs/widthSpec.js"></script>
-<script src="specs/loopSpec.js"></script>
-<script src="specs/keySpec.js"></script>
-<script src="specs/scrollToDirectionSpec.js"></script>
-<script src="specs/directionSpec.js"></script>
-<script src="specs/triggersSpec.js"></script>
-
-
 </body>
 </html>

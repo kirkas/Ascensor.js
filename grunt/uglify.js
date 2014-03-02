@@ -15,7 +15,9 @@ module.exports = function(grunt) {
       options: {
         beautify: true,
         mangle: false,
-        preserveComments: true
+        preserveComments: true,
+        compress: false,
+        indentLevel: 2
       },
       files: {
         '<%= ref.dist %>/jquery.ascensor.js': ['<%= ref.src %>/jquery.ascensor.js']

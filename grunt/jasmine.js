@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       '--ignore-ssl-errors': true,
       helpers: 'test/helpers/*Helper.js',
       specs: 'test/specs/*Spec.js',
-      outfile: 'test/test.html',
+      outfile: 'test/SpecRunner.html',
       template: 'test/SpecRunner.tmpl',
       templateOptions: {
         "jquery_version": "2.1.0"

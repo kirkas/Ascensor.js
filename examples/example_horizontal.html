@@ -4,46 +4,39 @@
 		<meta charset="utf-8">
 		<title>ascensor - example - Horizontal</title>
 		<style>
-		*{
-			margin: 0;
-			padding: 0;
-		}
-		
-		body{
-			font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-		}
-		
-		.floor-1{background: #F9B233;}
-		.floor-2{background: #71B5E5;}
-		.floor-3{background: #B3CE4A;}
+		*{margin: 0;padding: 0;}
+		body{font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;}
+		.floor .text {color: white;font-size: 40px;font-weight: 500;text-align: center;position: absolute;top: 50%;left: 50%;-moz-transform: translateX(-50%) translateY(-50%);-webkit-transform: translateX(-50%) translateY(-50%);transform: translateX(-50%) translateY(-50%);}
+		.floor-1{background: #F9B233;}.floor-2{background: #71B5E5;}.floor-3{background: #B3CE4A;}
 		.floor-4{background: #EB5D45;}
 		.floor-5{background: #4AAEB6;}
 		.floor-6{background: #E7DFBF;}
 		.floor-7{background: #CA9E67;}
 		.floor-8{background: #4fade3;}
-		
-		nav{
-			position: absolute;
-			bottom: 20px;
-			right: 20px;
-		}
-		
-		li.selected{
-			color: #0f0;
-		}
-		
+		ul {list-style: none;}
+		li a {padding: 3px 6px; display: inline-block;background: #eee;border-radius:3px;margin-bottom:2px;color: #777;}
+		li a:hover{cursor:pointer; background:#fefefe;}
+		.links-to-floor{position: absolute;top: 20px;left: 20px;}
+		.prev-next-links{position: absolute;top: 20px;right: 20px;}
+		.direction-links li a{border-radius: 0;}
+		.up {position: absolute;bottom: 75px;right: 50px;}
+		.down {position: absolute;bottom: 25px;right: 50px;}
+		.left {position: absolute;bottom: 50px;right: 60px;}
+		.right {position: absolute;bottom: 50px;right: 32px;}
+		.selected a{color: white;background:#4fade3;}
+		.selected a:hover{color: white;background:#4fade3;}
 		</style>
 	</head>
 	<body>
 
 		<div id="ascensorBuilding">
-			<div class="floor-1">Content 1</div>
-			<div class="floor-2">Content 2</div>
-			<div class="floor-3">Content 3</div>
-			<div class="floor-4">Content 4</div>
-			<div class="floor-5">Content 5</div>
-			<div class="floor-6">Content 6</div>
-			<div class="floor-7">Content 7</div>
+			<div class="floor floor-1"><span class="text">Floor 1</span></div>
+			<div class="floor floor-2"><span class="text">Floor 2</span></div>
+			<div class="floor floor-3"><span class="text">Floor 3</span></div>
+			<div class="floor floor-4"><span class="text">Floor 4</span></div>
+			<div class="floor floor-5"><span class="text">Floor 5</span></div>
+			<div class="floor floor-6"><span class="text">Floor 6</span></div>
+			<div class="floor floor-7"><span class="text">Floor 7</span></div>
 		</div>
 
 		<nav>
@@ -58,17 +51,15 @@
 				<li><a class="add-floor">+ add floor 8</a></li>
 			</ul>
 			<ul class="prev-next-links">
-				<li class="prev" ><a>prev</a></li>
-				<li class="next" ><a>next</a></li>
+				<li class="prev" ><a>Previous floor</a></li>
+				<li class="next" ><a>Next floor</a></li>
 			</ul>
-			
 			<ul class="direction-links">
-				<li class="up" ><a>up</a></li>
-				<li class="down" ><a>down</a></li>
-				<li class="left" ><a>left</a></li>
-				<li class="right" ><a>right</a></li>
+				<li class="up" ><a>↑</a></li>
+				<li class="down" ><a>↓</a></li>
+				<li class="left" ><a>←</a></li>
+				<li class="right" ><a>→</a></li>
 			</ul>
-			
 		</nav>
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
@@ -87,14 +78,14 @@
 			$(".links-to-floor li").click(function(event, index) {
 				ascensor.trigger("scrollToStage", $(this).index());
 			});
-			
+
 			$(".links-to-floor li:eq("+ ascensor.data("current-floor") +")").addClass("selected");
 
 			ascensor.on("scrollStart", function(event, floor){
 				$(".links-to-floor li").removeClass("selected");
 				$(".links-to-floor li:eq("+floor.to+")").addClass("selected");
 			});
-	
+
 			$(".prev").click(function() {
 				ascensor.trigger("prev");
 			});

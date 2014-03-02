@@ -21,8 +21,6 @@ describe("Triggers", function() {
   });
 
 
-
-
   describe("scrollToStage", function() {
     it("interger", function() {
       var floorFrom;
@@ -50,6 +48,7 @@ describe("Triggers", function() {
     it("floor name", function() {
       var floorFrom;
       var floorTo;
+
       var ascensor = getInstanceOfAscensor({
         ascensorFloorName: ["one", "two", "three"]
       });
