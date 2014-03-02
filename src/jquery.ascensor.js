@@ -112,6 +112,16 @@
       this.AXIS_X = 1;
       this.AXIS_Y = 0;
 
+      this.dataAttributeMap = {
+        "next": "ascensor-next",
+        "prev": "ascensor-prev",
+        "down": "ascensor-down",
+        "up": "ascensor-up",
+        "left": "ascensor-left",
+        "right": "ascensor-right"
+      };
+
+
       // Setup global variable - selector 
       this.node = $(this.element);
       this.nodeChildren = this.node.children(this.options.childType);
@@ -146,7 +156,9 @@
       this._bindEvents();
       this.scrollToFloor(this.floorActive);
 
-      if (isObject(this.options.ascensorFloorName)) this._updateHash(this.floorActive);
+      if (isObject(this.options.ascensorFloorName)) {
+        this._updateHash(this.floorActive);
+      }
       if (isFunction(this.options.ready)) this.options.ready();
     },
 
@@ -170,10 +182,14 @@
       });
 
       this.node.on('next', function(event, floor) {
+        var dataAttributeDirection = self.nodeChildren.eq(self.floorActive).data(self.dataAttributeMap.next);
+        if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
         self.next();
       });
 
       this.node.on('prev', function(event, floor) {
+        var dataAttributeDirection = self.nodeChildren.eq(self.floorActive).data(self.dataAttributeMap.prev);
+        if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
         self.prev();
       });
 
@@ -188,7 +204,6 @@
       });
       if (isObject(this.options.ascensorFloorName)) {
         $(window).on('hashchange', function(event) {
-
           self._hashchangeHandler(event);
         });
       }
@@ -259,11 +274,20 @@
 
     /* Helper : Return floor index from hash. */
     _getFloorFromHash: function() {
+      if (this._getHash()) {
+        if (this.options.ascensorFloorName && existInArray(this.options.ascensorFloorName, this._getHash())) {
+          return this.options.ascensorFloorName.indexOf(this._getHash());
+        }
+      }
+      return false;
+    },
+
+
+    /* Helper : Return floor index from hash. */
+    _getHash: function() {
       if (window.location.hash) {
         var hash = window.location.hash.split('#').pop();
-        if (this.options.ascensorFloorName && existInArray(this.options.ascensorFloorName, hash)) {
-          return this.options.ascensorFloorName.indexOf(hash);
-        }
+        return hash;
       }
       return false;
     },
@@ -279,7 +303,7 @@
 
     /* Will update hash location if floor name are setup. */
     _updateHash: function(floorIndex) {
-      if (isObject(this.options.ascensorFloorName)) {
+      if (isObject(this.options.ascensorFloorName) && this._getHash() !== this.options.ascensorFloorName[floorIndex]) {
         window.location.replace(('' + window.location).split('#')[0] + '#' + this.options.ascensorFloorName[floorIndex]);
       }
     },
@@ -332,9 +356,8 @@
 
     /* Resize handler. Update scrollTop & scrollLeft position */
     scrollToFloor: function(floor) {
-
       var self = this;
-      var animate = animate || ((floor == this.floorActive) ? false : true);
+      var animate = (floor === this.floorActive) ? false : true;
 
       if (this.NW !== this.node.width()) this.NW = this.node.width();
       if (this.NH !== this.node.height()) this.NH = this.node.height();
@@ -501,6 +524,12 @@
     /* Helper to handle direction correctly. */
     _handleDirection: function(direction) {
       var self = this;
+
+      // If a data attribute with current direction
+      // is found, use it.
+      var dataAttributeDirection = this.nodeChildren.eq(this.floorActive).data(this.dataAttributeMap[direction]);
+      if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
+
 
       var directionIsHorizontal = (direction == 'right' || direction == 'left');
       var directionIsVertical = (direction == 'down' || direction == 'up');

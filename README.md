@@ -29,20 +29,30 @@ In your web page:
 </script>
 ```
 
-### Update
-I've removed the `touchSwipeIntegration` option, because it's was broken and was base on another plugin (few people ask me about using this with Hammer.js using other touch library). if you you still include the [touchSwipe jquery plugin](http://labs.rampinteractive.co.uk/touchSwipe/demos/), Here how to fix swipe integration:
+### Update - Custom Data attribute supported!
+sometime you need a floor to behave differently in term of direction, you can 
+now easily force this by adding a custom data-attribute on the dom element!
 
-```js
-var ascensor = $('#ascensor').ascensor();
-ascensor.swipe({
-  swipeLeft:function() { ascensor.trigger("scrollToDirection", "right") },
-  swipeRight:function() { ascensor.trigger("scrollToDirection", "left") },
-  swipeUp:function() { ascensor.trigger("scrollToDirection", "down") },
-  swipeDown:function() { ascensor.trigger("scrollToDirection", "up") }
-});
+Here the available attribute:
+
+`data-ascensor-next`<br/>
+`data-ascensor-prev`<br/>
+`data-ascensor-up`<br/>
+`data-ascensor-down`<br/>
+`data-ascensor-left`<br/>
+`data-ascensor-right`<br/>
+
+example:
+```html
+<div id="ascensor"> 
+  <!-- This will force the left key to scroll to the last floor -->
+  <div data-ascensor-left="3" >Content 1</div>
+  <div>Content 2</div>
+  <div>Content 3</div>
+  <!-- This will force the right key to scroll to the first floor -->
+  <div data-ascensor-right="0" >Content 4</div>  
+</div>
 ```
-I will create [my own swipe](https://github.com/kirkas/Ascensor.js/issues/38) event in the future.
-
 
 ### Triggers
 You can navigate by using jquery trigger system
