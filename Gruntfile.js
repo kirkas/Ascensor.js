@@ -21,4 +21,6 @@ module.exports = function(grunt) {
     'jasmine'
   ]);
 
+  grunt.registerTask('server', ['connect', 'watch']);
+
 };

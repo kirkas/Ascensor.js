@@ -770,6 +770,7 @@
       self.floorMap.closest_x = DA.indexOf(closestX);
       self.floorMap.closest_y = DA.indexOf(closestY);
 
+
     },
 
   };

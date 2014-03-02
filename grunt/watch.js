@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
   return {
+    options: {
+      livereload: 4321
+    },
     plugin: {
       files: ['<%= ref.src %>/jquery.ascensor.js'],
       tasks: ['jshint:ascensor', 'uglify:ascensor']
@@ -9,7 +12,7 @@ module.exports = function(grunt) {
       tasks: ['jshint:gruntfile']
     },
     examples: {
-      files: ['examples/example_layout.ejs'],
+      files: ['examples/example_layout.ejs', 'grunt/template.js'],
       tasks: ['template']
     }
   };
