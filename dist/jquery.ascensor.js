@@ -150,7 +150,7 @@ author: Léo Galley <contact@kirkas.ch>
         self.nodeChildren = self.node.children(self.options.childType);
         self._positionElement();
       });
-      // setup resize & key listener */^^^
+      // setup resize & key listener
       $(window).on("resize", function(event) {
         self.scrollToFloor(self.floorActive, false);
       });
@@ -228,7 +228,6 @@ author: Léo Galley <contact@kirkas.ch>
     /* Hanlder: Handle window hashcange event */
     _hashchangeHandler: function(event) {
       if (isNumber(this._getFloorFromHash()) && this._getFloorFromHash() !== this.floorActive && !this.node.is(":animated")) {
-        console.log("scroll");
         this.scrollToFloor(this._getFloorFromHash());
       }
     },
@@ -291,7 +290,7 @@ author: Léo Galley <contact@kirkas.ch>
         this.node.stop().animate(animationObject.property, self.options.time, self.options.easing, animationObject.callback);
         this._updateHash(floor);
       } else {
-        this.node.stop().scrollTop(animationObject.property.scrollTop).scrollLeft(animationObject.property.scrollLeft);
+        this.node.stop().scrollTop(animationObject.defaults.scrollTop).scrollLeft(animationObject.defaults.scrollLeft);
       }
       this.floorActive = floor;
       this.node.data("current-floor", this.floorActive);
@@ -322,7 +321,8 @@ author: Léo Galley <contact@kirkas.ch>
         property: {},
         callback: function() {
           self._emitEvent("scrollEnd", self.floorActive, floor);
-        }
+        },
+        defaults: {}
       };
       // Create a second setting object
       // in case the queued option is set
@@ -332,6 +332,8 @@ author: Léo Galley <contact@kirkas.ch>
           self._emitEvent("scrollEnd", self.floorActive, floor);
         }
       };
+      animationSettings.defaults.scrollTop = floor * self.NH;
+      animationSettings.defaults.scrollLeft = floor * self.NW;
       // If direction is vertical
       // => set scrollTop property & return animationSettings
       if (self.options.direction === "y") {
@@ -344,6 +346,8 @@ author: Léo Galley <contact@kirkas.ch>
         // => Save value
         var scrollTopValue = self.options.direction[floor][self.AXIS_Y] * self.NH;
         var scrollLeftValue = self.options.direction[floor][self.AXIS_X] * self.NW;
+        animationSettings.defaults.scrollTop = scrollTopValue;
+        animationSettings.defaults.scrollLeft = scrollLeftValue;
         // If the queued option is set
         if (self.options.queued) {
           // => Check floor position, to avoid animation if already on same floor

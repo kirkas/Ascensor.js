@@ -147,7 +147,6 @@
       this.scrollToFloor(this.floorActive);
 
       if (isObject(this.options.ascensorFloorName)) this._updateHash(this.floorActive);
-
       if (isFunction(this.options.ready)) this.options.ready();
     },
 
@@ -183,7 +182,7 @@
         self._positionElement();
       });
 
-      // setup resize & key listener */^^^
+      // setup resize & key listener
       $(window).on('resize', function(event) {
         self.scrollToFloor(self.floorActive, false);
       });
@@ -273,7 +272,6 @@
     /* Hanlder: Handle window hashcange event */
     _hashchangeHandler: function(event) {
       if (isNumber(this._getFloorFromHash()) && this._getFloorFromHash() !== this.floorActive && !this.node.is(':animated')) {
-        console.log("scroll");
         this.scrollToFloor(this._getFloorFromHash());
       }
     },
@@ -349,7 +347,7 @@
         this.node.stop().animate(animationObject.property, self.options.time, self.options.easing, animationObject.callback);
         this._updateHash(floor);
       } else {
-        this.node.stop().scrollTop(animationObject.property.scrollTop).scrollLeft(animationObject.property.scrollLeft);
+        this.node.stop().scrollTop(animationObject.defaults.scrollTop).scrollLeft(animationObject.defaults.scrollLeft);
       }
 
       this.floorActive = floor;
@@ -390,7 +388,8 @@
         property: {},
         callback: function() {
           self._emitEvent('scrollEnd', self.floorActive, floor);
-        }
+        },
+        defaults: {}
       };
 
 
@@ -403,6 +402,8 @@
         }
       };
 
+      animationSettings.defaults.scrollTop = floor * self.NH;
+      animationSettings.defaults.scrollLeft = floor * self.NW;
 
       // If direction is vertical
       // => set scrollTop property & return animationSettings
@@ -425,6 +426,9 @@
         // => Save value
         var scrollTopValue = self.options.direction[floor][self.AXIS_Y] * self.NH;
         var scrollLeftValue = self.options.direction[floor][self.AXIS_X] * self.NW;
+
+        animationSettings.defaults.scrollTop = scrollTopValue;
+        animationSettings.defaults.scrollLeft = scrollLeftValue;
 
 
         // If the queued option is set
@@ -765,7 +769,6 @@
 
       self.floorMap.closest_x = DA.indexOf(closestX);
       self.floorMap.closest_y = DA.indexOf(closestY);
-
 
     },
 
