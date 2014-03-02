@@ -49,7 +49,7 @@ describe("loop", function() {
     expect(floorArray.to).toBe(0);
     expect(spyEvent).toHaveBeenTriggered();
 
-    expect(ascensor.data("current-floor")).toBe(0)
+    expect(ascensor.data("current-floor")).toBe(0);
 
   });
 

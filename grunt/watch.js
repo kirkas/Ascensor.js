@@ -11,6 +11,10 @@ module.exports = function(grunt) {
       files: ['Gruntfile.js', 'grunt/**/*.js'],
       tasks: ['jshint:gruntfile']
     },
+    test: {
+      files: ['test/**/*.js'],
+      tasks: ['jshint:test']
+    },
     examples: {
       files: ['examples/example_layout.ejs', 'grunt/template.js'],
       tasks: ['template']

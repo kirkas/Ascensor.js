@@ -3,9 +3,11 @@ module.exports = function(grunt) {
     gruntfile: {
       src: ['Gruntfile.js', 'grunt/**/*.js']
     },
-
     ascensor: {
       src: '<%= ref.src %>/jquery.ascensor.js'
+    },
+    test: {
+      src: 'test/**/*.js'
     }
   };
 };

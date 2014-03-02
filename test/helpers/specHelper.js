@@ -19,18 +19,18 @@ var KEY = {
 
 
 beforeEach(function() {
-  loadFixtures("ascensor.html");
-  $fixture = $("#ascensorBuilding");
+  loadFixtures('ascensor.html');
+  $fixture = $('#ascensorBuilding');
   jasmine.clock().install();
   $(window).off('hashchange');
-  window.location.hash = "";
+  window.location.hash = '';
 });
 
 afterEach(function() {
   jasmine.clock().uninstall();
   $fixture = null;
   $(window).off('hashchange');
-  window.location.hash = "";
+  window.location.hash = '';
 });
 
 
@@ -39,7 +39,7 @@ function getInstanceOfAscensor(parameter) {
 }
 
 function keyEventGenerator(key) {
-  var e = jQuery.Event("keypress");
+  var e = jQuery.Event('keypress');
   e.which = key;
   e.keyCode = key;
   $(document).trigger(e);
@@ -47,10 +47,10 @@ function keyEventGenerator(key) {
 
 function matrixToArray(str) {
   return str.match(/(-?[0-9\.]+)/g);
-};
+}
 
 function getTransform(el) {
-  var results = $(el).css('transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
+  var results = $(el).css('transform').match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/);
 
   if (!results) return [0, 0, 0];
   if (results[1] == '3d') return results.slice(2, 5);

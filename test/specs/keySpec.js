@@ -185,14 +185,13 @@ describe('keyNavigation', function()  {
       var R5 = 1 + Math.floor(Math.random() * 30);
       var R6 = 1 + Math.floor(Math.random() * 30);
       var parameter = {
-        direction: 'chocolate',
         direction: [
           [R1, R2],
           [R3, R4],
           [R5, R6]
         ],
         keyNavigation: false
-      }
+      };
       var ascensor = getInstanceOfAscensor(parameter);
 
       var spyEvent = spyOnEvent(ascensor, 'scrollStart');
