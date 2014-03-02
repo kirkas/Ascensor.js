@@ -194,11 +194,7 @@ For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm insta
 
 1. Fork it
 2. Create your feature branch (git checkout -b my-new-feature)
-3. In terminal, type "npm install" to install dependencies
-4. Add your change/fix
-5. Check the code using "grunt jshint" (in terminal)
-6. Make sure all "examples" behavior is correct 
-7. minify/beautify the code using "grunt build" (in terminal)
-8. Commit your change (only if "grunt build" return no error)
-9. Push to the branch (git push origin my-new-feature)
-10. Create new Pull Request
+3. Add your change/fix
+4. Build project using "grunt build" (in terminal)
+5. Commit your change (only if "grunt build" return no error)
+6. Push to the branch (git push origin my-new-feature) & request pull request!
