@@ -220,7 +220,7 @@
       }
 
       if (this.options.keyNavigation) {
-        $(document).on('keyup.ascensor keypress.ascensor', function(event) {
+        $(document).on('keydown.ascensor', function(event) {
           self._keypressHandler(event);
         });
       }
@@ -251,7 +251,7 @@
       // Unbind all binded event
       this.node.off('scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor');
       $(window).off('resize.ascensor hashchange.ascensor orientationchange.ascensor');
-      $(document).off('keyup.ascensor keypress.ascensor');
+      $(document).off('keydown.ascensor');
 
       // Remove css
       this.node.css({
