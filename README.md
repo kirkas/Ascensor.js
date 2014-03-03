@@ -32,6 +32,7 @@ In your web page:
 
 <!-- Section - Public method -->
 ### Public Methods
+Note that to access public method, you need to access the instance store in the data attribute under the plugin name. this a behavior inherited from the [jQuery boilerplate](http://jqueryboilerplate.com/).
 ```js
 var ascensor = $('#ascensor').ascensor();           // Init ascensor
 var ascensorInstance = ascensor.data('ascensor');   // Access instance
@@ -40,7 +41,7 @@ ascensorInstance.prev();                            // Go to previous floor
 ascensorInstance.next();                            // Go to next floor
 
 ascensorInstance.scrollToFloor(4);                  // Go to floor Index
-ascensorInstance.scrollToFloor('content2');
+ascensorInstance.scrollToFloor('content2');         // Go to floor Name
 
 ascensorInstance.scrollToDirection('up');           // Go up
 ascensorInstance.scrollToDirection('down');         // Go down
@@ -55,7 +56,7 @@ ascensorInstance.destroy();                         // Remove plugin
 
 <!-- Section - Events -->
 ### Events
-Ascensor emit two event, on `scrollStart` &amp; `scrollEnd`, they both return an array with the original floor and the targeted floor
+Ascensor emit two event, on `scrollStart` &amp; `scrollEnd`, they both return an array with the original floor and the targeted floor.
 
 ```js
 var ascensor = $('#ascensor').ascensor();           // Init ascensor

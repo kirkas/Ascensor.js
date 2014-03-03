@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     },
     plugin: {
       files: ['<%= ref.src %>/jquery.ascensor.js'],
-      tasks: ['jshint:ascensor', 'uglify:ascensor']
+      tasks: ['jshint:ascensor', 'concat:ascensor', 'uglify:ascensormin']
     },
     gruntfile: {
       files: ['Gruntfile.js', 'grunt/**/*.js'],
