@@ -468,7 +468,6 @@
       if (animate) {
         this._emitEvent('scrollStart', self.floorActive, floor);
         this.node.stop().animate(animationObject.property, self.options.time, self.options.easing, animationObject.callback);
-        this._updateHash(floor);
       } else {
         this.node.stop().scrollTop(animationObject.defaults.scrollTop).scrollLeft(animationObject.defaults.scrollLeft);
       }
@@ -511,6 +510,7 @@
         property: {},
         callback: function() {
           self._emitEvent('scrollEnd', self.floorActive, floor);
+          self._updateHash(floor);
         },
         defaults: {}
       };
@@ -522,6 +522,7 @@
         property: {},
         callback: function() {
           self._emitEvent('scrollEnd', self.floorActive, floor);
+          self._updateHash(floor);
         }
       };
 
