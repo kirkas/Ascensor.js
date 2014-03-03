@@ -30,7 +30,7 @@ In your web page:
 ```
 
 ### Update - Custom data attribute &amp; swipe event supported!
-## Data attribute
+#### Data attribute
 sometime you need a floor to behave differently in term of direction, you can 
 now easily force this by adding a custom data-attribute on the dom element!
 
@@ -55,7 +55,7 @@ example:
 </div>
 ```
 
-## Swipe event
+#### Swipe event
 Ascensor now use hiw own swipe event system. Just set 
 `swipeNavigation` to `true`, `false` or `"mobile-only"` (default).
 
