@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.4 (2014-03-02)
+version: 1.8.5 (2014-03-02)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -166,35 +166,65 @@ author: Léo Galley <contact@kirkas.ch>
         self.nodeChildren = self.node.children(self.options.childType);
         self._positionElement();
       });
+      this.node.on("remove", function() {
+        self.destroy();
+      });
       // setup resize & key listener
-      $(window).on("resize", function(event) {
+      $(window).on("resize.ascensor", function(event) {
         self.scrollToFloor(self.floorActive, false);
       });
       if (isObject(this.options.ascensorFloorName)) {
-        $(window).on("hashchange", function(event) {
+        $(window).on("hashchange.ascensor", function(event) {
           self._hashchangeHandler(event);
         });
       }
       if (window.DeviceOrientationEvent) {
-        $(window).on("orientationchange", function(event) {
+        $(window).on("orientationchange.ascensor", function(event) {
           self.scrollToFloor(self.floorActive);
         });
       }
       if (this.options.keyNavigation) {
-        $(document).on("keyup keypress", function(event) {
+        $(document).on("keyup.ascensor keypress.ascensor", function(event) {
           self._keypressHandler(event);
         });
       }
       // If swipe event option is true || string
       if (this.options.swipeNavigation) {
-        var touchEvent = "touchstart touchend";
-        // If mobile-only, only use touchstart/end event        
-        if (this.options.swipeNavigation !== "mobile-only") touchEvent += " mousedown mouseup";
+        var touchEvent = "touchstart.ascensor touchend.ascensor";
+        // If mobile-only, only use touchstart/end event				
+        if (this.options.swipeNavigation !== "mobile-only") touchEvent += " mousedown.ascensor mouseup.ascensor";
         // Listen to touch event
         this.node.on(touchEvent, function(event) {
           self._handleTouchEvent(event);
         });
       }
+    },
+    /* Remove method*/
+    destroy: function() {
+      // Unbind all binded event
+      this.node.off("scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor");
+      $(window).off("resize.ascensor hashchange.ascensor orientationchange.ascensor");
+      $(document).off("keyup.ascensor keypress.ascensor");
+      // Remove css
+      this.node.css({
+        position: "",
+        overflow: "",
+        top: "",
+        left: "",
+        width: "",
+        height: ""
+      });
+      this.nodeChildren.css({
+        position: "",
+        overflow: "",
+        top: "",
+        left: "",
+        width: "",
+        height: "",
+        transform: ""
+      });
+      // Remove plugin instance
+      this.node.removeData();
     },
     /* Touch event handler */
     _handleTouchEvent: function(event) {
@@ -481,7 +511,7 @@ author: Léo Galley <contact@kirkas.ch>
         var closestFloor = floorObject.closest[direction];
         if (isTrue(self.options.jump) && isNumber(closestFloor)) return self.scrollToFloor(closestFloor);
         // If loop is set to true, use
-        //  the furthest floor
+        //	the furthest floor
         var furthestFloor = floorObject.furthest[direction];
         if (isNumber(furthestFloor) && (isTrue(self.options.loop) || directionIsHorizontal && self.options.loop == "loop-x" || directionIsVertical && self.options.loop == "loop-y")) {
           return self.scrollToFloor(furthestFloor);
@@ -562,7 +592,7 @@ author: Léo Galley <contact@kirkas.ch>
           // of if direction is backward (left or up) and the value is smaller than the goal
           if ((direction == "right" || direction == "down") && map[axis] > goal || (direction == "left" || direction == "up") && map[axis] < goal) {
             // No previous value set or if the current
-            // value is smaller than the previous one           
+            // value is smaller than the previous one					 
             if (!closestMap || Math.abs(map[axis] - goal) < Math.abs(closestMap[axis])) {
               closestIndex = index;
               closestMap = map;
