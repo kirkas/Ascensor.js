@@ -24,11 +24,16 @@ describe('ascensorFloorName', function() {
 
     ascensor.trigger('next');
     hash = window.location.hash.split('#').pop();
-    expect(hash).toBe(hash_2);
+    setTimeout(function() {
+      expect(hash).toBe(hash_2);
+    }, defaultTime);
+
 
     ascensor.trigger('next');
     hash = window.location.hash.split('#').pop();
-    expect(hash).toBe(hash_3);
+    setTimeout(function() {
+      expect(hash).toBe(hash_3);
+    }, defaultTime);
   });
 
 
