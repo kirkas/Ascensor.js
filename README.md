@@ -1,12 +1,12 @@
 # Ascensor.js [![Build Status](https://travis-ci.org/kirkas/Ascensor.js.png?branch=master)](https://travis-ci.org/kirkas/Ascensor.js) [![devDependency Status](https://david-dm.org/kirkas/Ascensor.js/dev-status.png)](https://david-dm.org/kirkas/Ascensor.js#info=devDependencies) 
 
-
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
 
 
+
+<!-- Section - Getting started -->
 ### Getting Started
 Download the [production version][min] or the [development version][max].
-
 [max]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.js
 [min]: https://raw.github.com/kirkas/Ascensor.js/master/dist/jquery.ascensor.min.js
 
@@ -29,40 +29,9 @@ In your web page:
 </script>
 ```
 
-### Update - Custom data attribute &amp; swipe event supported!
-#### Data attribute
-sometime you need a floor to behave differently in term of direction, you can 
-now easily force this by adding a custom data-attribute on the dom element!
 
-Here the available attribute:
-
-`data-ascensor-next`<br/>
-`data-ascensor-prev`<br/>
-`data-ascensor-up`<br/>
-`data-ascensor-down`<br/>
-`data-ascensor-left`<br/>
-`data-ascensor-right`<br/>
-
-example:
-```html
-<div id="ascensor"> 
-  <!-- This will force the left key to scroll to the last floor -->
-  <div data-ascensor-left="3" >Content 1</div>
-  <div>Content 2</div>
-  <div>Content 3</div>
-  <!-- This will force the right key to scroll to the first floor -->
-  <div data-ascensor-right="0" >Content 4</div>  
-</div>
-```
-
-#### Swipe event
-Ascensor now use hiw own swipe event system. Just set 
-`swipeNavigation` to `true`, `false` or `"mobile-only"` (default).
-
-
-### Public Method
-To get access to plugin method
-
+<!-- Section - Public method -->
+### Public Methods
 ```js
 var ascensor = $('#ascensor').ascensor();           // Init ascensor
 var ascensorInstance = ascensor.data('ascensor');   // Access instance
@@ -82,6 +51,9 @@ ascensorInstance.refresh();                         // Refresh floor position
 ascensorInstance.destroy();                         // Remove plugin
 ```
 
+
+
+<!-- Section - Events -->
 ### Events
 Ascensor emit two event, on `scrollStart` &amp; `scrollEnd`, they both return an array with the original floor and the targeted floor
 
@@ -99,6 +71,40 @@ ascensor.on("scrollEnd", function(e, floor){
 });
 ```
 
+
+
+<!-- Section - Data attribute -->
+### NEW! - Data attribute
+Sometime you need a floor to behave differently in term of direction, you can now easily force this by adding a custom data-attribute on the dom element.
+
+Here the available attribute:
+
+`data-ascensor-next`<br/>
+`data-ascensor-prev`<br/>
+`data-ascensor-up`<br/>
+`data-ascensor-down`<br/>
+`data-ascensor-left`<br/>
+`data-ascensor-right`<br/>
+
+example:
+```html
+<div id="ascensor"> 
+  <div data-ascensor-left="3" >Content 1</div>   <!-- This will force the left key to scroll to the last floor -->
+  <div>Content 2</div>
+  <div>Content 3</div>
+  <div data-ascensor-right="0" >Content 4</div>  <!-- This will force the right key to scroll to the first floor -->
+</div>
+```
+
+
+<!-- Section - News  -->
+### NEW! - Swipe event
+Ascensor now use hiw own swipe event system. Just set 
+`swipeNavigation` to `true`, `false` or `"mobile-only"` (default).
+
+
+
+<!-- Section - Options  -->
 ### Options
 
 **ascensorFloorName**<br/>
@@ -162,7 +168,6 @@ Default: `true`<br/>
 descriptions: choose if you want direction key support<br/>
 example: `keyNavigation: false`<br/>
 
-
 **queued**<br/>
 Type: `boolean` or `string`<br/>
 Default: `false`<br/>
@@ -187,11 +192,15 @@ descriptions: Specify if you want ascensor to loop once reach the end of an axis
 `"increment-y"`: will reach opposite floor on y axis, but jump to next level on Y axis<br/>
 example: `loop: increment-x`<br/>
 
-####Examples
 
+
+<!-- Section - Examples  -->
+####Examples
 https://github.com/kirkas/Ascensor.js/tree/master/examples
 
 
+
+<!-- Section - Use  -->
 ####Website using ascensor
 
 [waterevive](http://www.waterevive.com)<br/>
@@ -204,6 +213,9 @@ https://github.com/kirkas/Ascensor.js/tree/master/examples
 [scan.dk](http://scan.dk/dk/)<br/>
 [alpineconstruction.dk](http://alpineconstruction.ca/)<br/>
 
+
+
+<!-- Section - Contribution  -->
 ####Contribution
 
 You want help? great!
