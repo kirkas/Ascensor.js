@@ -30,9 +30,10 @@ In your web page:
 ```
 
 
+
 <!-- Section - Public method -->
 ### Public Methods
-Note that to access public method, you need to access the instance store in the data attribute under the plugin name. this a behavior inherited from the [jQuery boilerplate](http://jqueryboilerplate.com/).
+Note that to access public method, you need to access the instance store in the data attribute under the plugin name. This a behavior inherited from the [jQuery boilerplate](http://jqueryboilerplate.com/).
 ```js
 var ascensor = $('#ascensor').ascensor();           // Init ascensor
 var ascensorInstance = ascensor.data('ascensor');   // Access instance
@@ -196,13 +197,20 @@ example: `loop: increment-x`<br/>
 
 
 <!-- Section - Examples  -->
-####Examples
-https://github.com/kirkas/Ascensor.js/tree/master/examples
+### Demo &amp; Examples
+Note that all example are situated in the examples folder of the repository <br/>
+[Simple](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_simple.html)<br/>
+[Horizontal](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_horizontal.html)<br/>
+[Chocolat](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_chocolat.html)<br/>
+[Url](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_url.html)<br/>
+[Swipe](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_swipe.html)<br/>
+[Loop](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_chocolat_loop.html)<br/>
+[Increment](http://htmlpreview.github.io/?https://raw.github.com/kirkas/Ascensor.js/master/examples/example_chocolat_loop_increment.html)<br/>
 
 
 
 <!-- Section - Use  -->
-####Website using ascensor
+#### Website using ascensor
 
 [waterevive](http://www.waterevive.com)<br/>
 [shanaemairs](http://shanaemairs.com)<br/>
