@@ -29,7 +29,8 @@ In your web page:
 </script>
 ```
 
-### Update - Custom Data attribute supported!
+### Update - Custom data attribute &amp; swipe event supported!
+## Data attribute
 sometime you need a floor to behave differently in term of direction, you can 
 now easily force this by adding a custom data-attribute on the dom element!
 
@@ -53,6 +54,10 @@ example:
   <div data-ascensor-right="0" >Content 4</div>  
 </div>
 ```
+
+## Swipe event
+Ascensor now use hiw own swipe event system. Just set 
+`swipeNavigation` to `true`, `false` or `"mobile-only"` (default).
 
 ### Triggers
 You can navigate by using jquery trigger system
