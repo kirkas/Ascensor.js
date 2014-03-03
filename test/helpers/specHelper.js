@@ -39,7 +39,7 @@ function getInstanceOfAscensor(parameter) {
 }
 
 function keyEventGenerator(key) {
-  var e = jQuery.Event('keypress');
+  var e = jQuery.Event('keydown');
   e.which = key;
   e.keyCode = key;
   $(document).trigger(e);
