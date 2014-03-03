@@ -36,14 +36,21 @@ module.exports = function(grunt) {
       }
     },
 
-
-
     queued: {
       src: 'examples/example_layout.ejs',
       dest: 'examples/example_chocolat_queued.html',
       variables: {
         title: 'Chocolat',
         params: '{direction: [[0,0],[0,1],[0,2],[1,2],[3,0],[5,0],[6,0],[2,5]], queued:"x"}'
+      }
+    },
+
+    swipe: {
+      src: 'examples/example_layout.ejs',
+      dest: 'examples/example_swipe.html',
+      variables: {
+        title: 'Chocolat',
+        params: '{direction: [[0,0],[0,1],[0,2],[1,2],[3,0],[5,0],[6,0],[2,5]], swipeNavigation:true}'
       }
     },
 

@@ -134,13 +134,11 @@ Default: `'y'`<br/>
 descriptions: specify the direction ``'x'``, ``'y'`` or and array of x/y position for each floor ``[[2,1],[2,2],[3,2]]``<br/>
 example: `direction: [[2,1],[2,2],[3,2]]`<br/>
 
-
 **time**<br/>
 Type: `integer`<br/>
 Default: `300`<br/>
 descriptions: Specify speed of transition<br/>
 example: `time: 500`<br/>
-
 
 **easing**<br/>
 Type: `string`<br/>
@@ -148,6 +146,11 @@ Default: `linear`<br/>
 descriptions: Specify easing option (don't forget to add the easing plugin)<br/>
 example: `easing: 'easeInElastic'`<br/>
 
+**swipeNavigation**<br/>
+Type: `boolean` or `string`<br/>
+Default: `mobile-only`<br/>
+descriptions: Specify if you want swipe navigation, you can set true, false or "mobile-only" (default)<br/>
+example: `swipeNavigation: true`<br/>
 
 **keyNavigation**<br/>
 Type: `boolean`<br/>

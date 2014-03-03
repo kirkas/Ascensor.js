@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.3 (2014-03-02)
+version: 1.8.4 (2014-03-02)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -22,7 +22,9 @@ author: Léo Galley <contact@kirkas.ch>
     keyNavigation: true,
     queued: false,
     jump: false,
-    ready: false
+    ready: false,
+    swipeNavigation: "mobile-only",
+    swipeVelocity: .7
   };
   /* Plugin instance */
   function Plugin(element, options) {
@@ -182,6 +184,51 @@ author: Léo Galley <contact@kirkas.ch>
         $(document).on("keyup keypress", function(event) {
           self._keypressHandler(event);
         });
+      }
+      // If swipe event option is true || string
+      if (this.options.swipeNavigation) {
+        var touchEvent = "touchstart touchend";
+        // If mobile-only, only use touchstart/end event        
+        if (this.options.swipeNavigation !== "mobile-only") touchEvent += " mousedown mouseup";
+        // Listen to touch event
+        this.node.on(touchEvent, function(event) {
+          self._handleTouchEvent(event);
+        });
+      }
+    },
+    /* Touch event handler */
+    _handleTouchEvent: function(event) {
+      var self = this;
+      switch (event.type) {
+       // On touch/mouse down
+        case "touchstart":
+       case "mousedown":
+        // save time & original position for X/Y
+        this.touchStartTime = new Date().getTime();
+        this.touchStartX = event.type == "touchstart" ? event.originalEvent.touches[0].pageX : event.pageX;
+        this.touchStartY = event.type == "touchstart" ? event.originalEvent.touches[0].pageY : event.pageY;
+        break;
+
+       // On touch/mousedown
+        case "touchend":
+       case "mouseup":
+        // Save time & final position for X/Y
+        this.touchEndTime = new Date().getTime();
+        this.touchEndX = event.type == "touchend" ? event.originalEvent.changedTouches[0].pageX : event.pageX;
+        this.touchEndY = event.type == "touchend" ? event.originalEvent.changedTouches[0].pageY : event.pageY;
+        // calculate distance, duration & velocity.
+        var distanceX = this.touchStartX - this.touchEndX;
+        var distanceY = this.touchStartY - this.touchEndY;
+        var duration = this.touchEndTime - this.touchStartTime;
+        var velocityX = Math.abs(distanceX) / duration;
+        var velocityY = Math.abs(distanceY) / duration;
+        // If velocity, use absolute distance to determine axis
+        // and compare distance to 0 determine direction
+        if (velocityX > this.options.swipeVelocity && Math.abs(distanceX) > Math.abs(distanceY) && distanceX < 0) this._handleDirection("left");
+        if (velocityX > this.options.swipeVelocity && Math.abs(distanceX) > Math.abs(distanceY) && distanceX > 0) this._handleDirection("right");
+        if (velocityY > this.options.swipeVelocity && Math.abs(distanceX) < Math.abs(distanceY) && distanceY < 0) this._handleDirection("up");
+        if (velocityY > this.options.swipeVelocity && Math.abs(distanceX) < Math.abs(distanceY) && distanceY > 0) this._handleDirection("down");
+        break;
       }
     },
     /* Position floor on dom */
