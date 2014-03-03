@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.6 (2014-03-02)
+version: 1.8.8 (2014-03-03)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -141,8 +141,15 @@ author: Léo Galley <contact@kirkas.ch>
       this.NW = this.node.width();
 
       // Setup global variable - helper
+      var androidCompatible = true;
+      var version = navigator.userAgent.match(/Android\s+([\d\.]+)/);
+      if (version) androidCompatible = parseFloat(version[1]) > 3;
+
+
       this.directionIsArray = isObject(this.options.direction);
-      this.supportTransform = has3d();
+      this.supportTransform = has3d() && androidCompatible;
+
+
 
       // Check if floor name array & node children length match
       if (isObject(this.options.ascensorFloorName) && this.options.ascensorFloorName.length < this.nodeChildren.length) {
@@ -236,7 +243,7 @@ author: Léo Galley <contact@kirkas.ch>
       // If swipe event option is true || string
       if (this.options.swipeNavigation) {
 
-        var touchEvent = 'touchstart.ascensor touchend.ascensor';
+        var touchEvent = 'touchstart.ascensor touchend.ascensor touchcancel.ascensor';
 
         // If mobile-only, only use touchstart/end event				
         if (this.options.swipeNavigation !== 'mobile-only') touchEvent += ' mousedown.ascensor mouseup.ascensor';
@@ -257,7 +264,7 @@ author: Léo Galley <contact@kirkas.ch>
     destroy: function() {
 
       // Unbind all binded event
-      this.node.off('scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor');
+      this.node.off('scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
       $(window).off('resize.ascensor hashchange.ascensor orientationchange.ascensor');
       $(document).off('keydown.ascensor');
 
@@ -303,12 +310,13 @@ author: Léo Galley <contact@kirkas.ch>
 
           // On touch/mousedown
         case 'touchend':
+        case 'touchcancel':
         case 'mouseup':
 
           // Save time & final position for X/Y
           this.touchEndTime = new Date().getTime();
-          this.touchEndX = (event.type == 'touchend') ? event.originalEvent.changedTouches[0].pageX : event.pageX;
-          this.touchEndY = (event.type == 'touchend') ? event.originalEvent.changedTouches[0].pageY : event.pageY;
+          this.touchEndX = (event.type == 'touchend' ||  event.type == 'touchcancel') ? event.originalEvent.changedTouches[0].pageX : event.pageX;
+          this.touchEndY = (event.type == 'touchend' ||  event.type == 'touchcancel') ? event.originalEvent.changedTouches[0].pageY : event.pageY;
 
           // calculate distance, duration & velocity.
           var distanceX = this.touchStartX - this.touchEndX;
@@ -464,6 +472,7 @@ author: Léo Galley <contact@kirkas.ch>
 
     /* Resize handler. Update scrollTop & scrollLeft position */
     scrollToFloor: function(floor) {
+
       var self = this;
       var animate = (floor === this.floorActive) ? false : true;
 

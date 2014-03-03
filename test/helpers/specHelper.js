@@ -17,7 +17,11 @@ var KEY = {
   W: 87,
 };
 
+navigator.__defineGetter__('userAgent', function() {
+  return 'foo' // customized user agent
+});
 
+navigator.userAgent; // 'foo'
 beforeEach(function() {
   loadFixtures('ascensor.html');
   $fixture = $('#ascensorBuilding');
