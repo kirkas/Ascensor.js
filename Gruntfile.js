@@ -18,7 +18,8 @@ module.exports = function(grunt) {
     'jshint:ascensor',
     'uglify:ascensor',
     'uglify:ascensormin',
-    'jasmine'
+    'jasmine',
+    'template'
   ]);
 
   grunt.registerTask('server', ['connect', 'watch']);

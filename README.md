@@ -59,35 +59,35 @@ example:
 Ascensor now use hiw own swipe event system. Just set 
 `swipeNavigation` to `true`, `false` or `"mobile-only"` (default).
 
-### Triggers
-You can navigate by using jquery trigger system
+
+### Public Method
+To get access to plugin method
+
+```js
+var ascensor = $('#ascensor').ascensor();           // Init ascensor
+var ascensorInstance = ascensor.data('ascensor');   // Access instance
+
+ascensorInstance.prev();                            // Go to previous floor
+ascensorInstance.next();                            // Go to next floor
+
+ascensorInstance.scrollToFloor(4);                          // Go to floor Index
+ascensorInstance.scrollToFloor('content2');
+
+ascensorInstance.scrollToDirection('up');           // Go up
+ascensorInstance.scrollToDirection('down');         // Go down
+ascensorInstance.scrollToDirection('left');         // Go left
+ascensorInstance.scrollToDirection('right');        // Go right
+
+ascensorInstance.refresh();                         // Refresh floor position
+ascensorInstance.destroy();                         // Remove plugin
+```
+
+### Events
+Ascensor emit two event, on `scrollStart` &amp; `scrollEnd`, they both return an array with the original floor and the targeted floor
 
 ```js
 var ascensor = $('#ascensor').ascensor();
 
-// Go to previous floor
-ascensor.trigger("prev");
-
-// Go to next floor
-ascensor.trigger("next");
-
-// refresh floor position, usefull when you dynamically append element
-ascensor.trigger("refresh");
-
-// Get current floor (integer)
-ascensor.data("current-floor");
-
-// Go to floor index or floor name
-ascensor.trigger("scrollToStage", 4);
-ascensor.trigger("scrollToStage", "content2")
-
-// Go up, down, left or right
-ascensor.trigger("scrollToDirection" ,"up");
-ascensor.trigger("scrollToDirection" ,"down");
-ascensor.trigger("scrollToDirection" ,"left");
-ascensor.trigger("scrollToDirection" ,"right");
-
-// Ascensor also trigger a scrollStart & ScrollEnd event
 ascensor.on("scrollStart", function(event, floor){
   console.log(floor.from)  // Return the origin floor
   console.log(floor.to)    // Return the targeted floor

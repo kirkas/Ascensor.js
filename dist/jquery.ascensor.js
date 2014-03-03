@@ -141,7 +141,7 @@ author: Léo Galley <contact@kirkas.ch>
     _bindEvents: function() {
       var self = this;
       this.node.on("scrollToDirection", function(event, direction) {
-        self._handleDirection(direction);
+        self.scrollToDirection(direction);
       });
       this.node.on("scrollToStage", function(event, floor) {
         if (typeof floor == "string") {
@@ -163,8 +163,7 @@ author: Léo Galley <contact@kirkas.ch>
         self.prev();
       });
       this.node.on("refresh", function() {
-        self.nodeChildren = self.node.children(self.options.childType);
-        self._positionElement();
+        self.refresh();
       });
       this.node.on("remove", function() {
         self.destroy();
@@ -198,6 +197,10 @@ author: Léo Galley <contact@kirkas.ch>
           self._handleTouchEvent(event);
         });
       }
+    },
+    refresh: function() {
+      this.nodeChildren = this.node.children(this.options.childType);
+      this._positionElement();
     },
     /* Remove method*/
     destroy: function() {
@@ -254,10 +257,10 @@ author: Léo Galley <contact@kirkas.ch>
         var velocityY = Math.abs(distanceY) / duration;
         // If velocity, use absolute distance to determine axis
         // and compare distance to 0 determine direction
-        if (velocityX > this.options.swipeVelocity && Math.abs(distanceX) > Math.abs(distanceY) && distanceX < 0) this._handleDirection("left");
-        if (velocityX > this.options.swipeVelocity && Math.abs(distanceX) > Math.abs(distanceY) && distanceX > 0) this._handleDirection("right");
-        if (velocityY > this.options.swipeVelocity && Math.abs(distanceX) < Math.abs(distanceY) && distanceY < 0) this._handleDirection("up");
-        if (velocityY > this.options.swipeVelocity && Math.abs(distanceX) < Math.abs(distanceY) && distanceY > 0) this._handleDirection("down");
+        if (velocityX > this.options.swipeVelocity && Math.abs(distanceX) > Math.abs(distanceY) && distanceX < 0) this.scrollToDirection("left");
+        if (velocityX > this.options.swipeVelocity && Math.abs(distanceX) > Math.abs(distanceY) && distanceX > 0) this.scrollToDirection("right");
+        if (velocityY > this.options.swipeVelocity && Math.abs(distanceX) < Math.abs(distanceY) && distanceY < 0) this.scrollToDirection("up");
+        if (velocityY > this.options.swipeVelocity && Math.abs(distanceX) < Math.abs(distanceY) && distanceY > 0) this.scrollToDirection("down");
         break;
       }
     },
@@ -355,22 +358,22 @@ author: Léo Galley <contact@kirkas.ch>
         switch (key) {
          case 40:
          case 83:
-          self._handleDirection("down");
+          self.scrollToDirection("down");
           break;
 
          case 38:
          case 87:
-          self._handleDirection("up");
+          self.scrollToDirection("up");
           break;
 
          case 37:
          case 65:
-          self._handleDirection("left");
+          self.scrollToDirection("left");
           break;
 
          case 39:
          case 68:
-          self._handleDirection("right");
+          self.scrollToDirection("right");
           break;
         }
       }
@@ -486,7 +489,7 @@ author: Léo Galley <contact@kirkas.ch>
       return animationSettings;
     },
     /* Helper to handle direction correctly. */
-    _handleDirection: function(direction) {
+    scrollToDirection: function(direction) {
       var self = this;
       // If a data attribute with current direction
       // is found, use it.
@@ -708,8 +711,8 @@ author: Léo Galley <contact@kirkas.ch>
   };
   $.fn[pluginName] = function(options) {
     this.each(function() {
-      if (!$.data(this, "plugin_" + pluginName)) {
-        $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+      if (!$.data(this, pluginName)) {
+        $.data(this, pluginName, new Plugin(this, options));
       }
     });
     return this;

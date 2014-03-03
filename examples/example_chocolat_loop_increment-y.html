@@ -56,28 +56,29 @@
 				<li class="next" ><a>Next floor</a></li>
 			</ul>
 			<ul class="direction-links">
-				<li class="up" ><a>↑</a></li>
-				<li class="down" ><a>↓</a></li>
-				<li class="left" ><a>←</a></li>
-				<li class="right" ><a>→</a></li>
+				<li class="direction up" data-direction="up"><a>↑</a></li>
+				<li class="direction down" data-direction="down"><a>↓</a></li>
+				<li class="direction left" data-direction="left"><a>←</a></li>
+				<li class="direction right" data-direction="right"><a>→</a></li>
 			</ul>
 		</nav>
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="../dist/jquery.ascensor.js"></script>
 		<script>
 			var ascensor = $('#ascensorBuilding').ascensor({loop: "increment-y", direction: [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]]});
+			var ascensorInstance = $('#ascensorBuilding').data('ascensor');
 			var floorAdded = false;
 			$(".add-floor").click(function(){
 				if(!floorAdded){
 				$('#ascensorBuilding').append('<div class="floor floor-8"><span class="text">This floor has been dynamically appended!</span></div>');
-				ascensor.trigger("refresh");
+				ascensorInstance.refresh();
 				$(this).text("Floor Added!");
 				floorAdded = true;
 				}
 			});
 				
 			$(".links-to-floor li").click(function(event, index) {
-				ascensor.trigger("scrollToStage", $(this).index());
+				ascensorInstance.scrollToFloor($(this).index());
 			});
 
 			$(".links-to-floor li:eq("+ ascensor.data("current-floor") +")").addClass("selected");
@@ -88,28 +89,16 @@
 			});
 
 			$(".prev").click(function() {
-				ascensor.trigger("prev");
+				ascensorInstance.prev();
 			});
 				
 			$(".next").click(function() {
-				ascensor.trigger("next");
+				ascensorInstance.next();
 			});
 				
-			$(".up").click(function() {
-				ascensor.trigger("scrollToDirection" ,"up");
-			});
-				
-			$(".down").click(function() {
-				ascensor.trigger("scrollToDirection" ,"down");
-			});
-				
-			$(".left").click(function() {
-				ascensor.trigger("scrollToDirection" ,"left");
-			});
-				
-			$(".right").click(function() {
-				ascensor.trigger("scrollToDirection" ,"right");
-			});		
+			$(".direction").click(function() {
+				ascensorInstance.scrollToDirection($(this).data("direction"));
+			});	
 		</script>
 
 	</body>
