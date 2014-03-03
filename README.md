@@ -70,7 +70,7 @@ var ascensorInstance = ascensor.data('ascensor');   // Access instance
 ascensorInstance.prev();                            // Go to previous floor
 ascensorInstance.next();                            // Go to next floor
 
-ascensorInstance.scrollToFloor(4);                          // Go to floor Index
+ascensorInstance.scrollToFloor(4);                  // Go to floor Index
 ascensorInstance.scrollToFloor('content2');
 
 ascensorInstance.scrollToDirection('up');           // Go up
@@ -86,21 +86,20 @@ ascensorInstance.destroy();                         // Remove plugin
 Ascensor emit two event, on `scrollStart` &amp; `scrollEnd`, they both return an array with the original floor and the targeted floor
 
 ```js
-var ascensor = $('#ascensor').ascensor();
+var ascensor = $('#ascensor').ascensor();           // Init ascensor
 
-ascensor.on("scrollStart", function(event, floor){
-  console.log(floor.from)  // Return the origin floor
-  console.log(floor.to)    // Return the targeted floor
+ascensor.on("scrollStart", function(e, floor){
+  console.log(floor.from)                           // Return the origin floor
+  console.log(floor.to)                             // Return the targeted floor
 });
 
-ascensor.on("scrollEnd", function(event, floor){
-  console.log(floor.from)  // Return the origin floor
-  console.log(floor.to)    // Return the targeted floor
+ascensor.on("scrollEnd", function(e, floor){
+  console.log(floor.from)                           // Return the origin floor
+  console.log(floor.to)                             // Return the targeted floor
 });
 ```
 
 ### Options
-
 
 **ascensorFloorName**<br/>
 Type: `array ` of `string`<br/>
