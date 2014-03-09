@@ -18,7 +18,8 @@
     jump: false,
     ready: false,
     swipeNavigation: 'mobile-only',
-    swipeVelocity: 0.7
+    swipeVelocity: 0.7,
+    wheelNavigation: false,
   };
 
   /* Plugin instance */
@@ -61,9 +62,7 @@
       from = (from < 0) ? Math.ceil(from) : Math.floor(from);
       if (from < 0) from += len;
       for (; from < len; from++) {
-        if (from in this &&
-          this[from] === elt)
-          return from;
+        if (from in this && this[from] === elt) return from;
       }
       return -1;
     };
@@ -122,7 +121,6 @@
         "left": "ascensor-left",
         "right": "ascensor-right"
       };
-
 
       // Setup global variable - selector 
       this.node = $(this.element);
@@ -214,12 +212,15 @@
       $(window).on('resize.ascensor', function(event) {
         self.scrollToFloor(self.floorActive, false);
       });
+
+      // If floorName, add hashchange listener
       if (isObject(this.options.ascensorFloorName)) {
         $(window).on('hashchange.ascensor', function(event) {
           self._hashchangeHandler(event);
         });
       }
 
+      // Detect orientation change, for device
       if (window.DeviceOrientationEvent) {
         $(window).on('orientationchange.ascensor', function(event) {
           self.scrollToFloor(self.floorActive);
@@ -229,6 +230,22 @@
       if (this.options.keyNavigation) {
         $(document).on('keydown.ascensor', function(event) {
           self._keypressHandler(event);
+        });
+      }
+
+      if (this.options.wheelNavigation) {
+        this.node.on('mousewheel.ascensor', function(e) {
+          setTimeout(function() {
+            if (!self.scrollInChildren) self._handleMouseWheelEvent(e);
+          }, 10);
+        });
+
+        this.nodeChildren.on('scroll.ascensor', function(e) {
+          self.scrollInChildren = true;
+          if (self.scrollTimeOut) clearTimeout(self.scrollTimeOut);
+          self.scrollTimeOut = setTimeout(function() {
+            self.scrollInChildren = false;
+          }, 300);
         });
       }
 
@@ -256,7 +273,8 @@
     destroy: function() {
 
       // Unbind all binded event
-      this.node.off('scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
+      this.nodeChildren.off('scroll.ascensor');
+      this.node.off('mousewheel.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
       $(window).off('resize.ascensor hashchange.ascensor orientationchange.ascensor');
       $(document).off('keydown.ascensor');
 
@@ -282,6 +300,28 @@
 
       // Remove plugin instance
       this.node.removeData();
+    },
+
+    _handleMouseWheelEvent: function(event) {
+      if (this.node.is(':animated')) return;
+
+      this.scrollTime = new Date().getTime();
+
+      if (!this.lastScrollTime || this.scrollTime - this.lastScrollTime > 40) {
+        this.lastScrollTime = this.scrollTime;
+        return;
+      }
+
+      this.lastScrollTime = this.scrollTime;
+
+      var mouseX = event.originalEvent.wheelDeltaX;
+      var mouseY = event.originalEvent.wheelDeltaY;
+
+      if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX > 0) this.scrollToDirection('left');
+      if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX < 0) this.scrollToDirection('right');
+      if (Math.abs(mouseY) > Math.abs(mouseX) && mouseY > 0) this.scrollToDirection('up');
+      if (Math.abs(mouseY) > Math.abs(mouseX) && mouseY < 0) this.scrollToDirection('down');
+
     },
 
 
