@@ -465,6 +465,9 @@
     /* Resize handler. Update scrollTop & scrollLeft position */
     scrollToFloor: function(floor) {
 
+      // If floor send is a tring, check if it match any of ascensorFloorName, then use poistion in array
+      if (isString(floor) && existInArray(this.options.ascensorFloorName, floor)) floor = this.options.ascensorFloorName.indexOf(floor);
+
       var self = this;
       var animate = (floor === this.floorActive) ? false : true;
 

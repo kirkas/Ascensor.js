@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.8 (2014-03-03)
+version: 1.8.9 (2014-03-09)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -472,6 +472,9 @@ author: Léo Galley <contact@kirkas.ch>
 
     /* Resize handler. Update scrollTop & scrollLeft position */
     scrollToFloor: function(floor) {
+
+      // If floor send is a tring, check if it match any of ascensorFloorName, then use poistion in array
+      if (isString(floor) && existInArray(this.options.ascensorFloorName, floor)) floor = this.options.ascensorFloorName.indexOf(floor);
 
       var self = this;
       var animate = (floor === this.floorActive) ? false : true;
