@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.10 (2014-03-09)
+version: 1.8.11 (2014-05-27)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -28,6 +28,7 @@ author: Léo Galley <contact@kirkas.ch>
     swipeNavigation: 'mobile-only',
     swipeVelocity: 0.7,
     wheelNavigation: false,
+    wheelNavigationDelay: 40,
   };
 
   /* Plugin instance */
@@ -315,7 +316,7 @@ author: Léo Galley <contact@kirkas.ch>
 
       this.scrollTime = new Date().getTime();
 
-      if (!this.lastScrollTime || this.scrollTime - this.lastScrollTime > 40) {
+      if (!this.lastScrollTime || this.scrollTime - this.lastScrollTime > this.options.wheelNavigationDelay) {
         this.lastScrollTime = this.scrollTime;
         return;
       }

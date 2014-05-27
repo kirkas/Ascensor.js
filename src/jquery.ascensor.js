@@ -20,6 +20,7 @@
     swipeNavigation: 'mobile-only',
     swipeVelocity: 0.7,
     wheelNavigation: false,
+    wheelNavigationDelay: 40,
   };
 
   /* Plugin instance */
@@ -307,7 +308,7 @@
 
       this.scrollTime = new Date().getTime();
 
-      if (!this.lastScrollTime || this.scrollTime - this.lastScrollTime > 40) {
+      if (!this.lastScrollTime || this.scrollTime - this.lastScrollTime > this.options.wheelNavigationDelay) {
         this.lastScrollTime = this.scrollTime;
         return;
       }
