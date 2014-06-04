@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.11 (2014-05-27)
+version: 1.8.11 (2014-06-04)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -565,12 +565,12 @@ author: Léo Galley <contact@kirkas.ch>
     /* Helper to generate animation settings */
     _getAnimationSettings: function(floor) {
       var self = this;
-
+      var saveFloorActive = self.floorActive;
       // Create animation setting object
       var animationSettings = {
         property: {},
         callback: function() {
-          self._emitEvent('scrollEnd', self.floorActive, floor);
+          self._emitEvent('scrollEnd', saveFloorActive, floor);
           self._updateHash(floor);
         },
         defaults: {}
@@ -582,7 +582,7 @@ author: Léo Galley <contact@kirkas.ch>
       var secondAnimationSettings = {
         property: {},
         callback: function() {
-          self._emitEvent('scrollEnd', self.floorActive, floor);
+          self._emitEvent('scrollEnd', saveFloorActive, floor);
           self._updateHash(floor);
         }
       };

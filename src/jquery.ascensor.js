@@ -557,12 +557,12 @@
     /* Helper to generate animation settings */
     _getAnimationSettings: function(floor) {
       var self = this;
-
+      var saveFloorActive = self.floorActive;
       // Create animation setting object
       var animationSettings = {
         property: {},
         callback: function() {
-          self._emitEvent('scrollEnd', self.floorActive, floor);
+          self._emitEvent('scrollEnd', saveFloorActive, floor);
           self._updateHash(floor);
         },
         defaults: {}
@@ -574,7 +574,7 @@
       var secondAnimationSettings = {
         property: {},
         callback: function() {
-          self._emitEvent('scrollEnd', self.floorActive, floor);
+          self._emitEvent('scrollEnd', saveFloorActive, floor);
           self._updateHash(floor);
         }
       };
