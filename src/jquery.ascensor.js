@@ -265,7 +265,7 @@
       }
     },
 
-    refresh: function()  {
+    refresh: function() {
       this.nodeChildren = this.node.children(this.options.childType);
       this._positionElement();
     },
@@ -348,8 +348,8 @@
 
           // Save time & final position for X/Y
           this.touchEndTime = new Date().getTime();
-          this.touchEndX = (event.type == 'touchend' ||  event.type == 'touchcancel') ? event.originalEvent.changedTouches[0].pageX : event.pageX;
-          this.touchEndY = (event.type == 'touchend' ||  event.type == 'touchcancel') ? event.originalEvent.changedTouches[0].pageY : event.pageY;
+          this.touchEndX = (event.type == 'touchend' || event.type == 'touchcancel') ? event.originalEvent.changedTouches[0].pageX : event.pageX;
+          this.touchEndY = (event.type == 'touchend' || event.type == 'touchcancel') ? event.originalEvent.changedTouches[0].pageY : event.pageY;
 
           // calculate distance, duration & velocity.
           var distanceX = this.touchStartX - this.touchEndX;
@@ -694,8 +694,8 @@
 
       // If direction is x or x, and 
       // direction match, use prev/next
-      if ((self.options.direction == 'y' && direction == 'down') ||  (self.options.direction == 'x' && direction == 'right')) return self.next();
-      if ((self.options.direction == 'y' && direction == 'up') ||  (self.options.direction == 'x' && direction == 'left')) return self.prev();
+      if ((self.options.direction == 'y' && direction == 'down') || (self.options.direction == 'x' && direction == 'right')) return self.next();
+      if ((self.options.direction == 'y' && direction == 'up') || (self.options.direction == 'x' && direction == 'left')) return self.prev();
 
 
       if (self.directionIsArray) {
@@ -714,7 +714,7 @@
         // If loop is set to true, use
         //	the furthest floor
         var furthestFloor = floorObject.furthest[direction];
-        if (isNumber(furthestFloor) && (isTrue(self.options.loop) || (directionIsHorizontal &&  self.options.loop == 'loop-x') ||  (directionIsVertical && self.options.loop == 'loop-y'))) {
+        if (isNumber(furthestFloor) && (isTrue(self.options.loop) || (directionIsHorizontal && self.options.loop == 'loop-x') || (directionIsVertical && self.options.loop == 'loop-y'))) {
           return self.scrollToFloor(furthestFloor);
         }
 
@@ -743,7 +743,7 @@
 
 
     /* Helper to get the direct appending floor in one precise direction direction */
-    _getDirectFloorIndex: function(DA, floorIndex, direction)  {
+    _getDirectFloorIndex: function(DA, floorIndex, direction) {
       var self = this;
 
       // Create floor target array base on floorobject
@@ -790,7 +790,7 @@
     },
 
     /* Helper to get the closest floor in one precise direction direction */
-    _getClosestFloorIndex: function(DA, floorIndex, direction, level)  {
+    _getClosestFloorIndex: function(DA, floorIndex, direction, level) {
       var self = this;
 
       level = level || 0;
@@ -812,7 +812,7 @@
 
           // If direction is foward (right or down) and the value is bigger than goal 
           // of if direction is backward (left or up) and the value is smaller than the goal
-          if (((direction == 'right' || direction == 'down') && map[axis] > goal) ||  ((direction == 'left' || direction == 'up') && map[axis] < goal)) {
+          if (((direction == 'right' || direction == 'down') && map[axis] > goal) || ((direction == 'left' || direction == 'up') && map[axis] < goal)) {
 
 
             // No previous value set or if the current
