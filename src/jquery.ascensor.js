@@ -191,13 +191,13 @@
 
       this.node.on('next', function(event, floor) {
         var dataAttributeDirection = self.nodeChildren.eq(self.floorActive).data(self.dataAttributeMap.next);
-        if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
+        if (isNumber(dataAttributeDirection) || isString(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
         self.next();
       });
 
       this.node.on('prev', function(event, floor) {
         var dataAttributeDirection = self.nodeChildren.eq(self.floorActive).data(self.dataAttributeMap.prev);
-        if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
+        if (isNumber(dataAttributeDirection) || isString(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
         self.prev();
       });
 
@@ -682,7 +682,7 @@
       // If a data attribute with current direction
       // is found, use it.
       var dataAttributeDirection = this.nodeChildren.eq(this.floorActive).data(this.dataAttributeMap[direction]);
-      if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
+      if (isNumber(dataAttributeDirection) || isString(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
 
 
       var directionIsHorizontal = (direction == 'right' || direction == 'left');
