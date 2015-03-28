@@ -19,7 +19,7 @@
     ready: false,
     swipeNavigation: 'mobile-only',
     swipeVelocity: 0.7,
-    wheelNavigation: true,
+    wheelNavigation: false,
     wheelNavigationDelay: 40,
   };
 
