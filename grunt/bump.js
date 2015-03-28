@@ -5,7 +5,8 @@ module.exports = function(grunt) {
       files: ['package.json', 'bower.json', 'Ascensor.js.jquery.json'],
       updateConfigs: ['pkg'],
       commitFiles: ['-a'],
-      pushTo: 'origin'
+      pushTo: 'origin',
+      commitMessage: 'Release v%VERSION%'
     }
 
   };

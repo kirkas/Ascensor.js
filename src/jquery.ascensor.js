@@ -682,8 +682,7 @@
       // If a data attribute with current direction
       // is found, use it.
       var dataAttributeDirection = this.nodeChildren.eq(this.floorActive).data(this.dataAttributeMap[direction]);
-      if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
-
+      if (isNumber(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
 
       var directionIsHorizontal = (direction == 'right' || direction == 'left');
       var directionIsVertical = (direction == 'down' || direction == 'up');

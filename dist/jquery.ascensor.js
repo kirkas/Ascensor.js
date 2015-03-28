@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.14 (2014-08-28)
+version: 1.8.15 (2015-03-28)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -690,8 +690,7 @@ author: Léo Galley <contact@kirkas.ch>
       // If a data attribute with current direction
       // is found, use it.
       var dataAttributeDirection = this.nodeChildren.eq(this.floorActive).data(this.dataAttributeMap[direction]);
-      if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
-
+      if (isNumber(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
 
       var directionIsHorizontal = (direction == 'right' || direction == 'left');
       var directionIsVertical = (direction == 'down' || direction == 'up');
