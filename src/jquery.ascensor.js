@@ -19,7 +19,7 @@
     ready: false,
     swipeNavigation: 'mobile-only',
     swipeVelocity: 0.7,
-    wheelNavigation: false,
+    wheelNavigation: true,
     wheelNavigationDelay: 40,
   };
 
@@ -235,7 +235,7 @@
       }
 
       if (this.options.wheelNavigation) {
-        this.node.on('mousewheel.ascensor', function(e) {
+        this.node.on('mousewheel.ascensor DOMMouseScroll.ascensor', function(e) {
           setTimeout(function() {
             if (!self.scrollInChildren) self._handleMouseWheelEvent(e);
           }, 10);
@@ -275,7 +275,7 @@
 
       // Unbind all binded event
       this.nodeChildren.off('scroll.ascensor');
-      this.node.off('mousewheel.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
+      this.node.off('mousewheel.ascensor DOMMouseScroll.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
       $(window).off('resize.ascensor hashchange.ascensor orientationchange.ascensor');
       $(document).off('keydown.ascensor');
 
@@ -315,8 +315,20 @@
 
       this.lastScrollTime = this.scrollTime;
 
-      var mouseX = event.originalEvent.wheelDeltaX;
-      var mouseY = event.originalEvent.wheelDeltaY;
+      var delta = event.originalEvent.wheelDelta ? event.originalEvent.wheelDelta : -event.originalEvent.detail;
+
+      var mouseX = 0,
+        mouseY = 0;
+
+      if (event.originalEvent.wheelDelta) {
+        mouseX = event.originalEvent.wheelDeltaX;
+        mouseY = event.originalEvent.wheelDeltaY;
+      } else if (event.originalEvent.axis == event.originalEvent.HORIZONTAL_AXIS) {
+        mouseX = delta;
+      } else if (event.originalEvent.axis == event.originalEvent.VERTICAL_AXIS) {
+        mouseY = delta;
+      }
+
 
       if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX > 0) this.scrollToDirection('left');
       if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX < 0) this.scrollToDirection('right');

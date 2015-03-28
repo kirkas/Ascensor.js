@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.15 (2015-03-28)
+version: 1.8.16 (2015-03-28)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -27,7 +27,7 @@ author: Léo Galley <contact@kirkas.ch>
     ready: false,
     swipeNavigation: 'mobile-only',
     swipeVelocity: 0.7,
-    wheelNavigation: false,
+    wheelNavigation: true,
     wheelNavigationDelay: 40,
   };
 
@@ -243,7 +243,7 @@ author: Léo Galley <contact@kirkas.ch>
       }
 
       if (this.options.wheelNavigation) {
-        this.node.on('mousewheel.ascensor', function(e) {
+        this.node.on('mousewheel.ascensor DOMMouseScroll.ascensor', function(e) {
           setTimeout(function() {
             if (!self.scrollInChildren) self._handleMouseWheelEvent(e);
           }, 10);
@@ -283,7 +283,7 @@ author: Léo Galley <contact@kirkas.ch>
 
       // Unbind all binded event
       this.nodeChildren.off('scroll.ascensor');
-      this.node.off('mousewheel.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
+      this.node.off('mousewheel.ascensor DOMMouseScroll.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
       $(window).off('resize.ascensor hashchange.ascensor orientationchange.ascensor');
       $(document).off('keydown.ascensor');
 
@@ -323,8 +323,20 @@ author: Léo Galley <contact@kirkas.ch>
 
       this.lastScrollTime = this.scrollTime;
 
-      var mouseX = event.originalEvent.wheelDeltaX;
-      var mouseY = event.originalEvent.wheelDeltaY;
+      var delta = event.originalEvent.wheelDelta ? event.originalEvent.wheelDelta : -event.originalEvent.detail;
+
+      var mouseX = 0,
+        mouseY = 0;
+
+      if (event.originalEvent.wheelDelta) {
+        mouseX = event.originalEvent.wheelDeltaX;
+        mouseY = event.originalEvent.wheelDeltaY;
+      } else if (event.originalEvent.axis == event.originalEvent.HORIZONTAL_AXIS) {
+        mouseX = delta;
+      } else if (event.originalEvent.axis == event.originalEvent.VERTICAL_AXIS) {
+        mouseY = delta;
+      }
+
 
       if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX > 0) this.scrollToDirection('left');
       if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX < 0) this.scrollToDirection('right');
