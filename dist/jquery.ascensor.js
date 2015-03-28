@@ -1,6 +1,6 @@
 /*
 Ascensor.js 
-version: 1.8.17 (2015-03-28)
+version: 1.8.18 (2015-03-28)
 description: Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system
 repository: https://github.com/kirkas/Ascensor.js
 license: BSD
@@ -243,7 +243,7 @@ author: Léo Galley <contact@kirkas.ch>
       }
 
       if (this.options.wheelNavigation) {
-        this.node.on('mousewheel.ascensor DOMMouseScroll.ascensor', function(e) {
+        this.node.on('mousewheel.ascensor DOMMouseScroll.ascensor wheel.ascensor', function(e) {
           setTimeout(function() {
             if (!self.scrollInChildren) self._handleMouseWheelEvent(e);
           }, 10);
@@ -283,7 +283,7 @@ author: Léo Galley <contact@kirkas.ch>
 
       // Unbind all binded event
       this.nodeChildren.off('scroll.ascensor');
-      this.node.off('mousewheel.ascensor DOMMouseScroll.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
+      this.node.off('mousewheel.ascensor DOMMouseScroll.ascensor wheel.ascensor scrollToDirection scrollToStage next prev refresh remove touchstart.ascensor touchend.ascensor mousedown.ascensor mouseup.ascensor touchcancel.ascensor');
       $(window).off('resize.ascensor hashchange.ascensor orientationchange.ascensor');
       $(document).off('keydown.ascensor');
 
@@ -323,25 +323,45 @@ author: Léo Galley <contact@kirkas.ch>
 
       this.lastScrollTime = this.scrollTime;
 
-      var delta = event.originalEvent.wheelDelta ? event.originalEvent.wheelDelta : -event.originalEvent.detail;
-
-      var mouseX = 0,
-        mouseY = 0;
-
-      if (event.originalEvent.wheelDelta) {
-        mouseX = event.originalEvent.wheelDeltaX;
-        mouseY = event.originalEvent.wheelDeltaY;
-      } else if (event.originalEvent.axis == event.originalEvent.HORIZONTAL_AXIS) {
-        mouseX = delta;
-      } else if (event.originalEvent.axis == event.originalEvent.VERTICAL_AXIS) {
-        mouseY = delta;
+      var deltaY, deltaX, delta;
+      if ('detail' in event.originalEvent) {
+        deltaY = event.originalEvent.detail * -1;
+      }
+      if ('wheelDelta' in event.originalEvent) {
+        deltaY = event.originalEvent.wheelDelta;
+      }
+      if ('wheelDeltaY' in event.originalEvent) {
+        deltaY = event.originalEvent.wheelDeltaY;
+      }
+      if ('wheelDeltaX' in event.originalEvent) {
+        deltaX = event.originalEvent.wheelDeltaX * -1;
       }
 
+      // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+      if ('axis' in event.originalEvent && event.originalEvent.axis === event.originalEvent.HORIZONTAL_AXIS) {
+        deltaX = deltaY * -1;
+        deltaY = 0;
+      }
 
-      if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX > 0) this.scrollToDirection('left');
-      if (Math.abs(mouseX) > Math.abs(mouseY) && mouseX < 0) this.scrollToDirection('right');
-      if (Math.abs(mouseY) > Math.abs(mouseX) && mouseY > 0) this.scrollToDirection('up');
-      if (Math.abs(mouseY) > Math.abs(mouseX) && mouseY < 0) this.scrollToDirection('down');
+      // Set delta to be deltaY or deltaX if deltaY is 0 for backwards compatabilitiy
+      delta = deltaY === 0 ? deltaX : deltaY;
+
+      // New school wheel delta (wheel event)
+      if ('deltaY' in event.originalEvent) {
+        deltaY = event.originalEvent.deltaY * -1;
+        delta = deltaY;
+      }
+      if ('deltaX' in event.originalEvent) {
+        deltaX = event.originalEvent.deltaX;
+        if (deltaY === 0) {
+          delta = deltaX * -1;
+        }
+      }
+
+      if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX > 0) this.scrollToDirection('left');
+      if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX < 0) this.scrollToDirection('right');
+      if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY > 0) this.scrollToDirection('up');
+      if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY < 0) this.scrollToDirection('down');
 
     },
 
