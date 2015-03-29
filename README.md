@@ -248,3 +248,8 @@ For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm insta
 4. Build project using "grunt build" (in terminal)
 5. Commit your change (only if "grunt build" return no error)
 6. Push to the branch (git push origin my-new-feature) & request pull request!
+
+
+<!-- Section - Donation  -->
+####Donation
+https://cash.me/$kirkas
