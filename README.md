@@ -182,6 +182,18 @@ Default: `false`<br/>
 descriptions: Specify is you want ascensor to jump between floor, even if a gap is present between them<br/>
 example: `jump: true`<br/>
 
+**wheelNavigation**<br/>
+Type: `boolean`<br/>
+Default: `false`<br/>
+descriptions: Set to true if you want mousescroll to trigger animation between floor<br/>
+example: `wheelNavigation: true`<br/>
+
+**wheelNavigationDelay**<br/>
+Type: `number`<br/>
+Default: `40`<br/>
+descriptions: Adjust to delay between mousewheel event to trigger animation<br/>
+example: `wheelNavigationDelay: 100`<br/>
+
 **loop**<br/>
 Type: `boolean`<br/>
 Default: `true`<br/>
