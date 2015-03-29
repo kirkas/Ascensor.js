@@ -199,13 +199,13 @@ author: Léo Galley <contact@kirkas.ch>
 
       this.node.on('next', function(event, floor) {
         var dataAttributeDirection = self.nodeChildren.eq(self.floorActive).data(self.dataAttributeMap.next);
-        if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
+        if (isNumber(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
         self.next();
       });
 
       this.node.on('prev', function(event, floor) {
         var dataAttributeDirection = self.nodeChildren.eq(self.floorActive).data(self.dataAttributeMap.prev);
-        if (dataAttributeDirection) return self.scrollToFloor(dataAttributeDirection);
+        if (isNumber(dataAttributeDirection)) return self.scrollToFloor(dataAttributeDirection);
         self.prev();
       });
 
