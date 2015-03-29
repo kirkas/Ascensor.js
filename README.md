@@ -173,7 +173,10 @@ example: `keyNavigation: false`<br/>
 **queued**<br/>
 Type: `boolean` or `string`<br/>
 Default: `false`<br/>
-descriptions: can be false, 'x' or 'y' (queued axis)<br/>
+descriptions: define queued transition.
+`false`: transition will happen simultaneously for X and Y axis<br/>
+`"x"`: will animate on the X axis, then on the Y<br/>
+`"y"`: will animate on the Y axis, then on the X<br/>
 example: `queued: 'x'`<br/>
 
 **jump**<br/>
