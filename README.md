@@ -225,7 +225,7 @@ Note that all example are situated in the examples folder of the repository <br/
 
 
 <!-- Section - Use  -->
-#### Website using ascensor
+#### Websites using ascensor
 
 [waterevive](http://www.waterevive.com)<br/>
 [shanaemairs](http://shanaemairs.com)<br/>
