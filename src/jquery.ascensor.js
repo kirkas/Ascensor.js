@@ -167,7 +167,7 @@
       if (isObject(this.options.ascensorFloorName)) {
         this._updateHash(this.floorActive);
       }
-      if (isFunction(this.options.ready)) this.options.ready();
+      if (isFunction(this.options.ready)) this.options.ready(this.floorActive);
     },
 
 
