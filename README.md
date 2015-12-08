@@ -256,3 +256,6 @@ For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm insta
 <!-- Section - Donation  -->
 ####Donation
 https://cash.me/$kirkas
+
+####Author
+Léo Galley
