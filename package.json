@@ -6,10 +6,6 @@
   "main": "jquery.ascensor.js",
   "license": "BSD",
   "repository": "https://github.com/kirkas/Ascensor.js",
-  "engines": {
-    "node": ">= 0.8.0",
-    "npm": "1.2.15"
-  },
   "devDependencies": {
     "grunt-contrib-jshint": "0.11.1",
     "grunt-contrib-concat": "0.5.1",
