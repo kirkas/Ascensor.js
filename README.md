@@ -2,8 +2,6 @@
 
 Ascensor is a jquery plugin which aims to train and adapt content according to an elevator system ([homepage](http://kirkas.ch/ascensor))
 
-
-
 <!-- Section - Getting started -->
 ### Getting Started
 Download the [production version][min] or the [development version][max].
@@ -77,9 +75,9 @@ ascensor.on("scrollEnd", function(e, floor){
 
 <!-- Section - Data attribute -->
 ### NEW! - Data attribute
-Sometime you need a floor to behave differently in term of direction, you can now easily force this by adding a custom data-attribute on the dom element.
+Sometime you need a floor to behave differently in term of direction, you can force this by adding a custom data-attribute to the DOM element.
 
-Here the available attribute:
+Available attributes:
 
 `data-ascensor-next`<br/>
 `data-ascensor-prev`<br/>
@@ -240,10 +238,9 @@ Note that all example are situated in the examples folder of the repository <br/
 
 
 <!-- Section - Contribution  -->
-####Contribution
+###Contribution
 
-You want help? great!
-For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm installed)
+You want to help? great!
 
 1. Fork it
 2. Create your feature branch (git checkout -b my-new-feature)
@@ -253,8 +250,17 @@ For my workflow, I use [grunt.js](http://gruntjs.com/) (require node & npm insta
 6. Push to the branch (git push origin my-new-feature) & request pull request!
 
 
-<!-- Section - Donation  -->
-####Donation
 
-####Author
+<!-- Section - Developer Build -->
+### Development Build
+
+This project uses [npm](https://www.npmjs.com/) and [grunt.js](http://gruntjs.com/).
+
+1. npm install
+2. grunt
+
+<!-- Section - Donation  -->
+###Donation
+
+###Author
 Léo Galley
