@@ -138,7 +138,7 @@ example: `height: "300px"`<br/>
 Type: `function`<br/>
 Default: `false`<br/>
 descriptions: function to execute when ascensor is ready<br/>
-example: `ready: function(){ alert("ready") }`<br/>
+example: `ready: function(floorActive){ alert("ready") }`<br/>
 
 **direction**<br/>
 Type: `string` or `object`<br/>
