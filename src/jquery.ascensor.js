@@ -660,7 +660,7 @@
           // => Set scrollLeft property
           // => Set callback to a second animation (scrollTop)
           // => return animationSettings
-          else {
+          else if (self.options.queued === 'x') {
             animationSettings.property.scrollLeft = scrollLeftValue;
             secondAnimationSettings.property.scrollTop = scrollTopValue;
             animationSettings.callback = function() {
@@ -682,7 +682,7 @@
           // => Set scrollTop property
           // => Set callback to a second animation (scrollLeft)
           // => return animationSettings
-          else {
+          else if (self.options.queued === 'y') {
             animationSettings.property.scrollTop = scrollTopValue;
             secondAnimationSettings.property.scrollLeft = scrollLeftValue;
             animationSettings.callback = function() {
